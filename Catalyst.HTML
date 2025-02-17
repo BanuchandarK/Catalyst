@@ -43,7 +43,7 @@
 '                                                                       98"                         
 '                                                                     ./"                           
 '                                                                    ~`                      
-Ideated by
+Stitched by
                                                                                                                                                            
 '  88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 
 '  88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 
@@ -607,7 +607,43 @@ button:hover {
     min-height: 200px;
     max-height: 600px;
 }
+<!--Double space checker-->
+.result-box {
+    background: var(--tool-bg);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
 
+.text-content {
+    margin-top: 10px;
+    line-height: 1.5;
+    background: var(--bg-color);
+    padding: 15px;
+    border-radius: 4px;
+    min-height: 100px;
+}
+
+.space-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.space-btn {
+    padding: 8px 16px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.space-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    filter: brightness(0.9);
+}
 <!-- Image compressor Styles-->
 .upload-area {
         border: 2px dashed var(--border-color);
@@ -951,14 +987,14 @@ button:hover {
 #fileAnalyser .status-text {
     margin-top: 4px;
     font-size: 0.9em;
-    color: var(--text-color);
+    color: var (--text-color);
 }
 
 #fileAnalyser .loading-spinner {
     display: none;
     width: 16px;
     height: 16px;
-    border: 2px solid var(--primary-color);
+    border: 2px solid var (--primary-color);
     border-top: 2px solid transparent;
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -1100,47 +1136,87 @@ button:hover {
     z-index: 1000;
     animation: popIn 0.3s ease-out;
     border: 2px solid var(--primary-color);
+    position: relative;
+    overflow: hidden;
 }
 
-/* Remove color overrides for first popup */
-.easter-egg-popup .footer-content,
-.easter-egg-popup h2,
-.easter-egg-popup h3,
-.easter-egg-popup h6,
-.easter-egg-popup p {
-    color: var(--text-color) !important;
+/* Add a pseudo-element for the background pattern */
+.easter-egg-popup::before {
+    content: '';
+    position: absolute;
+    inset: 2px; /* Match the border width */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 512 512'%3E%3Cpath transform='rotate(20 256 256)' fill='rgba(0,0,0,0.08)' d='M269.5,-0.5 C269.833,-0.5 270.167,-0.5 270.5,-0.5C 270.5,39.8333 270.5,80.1667 270.5,120.5C 299.169,120.333 327.835,120.5 356.5,121C 318.127,190.247 279.627,259.414 241,328.5C 240.5,289.168 240.333,249.835 240.5,210.5C 211.831,210.667 183.165,210.5 154.5,210C 193.227,140.046 231.56,69.8798 269.5,-0.5 Z'/%3E%3C/svg%3E");
+    background-size: 8px 8px;
+    background-repeat: repeat;
+    
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+    background-color: rgba(128, 128, 128, 0.03);
+    border-radius: 10px; /* Slightly smaller than parent's border-radius */
+    -webkit-mask-image: radial-gradient(
+        circle at center,
+        black 0%,
+        black 95%,
+        transparent 100%
+    );
+    mask-image: radial-gradient(
+        circle at center,
+        black 0%,
+        black 95%,
+        transparent 100%
+    );
 }
 
-.easter-egg-popup .footer-link {
-    background: var(--bg-color);
-    color: var(--primary-color);
+[data-theme="dark"] .easter-egg-popup::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 512 512'%3E%3Cpath transform='rotate(20 256 256)' fill='rgba(255,255,255,0.08)' d='M269.5,-0.5 C269.833,-0.5 270.167,-0.5 270.5,-0.5C 270.5,39.8333 270.5,80.1667 270.5,120.5C 299.169,120.333 327.835,120.5 356.5,121C 318.127,190.247 279.627,259.414 241,328.5C 240.5,289.168 240.333,249.835 240.5,210.5C 211.831,210.667 183.165,210.5 154.5,210C 193.227,140.046 231.56,69.8798 269.5,-0.5 Z'/%3E%3C/svg%3E");
 }
-
-/* Keep second popup (info-popup) with white text */
-.easter-egg-popup.info-popup,
-.easter-egg-popup.info-popup .footer-content,
-.easter-egg-popup.info-popup h2,
-.easter-egg-popup.info-popup h3,
-.easter-egg-popup.info-popup h6,
-.easter-egg-popup p {
-    color: white !important;
-}
-
-.easter-egg-popup.info-popup {
-    background: color-mix(in srgb, var(--primary-color) 85%, black);
-}
-
-.easter-egg-popup.info-popup .footer-link {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-}
+/* Ensure content stays above the pattern */
 .easter-egg-popup .footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px; /* Reduced from default */
-    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+.easter-egg-popup .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
     color: var(--text-color);
+    cursor: pointer;
+    padding: 5px;
+    font-size: 20px;
+    z-index: 2;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.easter-egg-popup .close-button:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+}
+
+[data-theme="dark"] .easter-egg-popup .close-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+
+/* Add clean animation */
+@keyframes patternFloat {
+    0% {
+        transform: rotate(15deg) translate(0, 0);
+    }
+    50% {
+        transform: rotate(15deg) translate(-10px, -10px);
+    }
+    100% {
+        transform: rotate(15deg) translate(0, 0);
+    }
 }
 .color-picker-popup .color-picker-container {
     display: flex;
@@ -1184,6 +1260,16 @@ button:hover {
     margin-top: 15px;
     width: 100%;
 }
+.error-message {
+    background: var(--tool-bg);
+    color: #f44336;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 20px 0;
+    border: 1px solid #f44336;
+}
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/diff-match-patch/20121119/diff_match_patch.js"></script>
 </head>
@@ -1381,9 +1467,32 @@ button:hover {
         </table>
     </div>
     
-        <!-- Rest of the file table code remains the same -->
     </div>
-
+    <script>
+        // Verify libraries are loaded
+        window.addEventListener('load', function() {
+            // Check JSZip
+            if (typeof JSZip === 'undefined') {
+                console.error('JSZip not loaded. File Analyser will not work.');
+                document.getElementById('fileAnalyser').innerHTML = 
+                    '<div class="error-message">Error: Required library not loaded. Please refresh the page.</div>';
+            }
+        
+            // Check image compression library
+            if (typeof imageCompression === 'undefined') {
+                console.error('Image compression library not loaded');
+                document.getElementById('imageCompressor').innerHTML = 
+                    '<div class="error-message">Error: Required library not loaded. Please refresh the page.</div>';
+            }
+        
+            // Check diff match patch
+            if (typeof diff_match_patch === 'undefined') {
+                console.error('Diff Match Patch library not loaded');
+                document.getElementById('textCompare').innerHTML = 
+                    '<div class="error-message">Error: Required library not loaded. Please refresh the page.</div>';
+            }
+        });
+        </script>
     <script>
         // Theme management
         function toggleTheme() {
@@ -1563,16 +1672,68 @@ button:hover {
         // Space Check Tool Logic
         function checkSpaces() {
     const text = document.getElementById('spaceInput').value;
-    const doubleSpaces = (text.match(/ {2,}/g) || []).length;
-    const cleaned = text.replace(/ {2,}/g, match => 
-        `<span class="highlight">${match.replace(/ /g, '·')}</span>`
-    ).replace(/\n/g, '<br>');
     
+    // Find double spaces and count them
+    const doubleSpaces = (text.match(/ {2,}/g) || []).length;
+    
+    // Process text for both highlighting and cleaning
+    const processed = text
+        .replace(/\n/g, '<br>')
+        .replace(/ {2,}/g, match => {
+            return `<span class="highlight">${'·'.repeat(match.length)}</span>`;
+        });
+    
+    // Clean text version (single spaces only)
+    const cleanedText = text
+        .replace(/\n/g, '<br>')
+        .replace(/ {2,}/g, ' ');
+    
+    // Update the result display with horizontal layout
     document.getElementById('spaceResult').innerHTML = `
-        <strong>Double spaces found:</strong> ${doubleSpaces}<br><br>
-        <strong>Cleaned text:</strong><div style="margin-top: 10px;">${cleaned}</div>
+        <div style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+            <strong>Double spaces found: ${doubleSpaces}</strong>
+            <div class="space-actions">
+                <button onclick="clearSpaceChecker()" class="space-btn">Clear All</button>
+                <button onclick="copyText()" class="space-btn">Copy Text</button>
+            </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="result-box">
+                <strong>Original text with highlighted spaces</strong>
+                <div class="text-content">
+                    ${processed}
+                </div>
+            </div>
+            <div class="result-box">
+                <strong>Corrected text (single spaces)</strong>
+                <div class="text-content" id="cleanedTextContent">
+                    ${cleanedText}
+                </div>
+            </div>
+        </div>
     `;
-    }
+}
+
+// Add helper functions
+function clearSpaceChecker() {
+    document.getElementById('spaceInput').value = '';
+    document.getElementById('spaceResult').innerHTML = '';
+}
+
+function copyText() {
+    const cleanedText = document.getElementById('cleanedTextContent').innerText;
+    navigator.clipboard.writeText(cleanedText.replace(/<br>/g, '\n'))
+        .then(() => {
+            const copyBtn = document.querySelector('.space-btn:last-child');
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = 'Copied!';
+            copyBtn.style.backgroundColor = '#4CAF50';
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+                copyBtn.style.backgroundColor = 'var(--primary-color)';
+            }, 2000);
+        });
+}
 
     
     // Image Compressor Logic
@@ -1607,10 +1768,10 @@ button:hover {
     });
 
     // Add this helper function for calculating reduction percentage
-function calculateReduction(originalSize, compressedSize) {
+        function calculateReduction(originalSize, compressedSize) {
     const reduction = ((originalSize - compressedSize) / originalSize) * 100;
     return reduction.toFixed(1);
-}
+    }
 
 // Add this function to get image dimensions
 async function getImageDimensions(file) {
@@ -1825,7 +1986,7 @@ zipDropZone.addEventListener('drop', (e) => {
 // Modify the renderFolder function to ignore macOS system folders and handle duplicates properly
 function renderFolder(folderPath, level) {
     const tbody = document.getElementById('fileAnalyserList');
-    let files = structure.get(folderPath);
+    let files = structure.get(folderPath) || []; // Add default empty array
 
     // Skip macOS system folders
     if (folderPath.includes('__MACOSX') || folderPath.includes('.DS_Store')) {
@@ -1857,28 +2018,31 @@ function renderFolder(folderPath, level) {
         tbody.appendChild(tr);
     }
 
-    // Filter and render files in the current folder
-    files.forEach(file => {
-        // Skip macOS system files and hidden files
-        if (file.name.startsWith('.') || file.name === '.DS_Store') {
-            return;
-        }
+    // Only try to render files if the array exists
+    if (Array.isArray(files)) {
+        // Filter and render files in the current folder
+        files.forEach(file => {
+            // Skip macOS system files and hidden files
+            if (file.name.startsWith('.') || file.name === '.DS_Store') {
+                return;
+            }
 
-        const tr = document.createElement('tr');
-        tr.dataset.parent = folderPath;
-        tr.dataset.filename = file.name;
-        tr.className = folderPath === '' ? '' : 'hidden';
-        
-        tr.innerHTML = `
-            <td style="padding-left: ${(level + 1) * 20}px">📄 ${file.name}</td>
-            <td>${file.format}</td>
-            <td>${formatBytes(file.size)}</td>
-            <td>${file.dimensions}</td>
-            <td>${file.duration}</td>
-            <td>${file.colorMode}</td>
-        `;
-        tbody.appendChild(tr);
-    });
+            const tr = document.createElement('tr');
+            tr.dataset.parent = folderPath;
+            tr.dataset.filename = file.name;
+            tr.className = folderPath === '' ? '' : 'hidden';
+            
+            tr.innerHTML = `
+                <td style="padding-left: ${(level + 1) * 20}px">📄 ${file.name}</td>
+                <td>${file.format}</td>
+                <td>${formatBytes(file.size)}</td>
+                <td>${file.dimensions}</td>
+                <td>${file.duration}</td>
+                <td>${file.colorMode}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
 
     // Recursively render direct subfolders (excluding system folders)
     for (const [path, ] of structure.entries()) {
@@ -2254,7 +2418,7 @@ popupStyles.textContent = `
         right: 10px;
         background: none;
         border: none;
-        color: var(--text-color);
+        color: var (--text-color);
         cursor: pointer;
         padding: 5px;
         font-size: 20px;
@@ -2328,15 +2492,15 @@ function showCatalystInfoPopup() {
         <div class="footer-content">
             <div style="text-align: center;">
                 <svg class="logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="width: 80px; height: 80px; margin-bottom: 15px;">
-                    <path fill="white" d="M269.5,-0.5 C269.833,-0.5 270.167,-0.5 270.5,-0.5C 270.5,39.8333 270.5,80.1667 270.5,120.5C 299.169,120.333 327.835,120.5 356.5,121C 318.127,190.247 279.627,259.414 241,328.5C 240.5,289.168 240.333,249.835 240.5,210.5C 211.831,210.667 183.165,210.5 154.5,210C 193.227,140.046 231.56,69.8798 269.5,-0.5 Z M239.5,118.5 C240.494,128.987 240.828,139.654 240.5,150.5C 261.836,150.333 283.169,150.5 304.5,151C 292.953,170.59 281.787,190.424 271,210.5C 270.5,200.506 270.334,190.506 270.5,180.5C 249.164,180.667 227.831,180.5 206.5,180C 218.161,159.844 229.161,139.344 239.5,118.5 Z"/>
-                    <path fill="rgba(255,255,255,0.9)" d="M-0.5,120.5 C29.8333,120.5 60.1667,120.5 90.5,120.5C90.3333,177.501 90.5,234.501 91,291.5C91.6667,292.167 92.3333,292.833 93,293.5C107.014,279.319 121.181,265.319 135.5,251.5C175.86,291.194 215.86,331.194 255.5,371.5C295.14,331.194 335.14,291.194 375.5,251.5C389.819,265.319 403.986,279.319 418,293.5C418.667,292.833 419.333,292.167 420,291.5C420.5,234.501 420.667,177.501 420.5,120.5C450.833,120.5 481.167,120.5 511.5,120.5C511.5,193.833 511.5,267.167 511.5,340.5C509.183,350.933 505.349,360.933 500,370.5C471.307,417.224 443.141,464.224 415.5,511.5C308.833,511.5 202.167,511.5 95.5,511.5C67.8592,464.224 39.6925,417.224 11,370.5C5.65063,360.933 1.8173,350.933 -0.5,340.5C-0.5,267.167 -0.5,193.833 -0.5,120.5 Z"/>
+                    <path fill="#056dce" d="M269.5,-0.5 C269.833,-0.5 270.167,-0.5 270.5,-0.5C 270.5,39.8333 270.5,80.1667 270.5,120.5C 299.169,120.333 327.835,120.5 356.5,121C 318.127,190.247 279.627,259.414 241,328.5C 240.5,289.168 240.333,249.835 240.5,210.5C 211.831,210.667 183.165,210.5 154.5,210C 193.227,140.046 231.56,69.8798 269.5,-0.5 Z M239.5,118.5 C240.494,128.987 240.828,139.654 240.5,150.5C 261.836,150.333 283.169,150.5 304.5,151C 292.953,170.59 281.787,190.424 271,210.5C 270.5,200.506 270.334,190.506 270.5,180.5C 249.164,180.667 227.831,180.5 206.5,180C 218.161,159.844 229.161,139.344 239.5,118.5 Z"/>
+                    <path fill="currentColor" d="M-0.5,120.5 C29.8333,120.5 60.1667,120.5 90.5,120.5C90.3333,177.501 90.5,234.501 91,291.5C91.6667,292.167 92.3333,292.833 93,293.5C107.014,279.319 121.181,265.319 135.5,251.5C175.86,291.194 215.86,331.194 255.5,371.5C295.14,331.194 335.14,291.194 375.5,251.5C389.819,265.319 403.986,279.319 418,293.5C418.667,292.833 419.333,292.167 420,291.5C420.5,234.501 420.667,177.501 420.5,120.5C450.833,120.5 481.167,120.5 511.5,120.5C511.5,193.833 511.5,267.167 511.5,340.5C509.183,350.933 505.349,360.933 500,370.5C471.307,417.224 443.141,464.224 415.5,511.5C308.833,511.5 202.167,511.5 95.5,511.5C67.8592,464.224 39.6925,417.224 11,370.5C5.65063,360.933 1.8173,350.933 -0.5,340.5C-0.5,267.167 -0.5,193.833 -0.5,120.5 Z"/>
                 </svg>
-                <h1 style="margin: 0 0 15px; color: white; font-size: 1.8em;">Catalyst</h1>
-                <p style="margin: 0; color: white; line-height: 1.6; font-size: 0.95em;">
+                <h1 style="margin: 0 0 15px; var(--primary-color); font-size: 1.8em;">Catalyst</h1>
+                <p style="margin: 0; color: var(--primary-color); line-height: 1.6; font-size: 0.95em;">
                     Streamlines workflows, enabling efficient utilization of resources</br>while enhancing creative capabilities and output fidelity.
                 </p>
             </div>
-            <p style="margin:15px 0 0; font-size:0.9em; color: rgba(255,255,255,0.9); font-style: italic;">You found another easter egg! 🎉</p>
+            <p style="margin:15px 0 0; font-size:0.9em; var(--primary-color); font-style: italic;">You found another easter egg! 🎉</p>
         </div>
     `;
     document.body.appendChild(popup);
@@ -2498,8 +2662,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/diff-match-patch@1.0.5/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.min.js"></script>
+
+<script>
+    // Fallback loading for JSZip
+    if (typeof JSZip === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';
+        document.body.appendChild(script);
+    }
+    
+    // Fallback loading for image compression
+    if (typeof imageCompression === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/browser-image-compression@2.0.2/dist/browser-image-compression.js';
+        document.body.appendChild(script);
+    }
+    
+    // Fallback loading for diff match patch
+    if (typeof diff_match_patch === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/diff-match-patch@1.0.5/index.min.js';
+        document.body.appendChild(script);
+    }
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/diff-match-patch@1.0.5/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 
