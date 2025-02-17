@@ -1,3 +1,4 @@
+
 <!--
 '
 '                                                 ,:                                      
@@ -71,7 +72,7 @@ Version log: Text Compare,  Case convertor, Lorepsum generator, Double space che
 Update Log: Enhanced Text compare, Added new case convertor, Added new lorem ipsum generator, Added new double space checker, Added new theme switcher.
 Version 3.0.0 || Date: 16/02/2025
 Version log: Text Compare,  Case convertor, Lorepsum generator, Double space cheker 
-Update Log: AddedImage compressor, Added File Analyser, Added a ***, Added new theme switcher.
+Update Log: AddedImage compressor, Added File Analyser, Added a ***, Added new theme switcher, Ignored the MACOSX and DS Folder.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -1121,7 +1122,7 @@ button:hover {
 .easter-egg-popup.info-popup h2,
 .easter-egg-popup.info-popup h3,
 .easter-egg-popup.info-popup h6,
-.easter-egg-popup.info-popup p {
+.easter-egg-popup p {
     color: white !important;
 }
 
@@ -1821,13 +1822,25 @@ zipDropZone.addEventListener('drop', (e) => {
      let structure = new Map();
 
 // Global renderFolder function
+// Modify the renderFolder function to ignore macOS system folders and handle duplicates properly
 function renderFolder(folderPath, level) {
     const tbody = document.getElementById('fileAnalyserList');
     let files = structure.get(folderPath);
 
+    // Skip macOS system folders
+    if (folderPath.includes('__MACOSX') || folderPath.includes('.DS_Store')) {
+        return;
+    }
+
     // Render folder row (if not the root)
     if (folderPath !== '') {
         const folderName = folderPath.split('/').filter(p => p).pop();
+        
+        // Skip if folder name starts with '.' or is a system folder
+        if (folderName.startsWith('.') || folderName === '__MACOSX') {
+            return;
+        }
+
         const tr = document.createElement('tr');
         tr.className = 'folder';
         tr.dataset.path = folderPath;
@@ -1844,8 +1857,13 @@ function renderFolder(folderPath, level) {
         tbody.appendChild(tr);
     }
 
-    // Render files in the current folder
+    // Filter and render files in the current folder
     files.forEach(file => {
+        // Skip macOS system files and hidden files
+        if (file.name.startsWith('.') || file.name === '.DS_Store') {
+            return;
+        }
+
         const tr = document.createElement('tr');
         tr.dataset.parent = folderPath;
         tr.dataset.filename = file.name;
@@ -1862,12 +1880,14 @@ function renderFolder(folderPath, level) {
         tbody.appendChild(tr);
     });
 
-    // Recursively render direct subfolders
+    // Recursively render direct subfolders (excluding system folders)
     for (const [path, ] of structure.entries()) {
         if (
             path !== folderPath &&
             path.startsWith(folderPath) &&
-            path.split('/').length === folderPath.split('/').length + 1
+            path.split('/').length === folderPath.split('/').length + 1 &&
+            !path.includes('__MACOSX') &&
+            !path.includes('.DS_Store')
         ) {
             renderFolder(path, level + 1);
         }
@@ -1902,7 +1922,18 @@ document.getElementById('zipInput').addEventListener('change', async function(e)
         // First pass: Build folder structure
         updateZipProgress(file.name, 'Building folder structure...', 30);
         for (const [relativePath, fileEntry] of Object.entries(zip.files)) {
-            const pathParts = relativePath.split('/').filter(part => part !== '');
+            // Skip macOS system files and folders
+            if (relativePath.includes('__MACOSX') || 
+                relativePath.includes('.DS_Store') || 
+                relativePath.startsWith('.')) {
+                continue;
+            }
+
+            const pathParts = relativePath.split('/').filter(part => 
+                part !== '' && 
+                !part.startsWith('.') && 
+                part !== '__MACOSX'
+            );
             
             if (fileEntry.dir) {
                 structure.set(relativePath, []);
