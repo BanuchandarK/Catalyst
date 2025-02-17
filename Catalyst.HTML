@@ -607,7 +607,43 @@ button:hover {
     min-height: 200px;
     max-height: 600px;
 }
+<!--Double space checker-->
+.result-box {
+    background: var(--tool-bg);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
 
+.text-content {
+    margin-top: 10px;
+    line-height: 1.5;
+    background: var(--bg-color);
+    padding: 15px;
+    border-radius: 4px;
+    min-height: 100px;
+}
+
+.space-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.space-btn {
+    padding: 8px 16px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.space-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    filter: brightness(0.9);
+}
 <!-- Image compressor Styles-->
 .upload-area {
         border: 2px dashed var(--border-color);
@@ -1612,7 +1648,6 @@ button:hover {
     const processed = text
         .replace(/\n/g, '<br>')
         .replace(/ {2,}/g, match => {
-            // For each multiple space sequence, replace with a highlighted single space
             return `<span class="highlight">${'·'.repeat(match.length)}</span>`;
         });
     
@@ -1621,24 +1656,51 @@ button:hover {
         .replace(/\n/g, '<br>')
         .replace(/ {2,}/g, ' ');
     
-    // Update the result display
+    // Update the result display with horizontal layout
     document.getElementById('spaceResult').innerHTML = `
-        <div style="margin-bottom: 15px;">
-            <strong>Double spaces found:</strong> ${doubleSpaces}
-        </div>
-        <div>
-            <strong>Original text with highlighted spaces:</strong>
-            <div style="margin-top: 10px; line-height: 1.5; background: var(--bg-color); padding: 10px; border-radius: 4px;">
-                ${processed}
+        <div style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+            <strong>Double spaces found: ${doubleSpaces}</strong>
+            <div class="space-actions">
+                <button onclick="clearSpaceChecker()" class="space-btn">Clear All</button>
+                <button onclick="copyText()" class="space-btn">Copy Text</button>
             </div>
         </div>
-        <div style="margin-top: 20px;">
-            <strong>Corrected text (single spaces):</strong>
-            <div style="margin-top: 10px; line-height: 1.5; background: var(--bg-color); padding: 10px; border-radius: 4px;">
-                ${cleanedText}
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="result-box">
+                <strong>Original text with highlighted spaces</strong>
+                <div class="text-content">
+                    ${processed}
+                </div>
+            </div>
+            <div class="result-box">
+                <strong>Corrected text (single spaces)</strong>
+                <div class="text-content" id="cleanedTextContent">
+                    ${cleanedText}
+                </div>
             </div>
         </div>
     `;
+}
+
+// Add helper functions
+function clearSpaceChecker() {
+    document.getElementById('spaceInput').value = '';
+    document.getElementById('spaceResult').innerHTML = '';
+}
+
+function copyText() {
+    const cleanedText = document.getElementById('cleanedTextContent').innerText;
+    navigator.clipboard.writeText(cleanedText.replace(/<br>/g, '\n'))
+        .then(() => {
+            const copyBtn = document.querySelector('.space-btn:last-child');
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = 'Copied!';
+            copyBtn.style.backgroundColor = '#4CAF50';
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+                copyBtn.style.backgroundColor = 'var(--primary-color)';
+            }, 2000);
+        });
 }
 
     
@@ -1892,7 +1954,7 @@ zipDropZone.addEventListener('drop', (e) => {
 // Modify the renderFolder function to ignore macOS system folders and handle duplicates properly
 function renderFolder(folderPath, level) {
     const tbody = document.getElementById('fileAnalyserList');
-    let files = structure.get(folderPath);
+    let files = structure.get(folderPath) || []; // Add default empty array
 
     // Skip macOS system folders
     if (folderPath.includes('__MACOSX') || folderPath.includes('.DS_Store')) {
@@ -1924,28 +1986,31 @@ function renderFolder(folderPath, level) {
         tbody.appendChild(tr);
     }
 
-    // Filter and render files in the current folder
-    files.forEach(file => {
-        // Skip macOS system files and hidden files
-        if (file.name.startsWith('.') || file.name === '.DS_Store') {
-            return;
-        }
+    // Only try to render files if the array exists
+    if (Array.isArray(files)) {
+        // Filter and render files in the current folder
+        files.forEach(file => {
+            // Skip macOS system files and hidden files
+            if (file.name.startsWith('.') || file.name === '.DS_Store') {
+                return;
+            }
 
-        const tr = document.createElement('tr');
-        tr.dataset.parent = folderPath;
-        tr.dataset.filename = file.name;
-        tr.className = folderPath === '' ? '' : 'hidden';
-        
-        tr.innerHTML = `
-            <td style="padding-left: ${(level + 1) * 20}px">📄 ${file.name}</td>
-            <td>${file.format}</td>
-            <td>${formatBytes(file.size)}</td>
-            <td>${file.dimensions}</td>
-            <td>${file.duration}</td>
-            <td>${file.colorMode}</td>
-        `;
-        tbody.appendChild(tr);
-    });
+            const tr = document.createElement('tr');
+            tr.dataset.parent = folderPath;
+            tr.dataset.filename = file.name;
+            tr.className = folderPath === '' ? '' : 'hidden';
+            
+            tr.innerHTML = `
+                <td style="padding-left: ${(level + 1) * 20}px">📄 ${file.name}</td>
+                <td>${file.format}</td>
+                <td>${formatBytes(file.size)}</td>
+                <td>${file.dimensions}</td>
+                <td>${file.duration}</td>
+                <td>${file.colorMode}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
 
     // Recursively render direct subfolders (excluding system folders)
     for (const [path, ] of structure.entries()) {
