@@ -43,7 +43,7 @@
 '                                                                       98"                         
 '                                                                     ./"                           
 '                                                                    ~`                      
-Ideated by
+Stitched by
                                                                                                                                                            
 '  88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 
 '  88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 88888888 
@@ -951,14 +951,14 @@ button:hover {
 #fileAnalyser .status-text {
     margin-top: 4px;
     font-size: 0.9em;
-    color: var(--text-color);
+    color: var (--text-color);
 }
 
 #fileAnalyser .loading-spinner {
     display: none;
     width: 16px;
     height: 16px;
-    border: 2px solid var(--primary-color);
+    border: 2px solid var (--primary-color);
     border-top: 2px solid transparent;
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -1100,47 +1100,63 @@ button:hover {
     z-index: 1000;
     animation: popIn 0.3s ease-out;
     border: 2px solid var(--primary-color);
+    position: relative;
+    overflow: hidden;
 }
 
-/* Remove color overrides for first popup */
-.easter-egg-popup .footer-content,
-.easter-egg-popup h2,
-.easter-egg-popup h3,
-.easter-egg-popup h6,
-.easter-egg-popup p {
-    color: var(--text-color) !important;
+/* Add a pseudo-element for the background pattern */
+.easter-egg-popup::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 512 512'%3E%3Cpath transform='rotate(20 256 256)' fill='rgba(0,0,0,0.15)' d='M269.5,-0.5 C269.833,-0.5 270.167,-0.5 270.5,-0.5C 270.5,39.8333 270.5,80.1667 270.5,120.5C 299.169,120.333 327.835,120.5 356.5,121C 318.127,190.247 279.627,259.414 241,328.5C 240.5,289.168 240.333,249.835 240.5,210.5C 211.831,210.667 183.165,210.5 154.5,210C 193.227,140.046 231.56,69.8798 269.5,-0.5 Z'/%3E%3C/svg%3E");
+    background-size: 12px 12px;
+    background-repeat: repeat;
+    transform: rotate(15deg) scale(1.5);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+    background-color: rgba(128, 128, 128, 0.05);
+    border-radius: inherit;
+    mask-image: linear-gradient(
+        to bottom right,
+        transparent 0%,
+        black 5%,
+        black 95%,
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to bottom right,
+        transparent 0%,
+        black 5%,
+        black 95%,
+        transparent 100%
+    );
 }
 
-.easter-egg-popup .footer-link {
-    background: var(--bg-color);
-    color: var(--primary-color);
+[data-theme="dark"] .easter-egg-popup::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 512 512'%3E%3Cpath transform='rotate(20 256 256)' fill='rgba(255,255,255,0.15)' d='M269.5,-0.5 C269.833,-0.5 270.167,-0.5 270.5,-0.5C 270.5,39.8333 270.5,80.1667 270.5,120.5C 299.169,120.333 327.835,120.5 356.5,121C 318.127,190.247 279.627,259.414 241,328.5C 240.5,289.168 240.333,249.835 240.5,210.5C 211.831,210.667 183.165,210.5 154.5,210C 193.227,140.046 231.56,69.8798 269.5,-0.5 Z'/%3E%3C/svg%3E");
 }
 
-/* Keep second popup (info-popup) with white text */
-.easter-egg-popup.info-popup,
-.easter-egg-popup.info-popup .footer-content,
-.easter-egg-popup.info-popup h2,
-.easter-egg-popup.info-popup h3,
-.easter-egg-popup.info-popup h6,
-.easter-egg-popup p {
-    color: white !important;
-}
-
-.easter-egg-popup.info-popup {
-    background: color-mix(in srgb, var(--primary-color) 85%, black);
-}
-
-.easter-egg-popup.info-popup .footer-link {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-}
+/* Ensure content stays above the pattern */
 .easter-egg-popup .footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px; /* Reduced from default */
-    text-align: center;
-    color: var(--text-color);
+    position: relative;
+    z-index: 1;
+}
+
+/* Add clean animation */
+@keyframes patternFloat {
+    0% {
+        transform: rotate(15deg) translate(0, 0);
+    }
+    50% {
+        transform: rotate(15deg) translate(-10px, -10px);
+    }
+    100% {
+        transform: rotate(15deg) translate(0, 0);
+    }
 }
 .color-picker-popup .color-picker-container {
     display: flex;
@@ -1560,19 +1576,17 @@ button:hover {
             });
         });
 
-        // Space Check Tool Logic
-        function checkSpaces() {
-    const text = document.getElementById('spaceInput').value;
-    const doubleSpaces = (text.match(/ {2,}/g) || []).length;
-    const cleaned = text.replace(/ {2,}/g, match => 
-        `<span class="highlight">${match.replace(/ /g, '·')}</span>`
-    ).replace(/\n/g, '<br>');
-    
-    document.getElementById('spaceResult').innerHTML = `
-        <strong>Double spaces found:</strong> ${doubleSpaces}<br><br>
-        <strong>Cleaned text:</strong><div style="margin-top: 10px;">${cleaned}</div>
-    `;
-    }
+    // Space Checker
+    function checkSpaces() {
+            const text = document.getElementById('spaceInput').value;
+            const doubleSpaces = (text.match(/  +/g) || []).length;
+            const cleaned = text.replace(/  +/g, match => `<span class="highlight">${match}</span>`);
+            
+            document.getElementById('spaceResult').innerHTML = `
+                <strong>Double spaces found:</strong> ${doubleSpaces}<br><br>
+                <strong>Cleaned text:</strong><div style="margin-top: 10px;">${cleaned}</div>
+            `;
+        }
 
     
     // Image Compressor Logic
@@ -2254,7 +2268,7 @@ popupStyles.textContent = `
         right: 10px;
         background: none;
         border: none;
-        color: var(--text-color);
+        color: var (--text-color);
         cursor: pointer;
         padding: 5px;
         font-size: 20px;
