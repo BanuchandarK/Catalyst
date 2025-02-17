@@ -1278,7 +1278,7 @@ button:hover {
     width: 100%;
     background: var(--bg-color);
     color: var(--text-color);
-    font-size: 1.5em;
+    font-size: 15px;
     white-space: nowrap;
     overflow: hidden;
     z-index: 1000;
@@ -1854,7 +1854,7 @@ async function handleFiles(files) {
     const tbody = document.querySelector('.compression-table tbody');
     tbody.innerHTML = '';
     loading.style.display = 'block';
-    // Get the download button and remove active class
+    
     const downloadBtn = document.getElementById('downloadBtn');
     downloadBtn.classList.remove('active');
 
@@ -1870,15 +1870,27 @@ async function handleFiles(files) {
             
             try {
                 const dimensions = await getImageDimensions(file);
+                // Modified compression options to only focus on quality
                 const compressedBlob = await imageCompression(file, {
-                    maxSizeMB: 1,
-                    maxWidthOrHeight: 1920,
+                    maxSizeMB: 10, // Increased size limit
                     useWebWorker: true,
-                    initialQuality: 0.7
+                    initialQuality: 0.8,
+                    preserveExif: true,
+                    // Completely remove any dimension restrictions
+                    maxWidthOrHeight: undefined,
+                    maxIteration: 2, // Reduce compression iterations
+                    fileType: file.type // Preserve original format
                 });
 
                 zip.file(`${file.name}`, compressedBlob);
                 
+                // Verify dimensions are preserved
+                const compressedDimensions = await getImageDimensions(compressedBlob);
+                if (dimensions.width !== compressedDimensions.width || 
+                    dimensions.height !== compressedDimensions.height) {
+                    console.error('Dimension mismatch detected:', file.name);
+                }
+
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${file.name}</td>
@@ -1890,8 +1902,8 @@ async function handleFiles(files) {
                 `;
                 tbody.appendChild(row);
             } catch (error) {
+                console.error(`Error processing ${file.name}:`, error);
                 updateImageProgress(file.name, `Error processing ${file.name}`, 100);
-                console.error(`Error compressing ${file.name}:`, error);
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td colspan="6" style="color: var(--diff-removed)">
@@ -2753,7 +2765,7 @@ function showTrainMarquee() {
     setTimeout(() => {
         trainMarquee.style.opacity = '0';
         setTimeout(() => trainMarquee.remove(), 1000);
-    }, 18000); // Train shows for 12 seconds
+    }, 10000); // Train shows for 12 seconds
 
     // Add fade out animation
     trainMarquee.style.transition = 'opacity 0.5s';
