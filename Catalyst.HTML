@@ -1169,6 +1169,7 @@ button:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
+
 /* Add clean animation */
 @keyframes patternFloat {
     0% {
@@ -1600,17 +1601,45 @@ button:hover {
             });
         });
 
-    // Space Checker
-    function checkSpaces() {
-            const text = document.getElementById('spaceInput').value;
-            const doubleSpaces = (text.match(/  +/g) || []).length;
-            const cleaned = text.replace(/  +/g, match => `<span class="highlight">${match}</span>`);
-            
-            document.getElementById('spaceResult').innerHTML = `
-                <strong>Double spaces found:</strong> ${doubleSpaces}<br><br>
-                <strong>Cleaned text:</strong><div style="margin-top: 10px;">${cleaned}</div>
-            `;
-        }
+        // Space Check Tool Logic
+        function checkSpaces() {
+    const text = document.getElementById('spaceInput').value;
+    
+    // Find double spaces and count them
+    const doubleSpaces = (text.match(/ {2,}/g) || []).length;
+    
+    // Process text for both highlighting and cleaning
+    const processed = text
+        .replace(/\n/g, '<br>')
+        .replace(/ {2,}/g, match => {
+            // For each multiple space sequence, replace with a highlighted single space
+            return `<span class="highlight">${'·'.repeat(match.length)}</span>`;
+        });
+    
+    // Clean text version (single spaces only)
+    const cleanedText = text
+        .replace(/\n/g, '<br>')
+        .replace(/ {2,}/g, ' ');
+    
+    // Update the result display
+    document.getElementById('spaceResult').innerHTML = `
+        <div style="margin-bottom: 15px;">
+            <strong>Double spaces found:</strong> ${doubleSpaces}
+        </div>
+        <div>
+            <strong>Original text with highlighted spaces:</strong>
+            <div style="margin-top: 10px; line-height: 1.5; background: var(--bg-color); padding: 10px; border-radius: 4px;">
+                ${processed}
+            </div>
+        </div>
+        <div style="margin-top: 20px;">
+            <strong>Corrected text (single spaces):</strong>
+            <div style="margin-top: 10px; line-height: 1.5; background: var(--bg-color); padding: 10px; border-radius: 4px;">
+                ${cleanedText}
+            </div>
+        </div>
+    `;
+}
 
     
     // Image Compressor Logic
@@ -1645,10 +1674,10 @@ button:hover {
     });
 
     // Add this helper function for calculating reduction percentage
-function calculateReduction(originalSize, compressedSize) {
+        function calculateReduction(originalSize, compressedSize) {
     const reduction = ((originalSize - compressedSize) / originalSize) * 100;
     return reduction.toFixed(1);
-}
+    }
 
 // Add this function to get image dimensions
 async function getImageDimensions(file) {
