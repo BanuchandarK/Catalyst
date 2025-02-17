@@ -1271,6 +1271,33 @@ button:hover {
     margin: 20px 0;
     border: 1px solid #f44336;
 }
+.train-marquee {
+    display: none;
+    position: fixed;
+    bottom: 4px;
+    width: 100%;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    z-index: 1000;
+    padding: 4px 0;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    border-top: 1px solid var(--primary-color);
+}
+
+.train-marquee span {
+    display: inline-block;
+    padding: 0px;
+    animation: marquee 18s linear infinite;
+    font-family: 'Barlow', sans-serif;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
 
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/diff-match-patch/20121119/diff_match_patch.js"></script>
@@ -2686,6 +2713,51 @@ document.addEventListener('DOMContentLoaded', function() {
         script.src = 'https://unpkg.com/diff-match-patch@1.0.5/index.min.js';
         document.body.appendChild(script);
     }
+
+    // Add this to your document.addEventListener('DOMContentLoaded', function() { block
+
+// Monitor all textareas for the easter egg
+document.addEventListener('input', function(e) {
+    if (e.target.tagName.toLowerCase() === 'textarea') {
+        if (e.target.value.includes('⚡️Catalyst')) {
+            showTrainMarquee();
+            // Remove the trigger word after showing train
+            e.target.value = e.target.value.replace('⚡️Catalyst', '');
+        }
+    }
+});
+
+function showTrainMarquee() {
+    // EE4
+    const existingTrain = document.querySelector('.train-marquee');
+    if (existingTrain) existingTrain.remove();
+
+    // Create train marquee
+    const trainMarquee = document.createElement('div');
+    trainMarquee.className = 'train-marquee';
+    
+    const trainContent = `
+        <span>
+            🚂⚡️CATALYST🚃IDEATED🚃BY🚃ⒷⒶⓃⓊ☀️ⒸⒽⒶⓃⒹⒶⓇ🌕Ⓚ🚃 - 🚃⚡️CATALYST🚃IDEATED🚃BY🚃ⒷⒶⓃⓊ☀️ⒸⒽⒶⓃⒹⒶⓇ🌕Ⓚ🚃 - 
+            🚃⚡️CATALYST🚃IDEATED🚃BY🚃ⒷⒶⓃⓊ☀️ⒸⒽⒶⓃⒹⒶⓇ🌕Ⓚ🚃 - ⚡️CATALYST🚃IDEATED🚃BY🚃ⒷⒶⓃⓊ☀️ⒸⒽⒶⓃⒹⒶⓇ🌕Ⓚ🚃
+        </span>
+    `;
+    
+    trainMarquee.innerHTML = trainContent;
+    document.body.appendChild(trainMarquee);
+
+    // Show the train
+    trainMarquee.style.display = 'block';
+
+    // Remove train after animation completes (adjust timing as needed)
+    setTimeout(() => {
+        trainMarquee.style.opacity = '0';
+        setTimeout(() => trainMarquee.remove(), 1000);
+    }, 18000); // Train shows for 12 seconds
+
+    // Add fade out animation
+    trainMarquee.style.transition = 'opacity 0.5s';
+}
     </script>
 <script src="https://cdn.jsdelivr.net/npm/diff-match-patch@1.0.5/index.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.min.js"></script>
