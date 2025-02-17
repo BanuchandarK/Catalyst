@@ -1,4 +1,5 @@
 
+<!DOCTYPE html>
 <!--
 '
 '                                                 ,:                                      
@@ -74,50 +75,48 @@ Version 3.0.0 || Date: 16/02/2025
 Version log: Text Compare,  Case convertor, Lorepsum generator, Double space cheker 
 Update Log: AddedImage compressor, Added File Analyser, Added a ***, Added new theme switcher, Ignored macosx and DS folder from the results.
 -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalyst - Multi-Tool Suite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #2d3436;
-            --primary-color: #056dce;
-            --border-color: #056dce;
-            --diff-added: #00ff3c;
-            --diff-removed: #ff001e;
-            --tool-bg: #ffffff;
-            --tab-button: #2d3436;
-        }
-
-        [data-theme="dark"] {
-            --bg-color: #1a1a1a;
-            --text-color: #e0e0e0;
-            --primary-color: #056dce;
-            --border-color: #056dce;
-            --diff-added: #00ff59;
-            --diff-removed: #ff0000;
-            --tool-bg: #2d2d2d;
-            --tab-button: #e0e0e0;
-        }
-        [data-theme="dark"] .tab button {
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catalyst - Multi-Tool Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+:root {
+--bg-color: #ffffff;
+--text-color: #2d3436;
+--primary-color: #056dce;
+--border-color: #056dce;
+--diff-added: #00ff3c;
+--diff-removed: #ff001e;
+--tool-bg: #ffffff;
+--tab-button: #2d3436;
+}
+[data-theme="dark"] {
+--bg-color: #1a1a1a;
+--text-color: #e0e0e0;
+--primary-color: #056dce;
+--border-color: #056dce;
+--diff-added: #00ff59;
+--diff-removed: #ff0000;
+--tool-bg: #2d2d2d;
+--tab-button: #e0e0e0;
+}
+[data-theme="dark"] .tab button {
     color: white;
 }
-
-        body {
-            font-family: 'Barlow', Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: var(--bg-color);
-            color: var(--text-color);
-            transition: all 0.3s ease;
-        }
-
-        .header {
+body {
+    font-family: 'Barlow', Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+.header {
     display: flex;
     justify-content: center; /* Center the content horizontally */
     align-items: center;
@@ -126,17 +125,14 @@ Update Log: AddedImage compressor, Added File Analyser, Added a ***, Added new t
     position: relative;
     gap: 15px; /* Add space between logo and text */
 }
-
 .header .logo-container {
     display: flex;
     align-items: center;
 }
-
 .header .logo {
     width: 60px;
     margin-right: 0px;
 }
-
 .header h1 {
     font-size: 2.5rem;
     margin: 0;
@@ -144,30 +140,28 @@ Update Log: AddedImage compressor, Added File Analyser, Added a ***, Added new t
 }
 
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .theme-toggle {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-    }
+.header {
+    flex-direction: column;
+    text-align: center;
 }
-        .theme-toggle {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 5px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-        }
-
-        .tab {
+.theme-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+}
+.theme-toggle {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 5px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+}
+.tab {
     overflow: hidden;
     border: 1px solid var(--border-color);
     background-color: var(--tool-bg);
@@ -177,7 +171,6 @@ Update Log: AddedImage compressor, Added File Analyser, Added a ***, Added new t
     display: flex;
     gap: 10px; /* Add 10px spacing between buttons */
 }
-
 .tab button {
     background-color: var(--tool-bg);
     float: left;
@@ -191,202 +184,175 @@ Update Log: AddedImage compressor, Added File Analyser, Added a ***, Added new t
     color: #5a5a5a; /* Default grey color for better readability */
     border-radius: 6px;
 }
-
 .tab button:hover {
     background-color: var(--primary-color);
     color: white; /* White text on hover for both themes */
     transform: translateY(-1px);
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-
 .tab button.active {
     background-color: var(--primary-color);
     color: white; /* White text for active state in both themes */
     border-color: var(--primary-color);
 }
-
-        .tabcontent {
-            display: none;
-            padding: 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background: var(--tool-bg);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        
-        textarea {
-            width: 100%;
-            height: 200px;
-            padding: 15px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            resize: vertical;
-            font-family: monospace;
-            background: var(--tool-bg);
-            color: var(--text-color);
-        }
-
-        button {
-            padding: 12px 25px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: 'Barlow', sans-serif;
-        }
-
-        button:hover {
-            filter: brightness(0.9);
-        }
-
-        .diff-result {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            font-family: monospace;
-            white-space: pre-wrap;
-            padding: 15px;
-            background: var(--tool-bg);
-            border-radius: 8px;
-        }
-
-        .diff-removed {
-            background: var(--diff-removed);
-            text-decoration: line-through;
-        }
-
-        .diff-added {
-            background: var(--diff-added);
-        }
-
-        .compare-options {
-            margin: 10px 0;
-            display: flex;
-            gap: 15px;
-        }
-
-        .diff-column {
-            white-space: pre-wrap;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-        }
-
-        .highlight {
-            background-color: #ffeb3b;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-
-        [data-theme="dark"] .highlight {
-            background-color: #ff5722;
-        }
-        .compare-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .text-input {
-            background: var(--tool-bg);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-
-        .result {
-            font-family: monospace;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            padding: 15px;
-            border-radius: 4px;
-            background: var(--tool-bg);
-            border: 1px solid var(--border-color);
-        }
-
-        
-
-        .linebreak {
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-        .container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .text-input {
-        background: #333;
-        color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
-
-    textarea {
-        width: 100%;
-        height: 200px;
-        padding: 10px;
-        border: 1px solid #555;
-        border-radius: 4px;
-        resize: vertical;
-        font-family: monospace;
-        background-color: #444;
-        color: white;
-    }
-
-    .compare-button {
-        grid-column: span 2;
-        padding: 12px 24px;
-        background: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background 0.3s;
-    }
-
-    .compare-button:hover {
-        background: #0056b3;
-    }
-
-    .result {
-        background: #333;
-        color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        font-family: monospace;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-    }
-
-    .deleted {
-        background: #ff0000;
+.tabcontent {
+    display: none;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--tool-bg);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    resize: vertical;
+    font-family: monospace;
+    background: var(--tool-bg);
+    color: var(--text-color);
+}
+button {
+    padding: 12px 25px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: 'Barlow', sans-serif;
+}
+button:hover {
+    filter: brightness(0.9);
+}
+.diff-result {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    padding: 15px;
+    background: var(--tool-bg);
+    border-radius: 8px;
+}
+.diff-removed {
+    background: var(--diff-removed);
+    text-decoration: line-through;
+}
+.diff-added {
+    background: var(--diff-added);
+}
+.compare-options {
+    margin: 10px 0;
+    display: flex;
+    gap: 15px;
+}
+.diff-column {
+    white-space: pre-wrap;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+.highlight {
+    background-color: #ffeb3b;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+[data-theme="dark"] .highlight {
+    background-color: #ff5722;
+}
+.compare-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.text-input {
+    background: var(--tool-bg);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+.result {
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding: 15px;
+    border-radius: 4px;
+    background: var(--tool-bg);
+    border: 1px solid var(--border-color);
+}
+.linebreak {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.text-input {
+    background: #333;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    resize: vertical;
+    font-family: monospace;
+    background-color: #444;
+    color: white;
+}
+.compare-button {
+    grid-column: span 2;
+    padding: 12px 24px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+.compare-button:hover {
+    background: #0056b3;
+}
+.result {
+    background: #333;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.deleted {
+    background: #ff0000;
     text-decoration: line-through;
     opacity: 0.7;
-    }
-
-    .added {
-        background: #00ff00;
+}
+.added {
+    background: #00ff00;
     color: black;
     opacity: 0.7;
-    }
-
-    h2 {
-        margin-top: 0;
-        color: #eee;
-        font-size: 1.2em;
-    }
-    .tool-section {
+}
+h2 {
+    margin-top: 0;
+    color: #eee;
+    font-size: 1.2em;
+}
+.tool-section {
     padding: 20px;
     background: var(--tool-bg);
     border-radius: 8px;
@@ -398,26 +364,22 @@ Update Log: AddedImage compressor, Added File Analyser, Added a ***, Added new t
     padding: 12px 30px;
     font-size: 1.1em;
 }
-
 .tool-section button:hover {
     transform: translateY(-1px);
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-
 .compare-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     margin-bottom: 20px;
 }
-
 .text-input {
     background: var(--tool-bg);
     padding: 15px;
     border-radius: 4px;
     border: 1px solid var(--border-color);
 }
-
 .text-input h3 {
     margin-top: 0;
     margin-bottom: 15px;
@@ -425,7 +387,6 @@ Update Log: AddedImage compressor, Added File Analyser, Added a ***, Added new t
     font-size: 1.2em;
     font-family: 'Barlow', sans-serif;
 }
-
 textarea {
     width: 100%;
     height: 200px;
@@ -437,7 +398,6 @@ textarea {
     background: var(--tool-bg);
     color: var(--text-color);
 }
-
 .result {
     color: var(--text-color);
     font-family: monospace;
@@ -449,7 +409,6 @@ textarea {
     border: 1px solid var(--border-color);
     min-height: 100px;
 }
-
 button {
     padding: 12px 25px;
     background: var(--primary-color);
@@ -461,20 +420,16 @@ button {
     font-family: 'Barlow', sans-serif;
     margin: 10px 0;
 }
-
 button:hover {
     filter: brightness(0.9);
 }
-
 .deleted {
     background: var(--diff-removed);
     text-decoration: line-through;
 }
-
 .added {
     background: var(--diff-added);
 }
-
 .linebreak {
     color: var(--primary-color);
     font-weight: bold;
@@ -496,14 +451,12 @@ button:hover {
     gap: 20px;
     margin: 15px 0;
 }
-
 .case-buttons {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 10px;
     flex: 3;
 }
-
 .action-buttons {
     display: flex;
     flex-direction: column;
@@ -517,17 +470,14 @@ button:hover {
     font-size: 1.2em;
     font-family: 'Barlow', sans-serif;
 }
-
 #caseConverter .tool-section {
     display: flex;
     gap: 20px;
     align-items: flex-start;
 }
-
 #caseConverter .input-output-section {
     flex: 4; /* Increase from 2 to 3 to reduce button section width */
 }
-
 #caseConverter .button-section {
     flex: 1; /* Take 1/4 of the space */
     position: sticky;
@@ -535,14 +485,12 @@ button:hover {
     align-self: flex-start;
     max-width: 400px; /* Limit maximum width */
 }
-
 #caseConverter .case-buttons {
     display: grid;
     grid-template-columns: 1fr; /* Single column by default */
     gap: 8px;
     margin-bottom: 15px;
 }
-
 #caseConverter .case-buttons button {
     padding: 8px 12px;
     font-size: 0.9em;
@@ -552,69 +500,61 @@ button:hover {
 
 /* Responsive design */
 @media (min-width: 1200px) {
-    #caseConverter .case-buttons {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns on larger screens */
-    }
+#caseConverter .case-buttons {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on larger screens */
+}
 }
 
 @media (max-width: 768px) {
-    #caseConverter .tool-section {
-        flex-direction: column;
-    }
-
-    #caseConverter .button-section {
-        position: static;
-        max-width: 100%;
-        width: 100%;
-    }
-
-    #caseConverter .case-buttons {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
-    }
+#caseConverter .tool-section {
+    flex-direction: column;
+}
+#caseConverter .button-section {
+    position: static;
+    max-width: 100%;
+    width: 100%;
+}
+#caseConverter .case-buttons {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+}
 }
 
 @media (max-width: 480px) {
-    #caseConverter .case-buttons {
-        grid-template-columns: 1fr; /* Single column on very small screens */
-    }
+#caseConverter .case-buttons {
+    grid-template-columns: 1fr; /* Single column on very small screens */
 }
-
+}
 #caseConverter .case-buttons button {
     padding: 8px 12px;
     font-size: 0.9em;
     white-space: nowrap;
     width: 100%;
 }
-
 #caseConverter .action-buttons {
     display: grid;
     grid-template-columns: 1fr; /* Single column */
     gap: 8px;
     margin-top: 15px;
 }
-
 #caseConverter .action-buttons button {
     width: 100%;
 }
-
 #caseConverter .form-check {
     margin: 15px 0;
 }
-
 #caseConverter textarea {
     width: 100%;
     resize: vertical;
     min-height: 200px;
     max-height: 600px;
 }
-<!--Double space checker-->
-.result-box {
+<!--
+Double space checker--> .result-box {
     background: var(--tool-bg);
     padding: 15px;
     border-radius: 8px;
     border: 1px solid var(--border-color);
 }
-
 .text-content {
     margin-top: 10px;
     line-height: 1.5;
@@ -623,12 +563,10 @@ button:hover {
     border-radius: 4px;
     min-height: 100px;
 }
-
 .space-actions {
     display: flex;
     gap: 10px;
 }
-
 .space-btn {
     padding: 8px 16px;
     background: var(--primary-color);
@@ -638,63 +576,54 @@ button:hover {
     cursor: pointer;
     transition: all 0.3s ease;
 }
-
 .space-btn:hover {
     transform: translateY(-1px);
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     filter: brightness(0.9);
 }
-<!-- Image compressor Styles-->
-.upload-area {
-        border: 2px dashed var(--border-color);
-        padding: 2rem;
-        text-align: center;
-        margin-bottom: 1rem;
-        border-radius: 8px;
-        background: var(--tool-bg);
-        transition: all 0.3s ease;
-    }
-
-    .upload-area.dragover {
-        border-color: var(--primary-color);
-        background-color: var(--bg-color);
-    }
-
-    .btn-upload {
-        background: var(--primary-color);
-        color: white;
-        padding: 12px 25px;
-        border-radius: 6px;
-        cursor: pointer;
-        display: inline-block;
-        margin: 1rem 0;
-    }
-
-    .btn-upload:hover {
-        filter: brightness(0.9);
-    }
-
-    .btn-download {
-        background: #4CAF50;
-        margin-top: 1rem;
-    }
-
-    .file-list {
-        color: var(--text-color);
-        margin: 1rem 0;
-        font-size: 0.9em;
-    }
-
-    .loading {
-        color: var(--text-color);
-        margin: 1rem 0;
-    }
-
-    #fileInput {
-        display: none;
-    }
-
-    .compression-table {
+<!--
+Image compressor Styles--> .upload-area {
+    border: 2px dashed var(--border-color);
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    background: var(--tool-bg);
+    transition: all 0.3s ease;
+}
+.upload-area.dragover {
+    border-color: var(--primary-color);
+    background-color: var(--bg-color);
+}
+.btn-upload {
+    background: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 1rem 0;
+}
+.btn-upload:hover {
+    filter: brightness(0.9);
+}
+.btn-download {
+    background: #4CAF50;
+    margin-top: 1rem;
+}
+.file-list {
+    color: var(--text-color);
+    margin: 1rem 0;
+    font-size: 0.9em;
+}
+.loading {
+    color: var(--text-color);
+    margin: 1rem 0;
+}
+#fileInput {
+    display: none;
+}
+.compression-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -702,46 +631,38 @@ button:hover {
     border-radius: 6px;
     overflow: hidden;
 }
-
-.compression-table th, 
-.compression-table td {
+.compression-table th, .compression-table td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
 }
-
 .compression-table th {
     background: var(--primary-color);
     color: white;
     font-weight: 600;
 }
-
 .compression-table tr:hover {
     background: rgba(0,0,0,0.1);
 }
 #imageCompressor .upload-controls {
     margin: 1rem 0;
 }
-
 #imageCompressor .control-row {
     display: flex;
     align-items: center;
     gap: 20px;
     margin-bottom: 10px;
 }
-
 #imageCompressor .upload-row {
     display: flex;
     align-items: center;
     gap: 10px;
     width: 100%;
 }
-
 #imageCompressor .btn-upload {
     min-width: 120px; /* Fixed width for button */
     white-space: nowrap;
 }
-
 #imageCompressor .progress-container {
     display: flex;
     align-items: center;
@@ -766,13 +687,11 @@ button:hover {
     opacity: 1;
     pointer-events: auto;
 }
-
 #imageCompressor .btn-download:hover {
     filter: brightness(0.9);
     transform: translateY(-1px);
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-
 #imageCompressor .filename-bar {
     flex: 1; /* Take half of the remaining space */
     background: var(--tool-bg);
@@ -780,7 +699,6 @@ button:hover {
     border-radius: 4px;
     padding: 8px 12px;
 }
-
 #imageCompressor .progress-bar-container {
     flex: 1; /* Take other half of the remaining space */
     background: var(--tool-bg);
@@ -789,7 +707,6 @@ button:hover {
     padding: 8px 12px;
     position: relative;
 }
-
 #imageCompressor .progress-bar {
     height: 4px;
     background: var(--primary-color);
@@ -797,13 +714,11 @@ button:hover {
     width: 0;
     transition: width 0.3s ease;
 }
-
 #imageCompressor .status-text {
     margin-top: 4px;
     font-size: 0.9em;
     color: var(--text-color);
 }
-
 #imageCompressor .loading-spinner {
     display: none;
     width: 16px;
@@ -817,18 +732,16 @@ button:hover {
     top: 50%;
     transform: translateY(-50%);
 }
-<!-- File analyser Styles-->
-#fileAnalyser {
+<!--
+File analyser Styles--> #fileAnalyser {
     margin-top: 20px;
 }
-
 #fileAnalyser h3 {
     font-size: 1.5rem;
     margin-bottom: 15px;
     color: var(--text-color);
     font-family: 'Barlow', sans-serif;
 }
-
 #fileAnalyser input[type="file"] {
     margin: 10px 0;
     background: var(--tool-bg);
@@ -837,12 +750,10 @@ button:hover {
     padding: 8px;
     border-radius: 4px;
 }
-
 #fileAnalyser #fileTable {
     display: none; /* Initially hidden, will change once a ZIP is loaded */
     margin-top: 15px;
 }
-
 #fileAnalyser .compression-table {
     width: 100%;
     table-layout: fixed; /* Add fixed table layout */
@@ -851,9 +762,7 @@ button:hover {
     border-radius: 6px;
     overflow: hidden;
 }
-
-#fileAnalyser .compression-table th,
-#fileAnalyser .compression-table td {
+#fileAnalyser .compression-table th, #fileAnalyser .compression-table td {
     padding: 12px;
     border: 1px solid var(--border-color);
     text-align: left;
@@ -862,73 +771,54 @@ button:hover {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 /* Define column widths */
-#fileAnalyser .compression-table th:nth-child(1),
-#fileAnalyser .compression-table td:nth-child(1) {
+#fileAnalyser .compression-table th:nth-child(1), #fileAnalyser .compression-table td:nth-child(1) {
     width: 40%; /* Name column */
 }
-
-#fileAnalyser .compression-table th:nth-child(2),
-#fileAnalyser .compression-table td:nth-child(2) {
+#fileAnalyser .compression-table th:nth-child(2), #fileAnalyser .compression-table td:nth-child(2) {
     width: 10%; /* Format column */
 }
-
-#fileAnalyser .compression-table th:nth-child(3),
-#fileAnalyser .compression-table td:nth-child(3) {
+#fileAnalyser .compression-table th:nth-child(3), #fileAnalyser .compression-table td:nth-child(3) {
     width: 10%; /* Size column */
 }
-
-#fileAnalyser .compression-table th:nth-child(4),
-#fileAnalyser .compression-table td:nth-child(4) {
+#fileAnalyser .compression-table th:nth-child(4), #fileAnalyser .compression-table td:nth-child(4) {
     width: 15%; /* Dimensions column */
 }
-
-#fileAnalyser .compression-table th:nth-child(5),
-#fileAnalyser .compression-table td:nth-child(5) {
+#fileAnalyser .compression-table th:nth-child(5), #fileAnalyser .compression-table td:nth-child(5) {
     width: 10%; /* Duration column */
 }
-
-#fileAnalyser .compression-table th:nth-child(6),
-#fileAnalyser .compression-table td:nth-child(6) {
+#fileAnalyser .compression-table th:nth-child(6), #fileAnalyser .compression-table td:nth-child(6) {
     width: 15%; /* Color Mode column */
 }
-
 #fileAnalyser .folder {
     cursor: pointer;
     background-color: var(--tool-bg);
     color: var(--text-color);
 }
-
 #fileAnalyser .toggle {
     display: inline-block;
     width: 20px;
     transition: transform 0.2s;
     cursor: pointer;
 }
-
 #fileAnalyser .folder.expanded .toggle {
     transform: rotate(90deg);
 }
-
 #fileAnalyser tr[data-parent] {
     background-color: var(--tool-bg);
 }
-
 #fileAnalyser .hidden {
     display: none;
 }
 #fileAnalyser .upload-controls {
     margin: 1rem 0;
 }
-
 #fileAnalyser .upload-row {
     display: flex;
     align-items: center;
     gap: 10px;
     width: 100%;
 }
-
 #fileAnalyser .btn-upload {
     min-width: 120px;
     text-align: center;
@@ -941,11 +831,9 @@ button:hover {
     display: inline-block;
     font-family: 'Barlow', sans-serif;
 }
-
 #fileAnalyser .btn-upload:hover {
     filter: brightness(0.9);
 }
-
 #fileAnalyser .progress-status {
     padding: 8px 16px;
     background: var(--tool-bg);
@@ -953,21 +841,18 @@ button:hover {
     border-radius: 4px;
     min-width: 200px;
 }
-
 #fileAnalyser .progress-container {
     display: flex;
     align-items: center;
     gap: 10px;
     flex: 1;
 }
-
 #fileAnalyser .filename-bar {
     background: var(--tool-bg);
     border: 1px solid var(--border-color);
     border-radius: 4px;
     padding: 8px 12px;
 }
-
 #fileAnalyser .progress-bar-container {
     background: var(--tool-bg);
     border: 1px solid var(--border-color);
@@ -975,7 +860,6 @@ button:hover {
     padding: 8px 12px;
     position: relative;
 }
-
 #fileAnalyser .progress-bar {
     height: 4px;
     background: var(--primary-color);
@@ -983,13 +867,11 @@ button:hover {
     width: 0;
     transition: width 0.3s ease;
 }
-
 #fileAnalyser .status-text {
     margin-top: 4px;
     font-size: 0.9em;
     color: var (--text-color);
 }
-
 #fileAnalyser .loading-spinner {
     display: none;
     width: 16px;
@@ -1003,10 +885,13 @@ button:hover {
     top: 50%;
     transform: translateY(-50%);
 }
-
 @keyframes spin {
-    0% { transform: translateY(-50%) rotate(0deg); }
-    100% { transform: translateY(-50%) rotate(360deg); }
+0% {
+transform: translateY(-50%) rotate(0deg);
+}
+100% {
+transform: translateY(-50%) rotate(360deg);
+}
 }
 #fileAnalyser .control-row {
     display: flex;
@@ -1015,19 +900,15 @@ button:hover {
     gap: 20px;
     margin-bottom: 10px;
 }
-
 #fileAnalyser .upload-row {
     display: flex;
     align-items: center;
     gap: 10px;
     flex: 2;
 }
-
 #fileAnalyser .progress-container {
     flex: 1;
 }
-
-
 #fileAnalyser .size-filter input[type="number"] {
     width: 80px;
     padding: 4px 8px;
@@ -1036,40 +917,34 @@ button:hover {
     background: var(--tool-bg);
     color: var(--text-color);
 }
-
 #fileAnalyser .size-filter input[type="radio"]:disabled + label {
     opacity: 0.5;
 }
 #fileAnalyser .upload-controls {
     margin: 1rem 0;
 }
-
 #fileAnalyser .control-row {
     display: flex;
     align-items: center;
     gap: 20px;
     margin-bottom: 10px;
 }
-
 #fileAnalyser .upload-row {
     display: flex;
     align-items: center;
     gap: 10px;
     width: 100%; /* Take full width */
 }
-
 #fileAnalyser .btn-upload {
     min-width: 120px; /* Fixed width for button */
     white-space: nowrap;
 }
-
 #fileAnalyser .progress-container {
     display: flex;
     align-items: center;
     gap: 10px;
     flex: 1; /* Take remaining space */
 }
-
 #fileAnalyser .filename-bar {
     flex: 1; /* Take half of the remaining space */
     background: var(--tool-bg);
@@ -1077,7 +952,6 @@ button:hover {
     border-radius: 4px;
     padding: 8px 12px;
 }
-
 #fileAnalyser .progress-bar-container {
     flex: 1; /* Take other half of the remaining space */
     background: var(--tool-bg);
@@ -1095,7 +969,6 @@ button:hover {
     background: var(--tool-bg);
     transition: all 0.3s ease;
 }
-
 #fileAnalyser .upload-area.dragover {
     border-color: var(--primary-color);
     background-color: var(--bg-color);
@@ -1117,14 +990,13 @@ button:hover {
     opacity: 1;
     pointer-events: auto;
 }
-
 #fileAnalyser .btn-reset:hover {
     filter: brightness(0.9);
     transform: translateY(-1px);
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-<!--EE Styles-->
-.easter-egg-popup {
+<!--
+EE Styles--> .easter-egg-popup {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -1139,7 +1011,6 @@ button:hover {
     position: relative;
     overflow: hidden;
 }
-
 /* Add a pseudo-element for the background pattern */
 .easter-egg-popup::before {
     content: '';
@@ -1148,26 +1019,14 @@ button:hover {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 512 512'%3E%3Cpath transform='rotate(20 256 256)' fill='rgba(0,0,0,0.08)' d='M269.5,-0.5 C269.833,-0.5 270.167,-0.5 270.5,-0.5C 270.5,39.8333 270.5,80.1667 270.5,120.5C 299.169,120.333 327.835,120.5 356.5,121C 318.127,190.247 279.627,259.414 241,328.5C 240.5,289.168 240.333,249.835 240.5,210.5C 211.831,210.667 183.165,210.5 154.5,210C 193.227,140.046 231.56,69.8798 269.5,-0.5 Z'/%3E%3C/svg%3E");
     background-size: 8px 8px;
     background-repeat: repeat;
-    
     opacity: 0.25;
     pointer-events: none;
     z-index: 0;
     background-color: rgba(128, 128, 128, 0.03);
     border-radius: 10px; /* Slightly smaller than parent's border-radius */
-    -webkit-mask-image: radial-gradient(
-        circle at center,
-        black 0%,
-        black 95%,
-        transparent 100%
-    );
-    mask-image: radial-gradient(
-        circle at center,
-        black 0%,
-        black 95%,
-        transparent 100%
-    );
+    -webkit-mask-image: radial-gradient( circle at center, black 0%, black 95%, transparent 100% );
+    mask-image: radial-gradient( circle at center, black 0%, black 95%, transparent 100% );
 }
-
 [data-theme="dark"] .easter-egg-popup::before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 512 512'%3E%3Cpath transform='rotate(20 256 256)' fill='rgba(255,255,255,0.08)' d='M269.5,-0.5 C269.833,-0.5 270.167,-0.5 270.5,-0.5C 270.5,39.8333 270.5,80.1667 270.5,120.5C 299.169,120.333 327.835,120.5 356.5,121C 318.127,190.247 279.627,259.414 241,328.5C 240.5,289.168 240.333,249.835 240.5,210.5C 211.831,210.667 183.165,210.5 154.5,210C 193.227,140.046 231.56,69.8798 269.5,-0.5 Z'/%3E%3C/svg%3E");
 }
@@ -1195,12 +1054,10 @@ button:hover {
     border-radius: 50%;
     transition: all 0.3s ease;
 }
-
 .easter-egg-popup .close-button:hover {
     background: rgba(0, 0, 0, 0.1);
     transform: scale(1.1);
 }
-
 [data-theme="dark"] .easter-egg-popup .close-button:hover {
     background: rgba(255, 255, 255, 0.1);
 }
@@ -1208,15 +1065,15 @@ button:hover {
 
 /* Add clean animation */
 @keyframes patternFloat {
-    0% {
-        transform: rotate(15deg) translate(0, 0);
-    }
-    50% {
-        transform: rotate(15deg) translate(-10px, -10px);
-    }
-    100% {
-        transform: rotate(15deg) translate(0, 0);
-    }
+0% {
+transform: rotate(15deg) translate(0, 0);
+}
+50% {
+transform: rotate(15deg) translate(-10px, -10px);
+}
+100% {
+transform: rotate(15deg) translate(0, 0);
+}
 }
 .color-picker-popup .color-picker-container {
     display: flex;
@@ -1224,7 +1081,6 @@ button:hover {
     gap: 15px;
     margin: 20px 0;
 }
-
 .color-picker-popup input[type="color"] {
     width: 100px;
     height: 100px;
@@ -1234,9 +1090,7 @@ button:hover {
     padding: 0;
     margin: 0 auto;
 }
-
-.color-picker-popup .random-color-btn,
-.color-picker-popup .apply-color-btn {
+.color-picker-popup .random-color-btn, .color-picker-popup .apply-color-btn {
     background: var(--primary-color);
     color: white;
     padding: 10px 20px;
@@ -1249,251 +1103,209 @@ button:hover {
     justify-content: center;
     gap: 8px;
 }
-
-.color-picker-popup .random-color-btn:hover,
-.color-picker-popup .apply-color-btn:hover {
+.color-picker-popup .random-color-btn:hover, .color-picker-popup .apply-color-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-
 .color-picker-popup .apply-color-btn {
     margin-top: 15px;
     width: 100%;
 }
-.error-message {
-    background: var(--tool-bg);
-    color: #f44336;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    margin: 20px 0;
-    border: 1px solid #f44336;
-}
-
-    </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff-match-patch/20121119/diff_match_patch.js"></script>
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/diff-match-patch/20121119/diff_match_patch.js"></script>
 </head>
 <body data-theme="dark">
-    <div class="header">
-        <div class="logo-container">
-            <svg class="logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#056dce" d="M269.5,-0.5 C269.833,-0.5 270.167,-0.5 270.5,-0.5C 270.5,39.8333 270.5,80.1667 270.5,120.5C 299.169,120.333 327.835,120.5 356.5,121C 318.127,190.247 279.627,259.414 241,328.5C 240.5,289.168 240.333,249.835 240.5,210.5C 211.831,210.667 183.165,210.5 154.5,210C 193.227,140.046 231.56,69.8798 269.5,-0.5 Z M239.5,118.5 C240.494,128.987 240.828,139.654 240.5,150.5C 261.836,150.333 283.169,150.5 304.5,151C 292.953,170.59 281.787,190.424 271,210.5C 270.5,200.506 270.334,190.506 270.5,180.5C 249.164,180.667 227.831,180.5 206.5,180C 218.161,159.844 229.161,139.344 239.5,118.5 Z"/>
-                <path fill="currentColor" d="M-0.5,120.5 C29.8333,120.5 60.1667,120.5 90.5,120.5C90.3333,177.501 90.5,234.501 91,291.5C91.6667,292.167 92.3333,292.833 93,293.5C107.014,279.319 121.181,265.319 135.5,251.5C175.86,291.194 215.86,331.194 255.5,371.5C295.14,331.194 335.14,291.194 375.5,251.5C389.819,265.319 403.986,279.319 418,293.5C418.667,292.833 419.333,292.167 420,291.5C420.5,234.501 420.667,177.501 420.5,120.5C450.833,120.5 481.167,120.5 511.5,120.5C511.5,193.833 511.5,267.167 511.5,340.5C509.183,350.933 505.349,360.933 500,370.5C471.307,417.224 443.141,464.224 415.5,511.5C308.833,511.5 202.167,511.5 95.5,511.5C67.8592,464.224 39.6925,417.224 11,370.5C5.65063,360.933 1.8173,350.933 -0.5,340.5C-0.5,267.167 -0.5,193.833 -0.5,120.5 Z"/>
-            </svg>
-        </div>
-        <h1>Catalyst</h1>
-        <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
-    </div>
+<div class="header">
+  <div class="logo-container">
+    <svg class="logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#056dce" d="M269.5,-0.5 C269.833,-0.5 270.167,-0.5 270.5,-0.5C 270.5,39.8333 270.5,80.1667 270.5,120.5C 299.169,120.333 327.835,120.5 356.5,121C 318.127,190.247 279.627,259.414 241,328.5C 240.5,289.168 240.333,249.835 240.5,210.5C 211.831,210.667 183.165,210.5 154.5,210C 193.227,140.046 231.56,69.8798 269.5,-0.5 Z M239.5,118.5 C240.494,128.987 240.828,139.654 240.5,150.5C 261.836,150.333 283.169,150.5 304.5,151C 292.953,170.59 281.787,190.424 271,210.5C 270.5,200.506 270.334,190.506 270.5,180.5C 249.164,180.667 227.831,180.5 206.5,180C 218.161,159.844 229.161,139.344 239.5,118.5 Z"/>
+      <path fill="currentColor" d="M-0.5,120.5 C29.8333,120.5 60.1667,120.5 90.5,120.5C90.3333,177.501 90.5,234.501 91,291.5C91.6667,292.167 92.3333,292.833 93,293.5C107.014,279.319 121.181,265.319 135.5,251.5C175.86,291.194 215.86,331.194 255.5,371.5C295.14,331.194 335.14,291.194 375.5,251.5C389.819,265.319 403.986,279.319 418,293.5C418.667,292.833 419.333,292.167 420,291.5C420.5,234.501 420.667,177.501 420.5,120.5C450.833,120.5 481.167,120.5 511.5,120.5C511.5,193.833 511.5,267.167 511.5,340.5C509.183,350.933 505.349,360.933 500,370.5C471.307,417.224 443.141,464.224 415.5,511.5C308.833,511.5 202.167,511.5 95.5,511.5C67.8592,464.224 39.6925,417.224 11,370.5C5.65063,360.933 1.8173,350.933 -0.5,340.5C-0.5,267.167 -0.5,193.833 -0.5,120.5 Z"/>
+    </svg>
+  </div>
+  <h1>Catalyst</h1>
+  <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+</div>
+<div class="tab" style="padding-left: 20px;">
+  <button class="tablinks active" onclick="openTool(event, 'textCompare')">Text Compare</button>
+  <button class="tablinks" onclick="openTool(event, 'caseConverter')">Case Converter</button>
+  <button class="tablinks" onclick="openTool(event, 'loremGen')">Lorem Ipsum Generator</button>
+  <button class="tablinks" onclick="openTool(event, 'spaceCheck')">Double Space Checker</button>
+  <button class="tablinks" onclick="openTool(event, 'imageCompressor')">Image Compressor</button>
+  <button class="tablinks" onclick="openTool(event, 'fileAnalyser')">File Analyser</button>
+</div>
 
-    <div class="tab" style="padding-left: 20px;">
-        <button class="tablinks active" onclick="openTool(event, 'textCompare')">Text Compare</button>
-        <button class="tablinks" onclick="openTool(event, 'caseConverter')">Case Converter</button>
-        <button class="tablinks" onclick="openTool(event, 'loremGen')">Lorem Ipsum Generator</button>
-        <button class="tablinks" onclick="openTool(event, 'spaceCheck')">Double Space Checker</button>
-        <button class="tablinks" onclick="openTool(event, 'imageCompressor')">Image Compressor</button>
-        <button class="tablinks" onclick="openTool(event, 'fileAnalyser')">File Analyser</button>
+<!-- Text Compare Tool -->
+<div id="textCompare" class="tabcontent" style="display: block;">
+  <div class="tool-section">
+    <div class="compare-container">
+      <div class="text-input">
+        <h3>Original Text</h3>
+        <textarea id="text1"></textarea>
+      </div>
+      <div class="text-input">
+        <h3>Modified Text</h3>
+        <textarea id="text2"></textarea>
+      </div>
     </div>
+    <div style="text-align: center; margin: 20px 0;">
+      <button onclick="compareTexts()">Compare Texts</button>
+    </div>
+    <div class="compare-container">
+      <div class="text-input">
+        <h3>Original Version</h3>
+        <div id="result1" class="result"></div>
+      </div>
+      <div class="text-input">
+        <h3>Modified Version</h3>
+        <div id="result2" class="result"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- Text Compare Tool -->
-    <div id="textCompare" class="tabcontent" style="display: block;">
-        <div class="tool-section">
-            <div class="compare-container">
-                <div class="text-input">
-                    <h3>Original Text</h3>
-                    <textarea id="text1"></textarea>
-                </div>
-                <div class="text-input">
-                    <h3>Modified Text</h3>
-                    <textarea id="text2"></textarea>
-                </div>
-            </div>
-            <div style="text-align: center; margin: 20px 0;">
-                <button onclick="compareTexts()">Compare Texts</button>
-            </div>
-            <div class="compare-container">
-                <div class="text-input">
-                    <h3>Original Version</h3>
-                    <div id="result1" class="result"></div>
-                </div>
-                <div class="text-input">
-                    <h3>Modified Version</h3>
-                    <div id="result2" class="result"></div>
-                </div>
-            </div>
-        </div>
+<!-- Case Converter Tool -->
+<div id="caseConverter" class="tabcontent">
+  <div class="tool-section">
+    <div class="input-output-section">
+      <textarea id="caseInput" placeholder="Enter text to convert"></textarea>
+      <div class="case-stats" id="caseCounts"> Character Count: 0 | Word Count: 0 | Sentence Count: 0 | Line Count: 0 </div>
+      <div class="text-input">
+        <h3>Converted Text</h3>
+        <div id="caseOutput" class="result"></div>
+      </div>
     </div>
+    <div class="button-section">
+      <h5>Convert types</h5>
+      <div class="case-buttons">
+        <button data-type="lowercase">lowercase</button>
+        <button data-type="uppercase">UPPERCASE</button>
+        <button data-type="title_case">Title Case</button>
+        <button data-type="sentence_case">Sentence case</button>
+        <button data-type="capitalize">Capitalize Words</button>
+        <button data-type="inverse_case">Inverse Case</button>
+        <button data-type="alternating_case">Alternating Case</button>
+        <button data-type="slug">URL Slug</button>
+        <button data-type="underscore">Underscore</button>
+        <button data-type="remove_spaces">Remove Spaces</button>
+        <button data-type="reverse">Reverse Text</button>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="doubleSpaceCheck">
+        <label class="form-check-label" for="doubleSpaceCheck">Remove extra spaces</label>
+      </div>
+      <div class="action-buttons">
+        <button class="btn-success" id="copyButton">Copy to Clipboard</button>
+        <button class="btn-danger" id="clearButton">Clear All</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- Case Converter Tool -->
-    <div id="caseConverter" class="tabcontent">
-        <div class="tool-section">
-            <div class="input-output-section">
-                <textarea id="caseInput" placeholder="Enter text to convert"></textarea>
-                <div class="case-stats" id="caseCounts">
-                    Character Count: 0 | Word Count: 0 | Sentence Count: 0 | Line Count: 0
-                </div>
-                <div class="text-input">
-                    <h3>Converted Text</h3>
-                    <div id="caseOutput" class="result"></div>
-                </div>
-            </div>
-            
-            <div class="button-section">
-        
-                <h5>Convert types</h5>
-                <div class="case-buttons">
-                    
-                    <button data-type="lowercase">lowercase</button>
-                    <button data-type="uppercase">UPPERCASE</button>
-                    <button data-type="title_case">Title Case</button>
-                    <button data-type="sentence_case">Sentence case</button>
-                    <button data-type="capitalize">Capitalize Words</button>
-                    <button data-type="inverse_case">Inverse Case</button>
-                    <button data-type="alternating_case">Alternating Case</button>
-                    <button data-type="slug">URL Slug</button>
-                    <button data-type="underscore">Underscore</button>
-                    <button data-type="remove_spaces">Remove Spaces</button>
-                    <button data-type="reverse">Reverse Text</button>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="doubleSpaceCheck">
-                    <label class="form-check-label" for="doubleSpaceCheck">Remove extra spaces</label>
-                </div>
-                <div class="action-buttons">
-                    <button class="btn-success" id="copyButton">Copy to Clipboard</button>
-                    <button class="btn-danger" id="clearButton">Clear All</button>
-                </div>
-            </div>
-        </div>
+<!-- Lorem Ipsum Generator -->
+<div id="loremGen" class="tabcontent">
+  <div class="tool-section">
+    <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
+      <input type="range" id="paraCount" min="1" max="10" value="3" style="flex-grow: 1;">
+      <span id="paraValue" style="min-width: 120px;">3 paragraphs</span>
+      <button onclick="generateLorem()">Generate</button>
     </div>
+    <div id="loremOutput" style="line-height: 1.6;"></div>
+  </div>
+</div>
 
-    <!-- Lorem Ipsum Generator -->
-    <div id="loremGen" class="tabcontent">
-        <div class="tool-section">
-            <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
-                <input type="range" id="paraCount" min="1" max="10" value="3" style="flex-grow: 1;">
-                <span id="paraValue" style="min-width: 120px;">3 paragraphs</span>
-                <button onclick="generateLorem()">Generate</button>
+<!-- Space Check Tool -->
+<div id="spaceCheck" class="tabcontent">
+  <div class="tool-section">
+    <textarea id="spaceInput" placeholder="Enter text to check"></textarea>
+    <button onclick="checkSpaces()" style="margin: 15px 0;">Check Spaces</button>
+    <div id="spaceResult" style="padding: 15px; background: var(--tool-bg); border-radius: 6px;"></div>
+  </div>
+</div>
+<!-- Image compressor -->
+<div id="imageCompressor" class="tabcontent">
+  <div class="tool-section">
+    <div class="upload-area" id="dropZone">
+      <h4>Drag & Drop Images or Select Images</h4>
+      <div class="upload-controls">
+        <input type="file" id="fileInput" accept="image/*" multiple>
+        <div class="control-row">
+          <div class="upload-row">
+            <label for="fileInput" class="btn-upload">Select Images</label>
+            <div class="progress-container">
+              <div id="fileName" class="filename-bar"></div>
+              <div class="progress-bar-container">
+                <div class="progress-bar" id="imageProgressBar"></div>
+                <div class="loading-spinner" id="imageLoadingSpinner"></div>
+                <div class="status-text" id="imageProgress"></div>
+              </div>
             </div>
-            <div id="loremOutput" style="line-height: 1.6;"></div>
+            <button id="downloadBtn" class="btn-download">Download All</button>
+          </div>
         </div>
-    </div>
-
-    <!-- Space Check Tool -->
-    <div id="spaceCheck" class="tabcontent">
-        <div class="tool-section">
-            <textarea id="spaceInput" placeholder="Enter text to check"></textarea>
-            <button onclick="checkSpaces()" style="margin: 15px 0;">Check Spaces</button>
-            <div id="spaceResult" style="padding: 15px; background: var(--tool-bg); border-radius: 6px;"></div>
-        </div>
-    </div>
-    <!-- Image compressor -->
-    <div id="imageCompressor" class="tabcontent">
-        <div class="tool-section">
-            <div class="upload-area" id="dropZone">
-                <h4>Drag & Drop Images or Select Images</h4>
-                <div class="upload-controls">
-                    <input type="file" id="fileInput" accept="image/*" multiple>
-                    <div class="control-row">
-                        <div class="upload-row">
-                            <label for="fileInput" class="btn-upload">Select Images</label>
-                            <div class="progress-container">
-                                <div id="fileName" class="filename-bar"></div>
-                                <div class="progress-bar-container">
-                                    <div class="progress-bar" id="imageProgressBar"></div>
-                                    <div class="loading-spinner" id="imageLoadingSpinner"></div>
-                                    <div class="status-text" id="imageProgress"></div>
-                                </div>
-                            </div>
-                            <button id="downloadBtn" class="btn-download">Download All</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="file-list" id="fileList">
-                    <table class="compression-table">
-                        <thead>
-                            <tr>
-                                <th>File Name</th>
-                                <th>Format</th>
-                                <th>Dimensions</th>
-                                <th>Previous Size</th>
-                                <th>Compressed Size</th>
-                                <th>Reduction</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="loading" id="loading" style="display: none;">Processing...</div>
-                <button id="downloadBtn" class="btn-download" style="display: none;">Download All as ZIP</button>
-            </div>
-        </div>
-    </div>
-
-    <!--File Analyser -->
-    <div id="fileAnalyser" class="tabcontent">
-        <div class="upload-controls upload-area">
-            <h4>Drag & Drop ZIP File or Select ZIP file</h4>
-            <input type="file" id="zipInput" accept=".zip" style="display: none;">
-            <div class="control-row">
-                <div class="upload-row">
-                    <label for="zipInput" class="btn-upload">Select ZIP File</label>
-                    <div class="progress-container">
-                        <div id="zipName" class="filename-bar"></div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" id="progressBar"></div>
-                            <div class="loading-spinner" id="loadingSpinner"></div>
-                            <div class="status-text" id="zipProgress"></div>
-                        </div>
-                    </div>
-                    <button id="resetAnalyser" class="btn-reset" onclick="resetFileAnalyser()">Reset</button>
-                </div>
-            </div>
-        </div>
-        <!-- Add this inside your #fileAnalyser div, after the upload controls -->
-    <div id="fileTable" style="display: none; margin-top: 15px;">
+      </div>
+      <div class="file-list" id="fileList">
         <table class="compression-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Format</th>
-                    <th>Size</th>
-                    <th>Dimensions</th>
-                    <th>Duration</th>
-                    <th>Color Mode</th>
-                </tr>
-            </thead>
-            <tbody id="fileAnalyserList"></tbody>
+          <thead>
+            <tr>
+              <th>File Name</th>
+              <th>Format</th>
+              <th>Dimensions</th>
+              <th>Previous Size</th>
+              <th>Compressed Size</th>
+              <th>Reduction</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
         </table>
+      </div>
+      <div class="loading" id="loading" style="display: none;">Processing...</div>
+      <button id="downloadBtn" class="btn-download" style="display: none;">Download All as ZIP</button>
     </div>
-    
+  </div>
+</div>
+
+<!--File Analyser -->
+<div id="fileAnalyser" class="tabcontent">
+  <div class="upload-controls upload-area">
+    <h4>Drag & Drop ZIP File or Select ZIP file</h4>
+    <input type="file" id="zipInput" accept=".zip" style="display: none;">
+    <div class="control-row">
+      <div class="upload-row">
+        <label for="zipInput" class="btn-upload">Select ZIP File</label>
+        <div class="progress-container">
+          <div id="zipName" class="filename-bar"></div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+            <div class="loading-spinner" id="loadingSpinner"></div>
+            <div class="status-text" id="zipProgress"></div>
+          </div>
+        </div>
+        <button id="resetAnalyser" class="btn-reset" onclick="resetFileAnalyser()">Reset</button>
+      </div>
     </div>
-    <script>
-        // Verify libraries are loaded
-        window.addEventListener('load', function() {
-            // Check JSZip
-            if (typeof JSZip === 'undefined') {
-                console.error('JSZip not loaded. File Analyser will not work.');
-                document.getElementById('fileAnalyser').innerHTML = 
-                    '<div class="error-message">Error: Required library not loaded. Please refresh the page.</div>';
-            }
-        
-            // Check image compression library
-            if (typeof imageCompression === 'undefined') {
-                console.error('Image compression library not loaded');
-                document.getElementById('imageCompressor').innerHTML = 
-                    '<div class="error-message">Error: Required library not loaded. Please refresh the page.</div>';
-            }
-        
-            // Check diff match patch
-            if (typeof diff_match_patch === 'undefined') {
-                console.error('Diff Match Patch library not loaded');
-                document.getElementById('textCompare').innerHTML = 
-                    '<div class="error-message">Error: Required library not loaded. Please refresh the page.</div>';
-            }
-        });
-        </script>
-    <script>
+  </div>
+  <!-- Add this inside your #fileAnalyser div, after the upload controls -->
+  <div id="fileTable" style="display: none; margin-top: 15px;">
+    <table class="compression-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Format</th>
+          <th>Size</th>
+          <th>Dimensions</th>
+          <th>Duration</th>
+          <th>Color Mode</th>
+        </tr>
+      </thead>
+      <tbody id="fileAnalyserList">
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Rest of the file table code remains the same --> 
+</div>
+<script>
         // Theme management
         function toggleTheme() {
             const body = document.body;
@@ -2661,34 +2473,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    </script>
-
-<script>
-    // Fallback loading for JSZip
-    if (typeof JSZip === 'undefined') {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';
-        document.body.appendChild(script);
-    }
-    
-    // Fallback loading for image compression
-    if (typeof imageCompression === 'undefined') {
-        const script = document.createElement('script');
-        script.src = 'https://unpkg.com/browser-image-compression@2.0.2/dist/browser-image-compression.js';
-        document.body.appendChild(script);
-    }
-    
-    // Fallback loading for diff match patch
-    if (typeof diff_match_patch === 'undefined') {
-        const script = document.createElement('script');
-        script.src = 'https://unpkg.com/diff-match-patch@1.0.5/index.min.js';
-        document.body.appendChild(script);
-    }
-    </script>
-<script src="https://cdn.jsdelivr.net/npm/diff-match-patch@1.0.5/index.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.min.js"></script>
+    </script> 
+<script src="https://cdn.jsdelivr.net/npm/diff-match-patch@1.0.5/index.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-
-
 </body>
 </html>
