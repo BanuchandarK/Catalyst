@@ -715,6 +715,23 @@ button:hover {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     filter: brightness(0.9);
 }
+
+.btn-danger {
+    background: #f44336 !important; /* Same red as text compare clear button */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Barlow', sans-serif;
+}
+
+.btn-danger:hover {
+    filter: brightness(0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
 <!-- Image compressor Styles-->
 .upload-area {
         border: 2px dashed var(--border-color);
@@ -1676,7 +1693,7 @@ function clearAllTexts() {
         <div style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
             <strong>Double spaces found: ${doubleSpaces}</strong>
             <div class="space-actions">
-                <button onclick="clearSpaceChecker()" class="space-btn">Clear All</button>
+                <button onclick="clearSpaceChecker()" class="btn-danger">Clear All</button>
                 <button onclick="copyText()" class="space-btn">Copy Text</button>
             </div>
         </div>
