@@ -2749,7 +2749,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 reader.onload = (event) => {
                     showPreview(uploadBox, event.target.result);
                 };
-                reader.readAsDataURL(files[0]);
+                es[0]);
             }
         });
 
@@ -2833,7 +2833,20 @@ let scale = 1;
     reader.readAsDataURL(file);
 }
 
-        
+        function validateAndInit() {
+            const errorDiv = document.getElementById('error');
+            if (!image1 || !image2) return;
+
+            if (image1.width !== image2.width || image1.height !== image2.height) {
+                showError('Error: Images must have the same dimensions');
+                return;
+            }
+            
+            errorDiv.classList.add('hidden');
+            initComparison();
+            setupLayerControls();
+            updateLayerNames(); // Add this line
+        }
 
         // Update the image loading to ensure proper sizing
         function initComparison() {
