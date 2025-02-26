@@ -1,3 +1,4 @@
+
 <!--
 '
 '                                                 ,:                                      
@@ -2749,7 +2750,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 reader.onload = (event) => {
                     showPreview(uploadBox, event.target.result);
                 };
-                es[0]);
+                reader.readAsDataURL(files[0]);
             }
         });
 
