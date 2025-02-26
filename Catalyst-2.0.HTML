@@ -1,4 +1,3 @@
-
 <!--
 '
 '                                                 ,:                                      
@@ -1338,6 +1337,29 @@ button:hover {
     width: 100%;
     height: 100%;
     transform-origin: 0 0;
+    min-height: 400px;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    background: var(--tool-bg);
+}
+#imageDiff .image-container::before {
+    content: 'Canvas Background';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-color);
+    opacity: 0.5;
+    font-size: 1.2em;
+    pointer-events: none;
+}
+
+#imageDiff .image:not([src]) {
+    display: none;
+}
+
+#imageDiff .image[src] + #imageDiff .image-container::before {
+    display: none;
 }
 
 #imageDiff .image {
@@ -1349,22 +1371,77 @@ button:hover {
     object-fit: contain;
 }
 
-#imageDiff .layer-controls {
+#imageDiff .advanced-settings {
+    background: var(--tool-bg);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+}
+
+#imageDiff .advanced-settings summary {
+    padding: 12px 15px;
+    cursor: pointer;
     background: var(--tool-bg);
     color: var(--text-color);
-    padding: 15px;
     border-radius: 8px;
+    user-select: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+/* Add arrow indicator */
+#imageDiff .advanced-settings summary::before {
+    content: '▶';
+    display: inline-block;
+    transition: transform 0.3s;
+    font-size: 12px;
+    width: 12px;
+    text-align: center;
+}
+
+/* Rotate arrow when open */
+#imageDiff .advanced-settings[open] summary::before {
+    transform: rotate(90deg);
+}
+#imageDiff .advanced-settings summary:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+#imageDiff .advanced-settings[open] summary {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#imageDiff .layer-controls {
+    padding: 15px;
+    background: var(--tool-bg);
+    margin: 0;
 }
 
 #imageDiff .layer-item {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 10px;
     margin-bottom: 10px;
-    padding: 10px;
-    background: var(--tool-bg);
+    padding: 15px;
+    background: var(--bg-color);
     border: 1px solid var(--border-color);
-    border-radius: 4px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+#imageDiff .layer-item:hover {
+    border-color: var(--primary-color);
+    background: rgba(var(--primary-color-rgb), 0.05);
+}
+
+#imageDiff .layer-item:last-child {
+    margin-bottom: 0;
 }
 
 #imageDiff .zoom-controls {
@@ -1547,8 +1624,10 @@ button:hover {
 
 #imageDiff .upload-details summary::before {
     content: '▶';
-    transition: transform 0.3s;
     display: inline-block;
+    transition: transform 0.3s;
+    font-size: 12px; /* Make arrow size consistent */
+    width: 12px; /* Fixed width to prevent layout shift */
 }
 
 #imageDiff .upload-details[open] summary::before {
@@ -1575,6 +1654,85 @@ button:hover {
     min-height: 150px;
     max-height: 150px;
 }
+#imageDiff #newCheck {
+    background-color: #f44336;
+    color: white;
+}
+
+#imageDiff #newCheck:hover {
+    background-color: #d32f2f;
+}
+#imageDiff .layer-header span:not(.eye-icon) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px; /* Adjust this value based on your layout */
+    display: inline-block;
+    cursor: default;
+    
+}
+#imageDiff .layer-header span:not(.eye-icon):hover::after {
+    content: attr(title); /* Uses the title attribute as tooltip content */
+    position: absolute;
+    left: 0;
+    top: -30px;
+    background: var(--tool-bg);
+    color: var(--text-color);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color);
+    z-index: 1000;
+}
+
+#imageDiff .layer-header .eye-icon {
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s ease;
+}
+
+#imageDiff .layer-header .eye-icon:hover {
+    transform: scale(1.1);
+}
+
+#imageDiff .layer-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0; /* Add this to allow text truncation */
+    flex: 1; /* Allow header to take available space */
+    cursor: default;
+}
+
+#imageDiff .blend-mode-select {
+    width: 120px; /* Set fixed width for the select element */
+    min-width: 120px; /* Ensure minimum width */
+    flex-shrink: 0; /* Prevent select from shrinking */
+}
+#imageDiff .blend-modes {
+    display: flex;
+    gap: 10px; /* Add gap between buttons */
+    flex-wrap: wrap;
+}
+
+#imageDiff .blend-modes button {
+    padding: 8px 16px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+#imageDiff .blend-modes button:hover {
+    filter: brightness(0.9);
+    transform: translateY(-1px);
+}
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/diff-match-patch/20121119/diff_match_patch.js"></script>
 </head>
@@ -1786,7 +1944,7 @@ button:hover {
                 <button data-mode="multiply">Multiply</button>
                 <button data-mode="screen">Screen</button>
                 <button id="swapLayers">Swap Layers</button>
-                <button id="newCheck">New Check</button>
+                <button id="newCheck">Reset</button>
             </div>
             
         </div>
@@ -2559,6 +2717,14 @@ document.addEventListener('DOMContentLoaded', function() {
     ['upload1', 'upload2'].forEach(id => {
         const uploadBox = document.getElementById(id);
         const fileInput = uploadBox.querySelector('.file-input');
+        
+          // Click handler for the upload box
+          uploadBox.addEventListener('click', (e) => {
+            // If click didn't originate from file input, trigger it
+            if (e.target !== fileInput) {
+                fileInput.click();
+            }
+        });
 
         uploadBox.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -2620,49 +2786,54 @@ let scale = 1;
 
         // Update the handleFileUpload function
         function handleFileUpload(e) {
-            const file = e.target.files[0];
-            if (!file) return;
+    const file = e.target.files[0];
+    if (!file) return;
 
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const img = new Image();
-                img.onload = () => {
-                    if (e.target.id === 'file1') {
-                        image1 = img;
-                        updateFileDetails(file, 'file1Details', img);
-                    } else {
-                        image2 = img;
-                        updateFileDetails(file, 'file2Details', img);
-                    }
-                    validateAndInit();
-                };
-                img.onerror = () => {
-                    showError('Error loading image');
-                    updateFileDetails(file, e.target.id === 'file1' ? 'file1Details' : 'file2Details', {});
-                };
-                img.src = event.target.result;
-            };
-            reader.onerror = () => {
-                showError('Error reading file');
-                updateFileDetails(file, e.target.id === 'file1' ? 'file1Details' : 'file2Details', {});
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function validateAndInit() {
-            const errorDiv = document.getElementById('error');
-            if (!image1 || !image2) return;
-
-            if (image1.width !== image2.width || image1.height !== image2.height) {
-                showError('Error: Images must have the same dimensions');
-                return;
-            }
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+            // Store visibility states before updating images
+            const imageBeforeVisible = document.getElementById('imageBefore').style.visibility !== 'hidden';
+            const imageAfterVisible = document.getElementById('imageAfter').style.visibility !== 'hidden';
             
-            errorDiv.classList.add('hidden');
-            initComparison();
-            setupLayerControls();
-            updateLayerNames(); // Add this line
-        }
+            // Store eye icon states
+            const eyeIcons = document.querySelectorAll('.eye-icon');
+            const eyeStates = Array.from(eyeIcons).map(icon => icon.textContent);
+
+            if (e.target.id === 'file1') {
+                image1 = img;
+                const imageBefore = document.getElementById('imageBefore');
+                imageBefore.src = event.target.result;
+                imageBefore.style.visibility = imageBeforeVisible ? 'visible' : 'hidden';
+                eyeIcons[1].textContent = imageBeforeVisible ? '👁️' : '👁️‍🗨️';
+                updateFileDetails(file, 'file1Details', img);
+            } else {
+                image2 = img;
+                const imageAfter = document.getElementById('imageAfter');
+                imageAfter.src = event.target.result;
+                imageAfter.style.visibility = imageAfterVisible ? 'visible' : 'hidden';
+                eyeIcons[0].textContent = imageAfterVisible ? '👁️' : '👁️‍🗨️';
+                updateFileDetails(file, 'file2Details', img);
+            }
+
+            // Update layer names
+            updateLayerNames();
+
+            // Ensure eye icons match visibility states
+            document.querySelectorAll('.eye-icon').forEach((icon, index) => {
+                const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
+                icon.textContent = image.style.visibility === 'hidden' ? '👁️‍🗨️' : '👁️';
+            });
+
+            validateAndInit();
+        };
+        img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+        
 
         // Update the image loading to ensure proper sizing
         function initComparison() {
@@ -2701,40 +2872,42 @@ let scale = 1;
 
         // Layer Controls
         function setupLayerControls() {
-            const eyeIcons = document.querySelectorAll('.eye-icon');
-            const opacitySliders = document.querySelectorAll('.opacity-slider');
-            const blendModeSelects = document.querySelectorAll('.blend-mode-select');
+    const eyeIcons = document.querySelectorAll('.eye-icon');
+    const opacitySliders = document.querySelectorAll('.opacity-slider');
+    const blendModeSelects = document.querySelectorAll('.blend-mode-select');
 
-            eyeIcons.forEach((icon, index) => {
-                icon.addEventListener('click', () => {
-                    // Invert the index to match the visual layer order
-                    const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
-                    if (icon.textContent === '👁️') {
-                        icon.textContent = '👁️‍🗨️';
-                        image.style.display = 'none';
-                    } else {
-                        icon.textContent = '👁️';
-                        image.style.display = 'block';
-                    }
-                });
-            });
-
-            opacitySliders.forEach((slider, index) => {
-                slider.addEventListener('input', () => {
-                    // Invert the index to match the visual layer order
-                    const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
-                    image.style.opacity = slider.value / 100;
-                });
-            });
-
-            blendModeSelects.forEach((select, index) => {
-                select.addEventListener('change', () => {
-                    // Invert the index to match the visual layer order
-                    const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
-                    image.style.mixBlendMode = select.value;
-                });
-            });
+    eyeIcons.forEach((icon, index) => {
+        const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
+        
+        // Initialize icon state based on current image visibility
+        if (image) {
+            icon.textContent = image.style.visibility === 'hidden' ? '👁️‍🗨️' : '👁️';
         }
+
+        icon.addEventListener('click', () => {
+            const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
+            if (!image) return;
+
+            const newVisibility = icon.textContent === '👁️' ? 'hidden' : 'visible';
+            image.style.visibility = newVisibility;
+            icon.textContent = newVisibility === 'hidden' ? '👁️‍🗨️' : '👁️';
+        });
+    });
+
+    opacitySliders.forEach((slider, index) => {
+        slider.addEventListener('input', () => {
+            const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
+            image.style.opacity = slider.value / 100;
+        });
+    });
+
+    blendModeSelects.forEach((select, index) => {
+        select.addEventListener('change', () => {
+            const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
+            image.style.mixBlendMode = select.value;
+        });
+    });
+}
 
         // Zoom Controls
         document.getElementById('zoomIn').addEventListener('click', () => {
@@ -2752,99 +2925,120 @@ let scale = 1;
         // Replace the zoom control functions
         // Update the adjustZoom function
         function adjustZoom(amount, mouseX = null, mouseY = null) {
-            const container = document.querySelector('.image-container');
-            const viewer = document.querySelector('.image-viewer');
-            const viewerRect = viewer.getBoundingClientRect();
-            
-            // Get current scale and calculate new scale
-            const newScale = Math.min(5, Math.max(0.1, scale + amount));
-            const scaleFactor = newScale / scale;
-            
-            // Get mouse position relative to viewer
-            const relativeX = mouseX !== null ? mouseX - viewerRect.left : viewerRect.width / 2;
-            const relativeY = mouseY !== null ? mouseY - viewerRect.top : viewerRect.height / 2;
-            
-            // Calculate point on content at mouse position
-            const contentX = (viewer.scrollLeft + relativeX) / scale;
-            const contentY = (viewer.scrollTop + relativeY) / scale;
-            
-            // Update scale
-            scale = newScale;
-            container.style.transform = `scale(${scale})`;
-            container.style.width = `${100 * scale}%`;
-            container.style.height = `${100 * scale}%`;
-            
-            // Calculate new scroll position to keep mouse point fixed
-            viewer.scrollLeft = contentX * scale - relativeX;
-            viewer.scrollTop = contentY * scale - relativeY;
-            
-            // Update overflow
-            viewer.style.overflow = scale > 1 ? 'auto' : 'hidden';
+    const container = document.querySelector('.image-container');
+    const viewer = document.querySelector('.image-viewer');
+    const viewerRect = viewer.getBoundingClientRect();
+    const imageBefore = document.getElementById('imageBefore');
+    const imageAfter = document.getElementById('imageAfter');
+    
+    // Calculate new scale
+    const newScale = Math.min(5, Math.max(0.1, scale + amount));
+    
+    // Get mouse position relative to viewer
+    const relativeX = mouseX !== null ? mouseX - viewerRect.left : viewerRect.width / 2;
+    const relativeY = mouseY !== null ? mouseY - viewerRect.top : viewerRect.height / 2;
+    
+    // Calculate point on content at mouse position
+    const contentX = (viewer.scrollLeft + relativeX) / scale;
+    const contentY = (viewer.scrollTop + relativeY) / scale;
+    
+    // Update scale
+    scale = newScale;
+    
+    // Apply scale to images instead of container
+    [imageBefore, imageAfter].forEach(img => {
+        if (img) {
+            img.style.transform = `scale(${scale})`;
+            img.style.transformOrigin = '0 0';
         }
+    });
+    
+    // Keep container size fixed
+    container.style.width = '100%';
+    container.style.height = '100%';
+    
+    // Calculate new scroll position to keep mouse point fixed
+    viewer.scrollLeft = contentX * scale - relativeX;
+    viewer.scrollTop = contentY * scale - relativeY;
+    
+    // Update overflow
+    viewer.style.overflow = scale > 1 ? 'auto' : 'hidden';
+}
 
-        // Update the resetZoom function
-        function resetZoom() {
-            const container = document.querySelector('.image-container');
-            const viewer = document.querySelector('.image-viewer');
-            
-            scale = 1;
-            container.style.transform = 'scale(1)';
-            container.style.width = '100%';
-            container.style.height = '100%';
-            viewer.scrollTo(0, 0);
+// Update the resetZoom function
+function resetZoom() {
+    const container = document.querySelector('.image-container');
+    const viewer = document.querySelector('.image-viewer');
+    const imageBefore = document.getElementById('imageBefore');
+    const imageAfter = document.getElementById('imageAfter');
+    
+    scale = 1;
+    
+    // Reset image transforms
+    [imageBefore, imageAfter].forEach(img => {
+        if (img) {
+            img.style.transform = 'scale(1)';
+            img.style.transformOrigin = '0 0';
         }
+    });
+    
+    // Reset container size
+    container.style.width = '100%';
+    container.style.height = '100%';
+    
+    // Reset scroll position
+    viewer.scrollTo(0, 0);
+    viewer.style.overflow = 'hidden';
+}
 
         // Layer Swapping
         document.getElementById('swapLayers').addEventListener('click', () => {
-            // Store file details before swapping
-            const file1 = document.getElementById('file1').files[0];
-            const file2 = document.getElementById('file2').files[0];
-            
-            // Swap images
-            [image1, image2] = [image2, image1];
-            document.getElementById('imageBefore').src = image1.src;
-            document.getElementById('imageAfter').src = image2.src;
-            
-            // Update file details using the stored file objects
-            updateFileDetails(file1, 'file1Details', image1);
-            updateFileDetails(file2, 'file2Details', image2);
-            
-            // Update layer names
-            updateLayerNames();
-            
-            // Reset all effects to normal
-            const blendModeSelects = document.querySelectorAll('.blend-mode-select');
-            const opacitySliders = document.querySelectorAll('.opacity-slider');
-            
-            // Reset blend modes to normal
-            blendModeSelects.forEach(select => {
-                select.value = 'normal';
-            });
-            
-            // Reset opacity to 100%
-            opacitySliders.forEach(slider => {
-                slider.value = 100;
-            });
-            
-            // Reset blend mode buttons
-            document.querySelectorAll('.blend-modes button').forEach(button => {
-                button.classList.remove('active');
-                if (button.dataset.mode === 'normal') {
-                    button.classList.add('active');
-                }
-            });
-            
-            // Reset current mode
-            currentMode = 'normal';
-            
-            // Apply normal blend mode to both images
-            const imageBefore = document.getElementById('imageBefore');
-            const imageAfter = document.getElementById('imageAfter');
-            imageBefore.style.mixBlendMode = 'normal';
-            imageAfter.style.mixBlendMode = 'normal';
-            imageBefore.style.opacity = 1;
-            imageAfter.style.opacity = 1;
-        });
+    // Store current visibility states
+    const imageBeforeVisible = document.getElementById('imageBefore').style.visibility !== 'hidden';
+    const imageAfterVisible = document.getElementById('imageAfter').style.visibility !== 'hidden';
+    
+    // Swap only the images
+    [image1, image2] = [image2, image1];
+    document.getElementById('imageBefore').src = image1.src;
+    document.getElementById('imageAfter').src = image2.src;
+    
+    // Restore visibility states
+    document.getElementById('imageBefore').style.visibility = imageBeforeVisible ? 'visible' : 'hidden';
+    document.getElementById('imageAfter').style.visibility = imageAfterVisible ? 'visible' : 'hidden';
+    
+    // Reset all effects to normal
+    const blendModeSelects = document.querySelectorAll('.blend-mode-select');
+    const opacitySliders = document.querySelectorAll('.opacity-slider');
+    
+    // Reset blend modes to normal
+    blendModeSelects.forEach(select => {
+        select.value = 'normal';
+    });
+    
+    // Reset opacity to 100%
+    opacitySliders.forEach(slider => {
+        slider.value = 100;
+    });
+    
+    // Reset blend mode buttons
+    document.querySelectorAll('.blend-modes button').forEach(button => {
+        button.classList.remove('active');
+        if (button.dataset.mode === 'normal') {
+            button.classList.add('active');
+        }
+    });
+    
+    // Reset current mode
+    currentMode = 'normal';
+    
+    // Apply normal blend mode to both images
+    const imageBefore = document.getElementById('imageBefore');
+    const imageAfter = document.getElementById('imageAfter');
+    imageBefore.style.mixBlendMode = 'normal';
+    imageAfter.style.mixBlendMode = 'normal';
+    imageBefore.style.opacity = 1;
+    imageAfter.style.opacity = 1;
+});
 
         // Add this new function to update layer names
         // Update the updateLayerNames function
@@ -2861,80 +3055,157 @@ let scale = 1;
 
         // File Details
         // Update the updateFileDetails function
-        function updateFileDetails(file, elementId, img) {
-            const details = document.getElementById(elementId);
-            if (!file || !img) {
-                details.innerHTML = '<p>No file selected</p>';
-                return;
-            }
+        function updateFileDetails(file, elementId, dimensions) {
+    const details = document.getElementById(elementId);
+    if (!file) {
+        details.innerHTML = '<p>No file selected</p>';
+        return;
+    }
 
-            // Format file size
-            let fileSize = 'N/A';
-            if (file.size) {
-                fileSize = file.size < 1024 * 1024 
-                    ? `${(file.size / 1024).toFixed(2)} KB` 
-                    : `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
-            }
+    // Format file size
+    let fileSize = 'N/A';
+    if (file.size) {
+        fileSize = file.size < 1024 * 1024 
+            ? `${(file.size / 1024).toFixed(2)} KB` 
+            : `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+    }
 
-            // Format date
-            let lastModified = 'N/A';
-            if (file.lastModified) {
-                try {
-                    lastModified = new Date(file.lastModified).toLocaleString();
-                } catch (e) {
-                    console.error('Error formatting date:', e);
-                }
-            }
-
-            details.innerHTML = `
-                <p><strong>File Name:</strong> ${file.name || 'N/A'}</p>
-                <p><strong>Size:</strong> ${fileSize}</p>
-                <p><strong>Dimensions:</strong> ${img.naturalWidth || 0}x${img.naturalHeight || 0}</p>
-                <p><strong>Type:</strong> ${file.type || 'N/A'}</p>
-                <p><strong>Last Modified:</strong> ${lastModified}</p>
-            `;
+    // Format date
+    let lastModified = 'N/A';
+    if (file.lastModified) {
+        try {
+            lastModified = new Date(file.lastModified).toLocaleString();
+        } catch (e) {
+            console.error('Error formatting date:', e);
         }
+    }
+
+    details.innerHTML = `
+        <p><strong>File Name:</strong> ${file.name || 'N/A'}</p>
+        <p><strong>Size:</strong> ${fileSize}</p>
+        <p><strong>Dimensions:</strong> ${dimensions.naturalWidth || 0}x${dimensions.naturalHeight || 0}</p>
+        <p><strong>Type:</strong> ${file.type || 'N/A'}</p>
+        <p><strong>Last Modified:</strong> ${lastModified}</p>
+    `;
+}
+
+function updateLayerNames() {
+    const layerNames = document.querySelectorAll('.layer-header span:not(.eye-icon)');
+    // Get file names from the file inputs
+    const file1Name = document.getElementById('file1').files[0]?.name || 'Layer 1';
+    const file2Name = document.getElementById('file2').files[0]?.name || 'Layer 2';
+    
+    // Update both the text content and title attribute for tooltips
+    layerNames.forEach((span, index) => {
+        const name = index === 0 ? file2Name : file1Name;
+        span.textContent = name;
+        span.setAttribute('title', name);
+    });
+}
 
         // New Check
         document.getElementById('newCheck').addEventListener('click', () => {
-    // Reset file inputs
-    document.getElementById('file1').value = '';
-    document.getElementById('file2').value = '';
+    // Reset file inputs and clear upload previews
+    ['upload1', 'upload2'].forEach(id => {
+        const uploadBox = document.getElementById(id);
+        const fileInput = uploadBox.querySelector('.file-input');
+        fileInput.value = '';
+        
+        // Remove preview images if they exist
+        const preview = uploadBox.querySelector('.upload-preview');
+        if (preview) preview.remove();
+        
+        // Show upload content again
+        uploadBox.querySelector('.upload-content').style.display = 'block';
+    });
+
+    // Clear images from viewer
+    const imageBefore = document.getElementById('imageBefore');
+    const imageAfter = document.getElementById('imageAfter');
+    const differenceCanvas = document.getElementById('differenceCanvas');
     
-    // Clear images
-    document.getElementById('imageBefore').src = '';
-    document.getElementById('imageAfter').src = '';
-    
+    // Clear and reset canvas
+    if (differenceCanvas) {
+        const ctx = differenceCanvas.getContext('2d');
+        ctx.clearRect(0, 0, differenceCanvas.width, differenceCanvas.height);
+        differenceCanvas.width = 0;
+        differenceCanvas.height = 0;
+        differenceCanvas.classList.add('hidden');
+    }
+
+    // Reset the image container to initial state
+    const imageContainer = document.querySelector('.image-container');
+    imageContainer.style.border = '2px dashed var(--border-color)';
+    imageContainer.style.background = 'var(--tool-bg)';
+    imageContainer.style.transform = 'scale(1)';
+    imageContainer.style.width = '100%';
+    imageContainer.style.height = '100%';
+    imageContainer.style.cssText = `
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-origin: 0 0;
+        min-height: 400px;
+        border: 2px dashed var(--border-color);
+        border-radius: 8px;
+        background: var(--tool-bg);
+        transform: scale(1);
+    `;
+
+    // Reset image container content
+    imageContainer.innerHTML = `
+        <img id="imageBefore" class="image">
+        <img id="imageAfter" class="image">
+        <canvas id="differenceCanvas" class="hidden"></canvas>
+    `;
+    // Reset layer names to default
+    const layerNames = document.querySelectorAll('.layer-header span:not(.eye-icon)');
+    layerNames[0].textContent = 'Layer 2';
+    layerNames[1].textContent = 'Layer 1';
     // Reset file details
     document.getElementById('file1Details').innerHTML = '<p>No file selected</p>';
     document.getElementById('file2Details').innerHTML = '<p>No file selected</p>';
     
-    // Reset blend modes and opacitySliders
-    const blendModeSelects = document.querySelectorAll('.blend-mode-select');
-    const opacitySliders = document.querySelectorAll('.opacity-slider');
     
-    blendModeSelects.forEach(select => {
+    // Reset blend modes
+    document.querySelectorAll('.blend-mode-select').forEach(select => {
         select.value = 'normal';
     });
     
-    opacitySliders.forEach(slider => {
+    // Reset opacity sliders
+    document.querySelectorAll('.opacity-slider').forEach(slider => {
         slider.value = 100;
     });
     
-    // Reset image visibility and blend modes
-    const imageBefore = document.getElementById('imageBefore');
-    const imageAfter = document.getElementById('imageAfter');
-    imageBefore.style.mixBlendMode = 'normal';
-    imageAfter.style.mixBlendMode = 'normal';
-    imageBefore.style.opacity = 1;
-    imageAfter.style.opacity = 1;
-    
-    // Reset eye icons
-    document.querySelectorAll('.eye-icon').forEach(icon => {
+    // Reset eye icons and image visibility
+    document.querySelectorAll('.eye-icon').forEach((icon, index) => {
         icon.textContent = '👁️';
+        const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
+        if (image) {
+            image.style.visibility = 'visible';
+        }
     });
     
-    // Reset zoom
+    // Reset blend mode buttons
+    document.querySelectorAll('.blend-modes button').forEach(button => {
+        button.classList.remove('active');
+        if (button.dataset.mode === 'normal') {
+            button.classList.add('active');
+        }
+    });
+    
+    // Reset image properties
+    [imageBefore, imageAfter].forEach(img => {
+        if (img) {
+            img.style.mixBlendMode = 'normal';
+            img.style.opacity = 1;
+            img.style.display = 'block';
+            img.style.visibility = 'visible'; // Add this line
+        }
+    });
+    
+    // Reset zoom and scale
+    scale = 1;
     resetZoom();
     
     // Clear any errors
@@ -2942,17 +3213,24 @@ let scale = 1;
     errorDiv.textContent = '';
     errorDiv.classList.add('hidden');
     
-    // Reset image variables
+    // Reset variables
     image1 = null;
     image2 = null;
-});
+    currentMode = 'normal';
+    isDragging = false;
+    
+    // Reset current mode
+    currentMode = 'normal';
 
+    // Re-initialize layer controls
+    setupLayerControls();
+});
         function showError(message) {
             const errorDiv = document.getElementById('error');
             errorDiv.textContent = message;
             errorDiv.classList.remove('hidden');
         }
-
+        
         // Update the panning function
         function setupPanning() {
             const viewer = document.querySelector('.image-viewer');
