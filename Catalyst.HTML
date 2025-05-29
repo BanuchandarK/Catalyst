@@ -4845,7 +4845,7 @@ let editModeLastClickTime = 0;
 function initApp() {
     // Load products from localStorage or use sample data
     const storedProducts = localStorage.getItem('productNotes');
-    products = storedProducts ? JSON.parse(storedProducts) : sampleProducts;
+    products = storedProducts ? JSON.parse(storedProducts) : [];
     
     // Ensure products is always an array
     if (!Array.isArray(products)) {
@@ -4862,7 +4862,14 @@ function initApp() {
     statsContainer.style.display = 'none';
     statsContainer.classList.remove('visible');
     statsToggle.classList.add('collapsed');
-    
+  
+    // Show no products state if there are no products
+    if (products.length === 0) {
+        document.getElementById('noProductsState').style.display = 'flex';
+    } else {
+        document.getElementById('noProductsState').style.display = 'none';
+    }
+
     // Render products and update stats
     renderProducts();
     updateStats();
@@ -5475,6 +5482,7 @@ function exportData() {
 }
 
 // Import data
+
 function importData() {
     const input = document.createElement('input');
     input.type = 'file';
@@ -5486,18 +5494,53 @@ function importData() {
         
         reader.onload = event => {
             try {
-                const data = JSON.parse(event.target.result);
+                const importedData = JSON.parse(event.target.result);
                 
-                if (data.products && Array.isArray(data.products)) {
-                    products = data.products;
+                if (importedData.products && Array.isArray(importedData.products)) {
+                    // Generate new unique IDs for imported products
+                    const maxCurrentId = Math.max(...products.map(p => p.id), 0);
+                    const newProducts = importedData.products.map((product, index) => ({
+                        ...product,
+                        id: maxCurrentId + index + 1 // Ensure unique IDs
+                    }));
+                    
+                    // Append new products to existing array
+                    products = [...products, ...newProducts];
+                    
+                    // Save to localStorage
                     localStorage.setItem('productNotes', JSON.stringify(products));
                     
                     // Rebuild folder structure
                     buildFolderStructure();
                     
+                    // Update UI
                     renderProducts();
                     updateStats();
-                    alert('Data imported successfully!');
+                    
+                    // Show success message
+                    const message = document.createElement('div');
+                    message.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: var(--primary-color);
+                        color: white;
+                        padding: 15px 25px;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                        z-index: 1000;
+                        animation: slideDown 0.3s ease-out;
+                    `;
+                    message.textContent = `${newProducts.length} products imported successfully!`;
+                    document.body.appendChild(message);
+                    
+                    // Remove message after 3 seconds
+                    setTimeout(() => {
+                        message.style.animation = 'slideUp 0.3s ease-out';
+                        setTimeout(() => message.remove(), 300);
+                    }, 3000);
+                    
                 } else {
                     throw new Error('Invalid data format');
                 }
