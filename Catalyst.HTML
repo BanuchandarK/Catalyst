@@ -2655,7 +2655,32 @@ button:hover {
     to { transform: translate(-50%, -100%); opacity: 0; }
 }
 
+#productNotes .description-column {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
+/* Style for description tooltip on hover */
+#productNotes .description-column:hover {
+    position: relative;
+}
+
+#productNotes .description-column:hover::after {
+    content: attr(title);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 1000;
+    background: var(--bg-color);
+    padding: 5px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    white-space: normal;
+    max-width: 300px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
 
 
 
@@ -2817,15 +2842,15 @@ button:hover {
     <div id="fileTable" style="display: none; margin-top: 15px;">
         <table class="compression-table">
             <thead>
-                <tr>
-                    <th>Name</th>
+    <tr>
+        <th>Name</th>
                     <th>Format</th>
                     <th>Size</th>
                     <th>Dimensions</th>
                     <th>Duration</th>
                     <th>Color Mode</th>
-                </tr>
-            </thead>
+    </tr>
+</thead>
             <tbody id="fileAnalyserList"></tbody>
         </table>
     </div>
@@ -2982,17 +3007,18 @@ button:hover {
                 <div class="table-container">
                     <table class="product-table" id="productsTable">
                         <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Dimensions</th>
-                                <th>File Size</th>
-                                <th>Format</th>
-                                <th>Bit Rate</th>
-                                <th>Duration</th>
-                                <th>FPS</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
+    <tr>
+        <th>Name</th>
+        <th>Dimensions</th>
+        <th>File Size</th>
+        <th>Format</th>
+        <th>Bit Rate</th>
+        <th>Duration</th>
+        <th>FPS</th>
+        <th class="description-column">Description</th>
+        <th class="actions-column">Actions</th>
+    </tr>
+</thead>
                         <tbody id="productsContainer">
                             <!-- Folder and product rows will be generated here -->
                         </tbody>
@@ -4710,100 +4736,52 @@ function updateLayerNames() {
 // Notes
 const sampleProducts = [
     {
-        id: 1,
-        name: "Premium Video Service",
-        dimensions: "1920x1080",
-        fileSizeLimit: "2GB",
-        format: "MP4",
-        bitRate: "10 Mbps",
-        duration: "60 min",
-        fps: "30",
-        description: "High quality streaming service for professional content creators. Supports 4K resolution and HDR color.",
-        folderPath: "Media/Video Products"
+      "id": 1748505763395,
+      "name": "APP Banner",
+      "dimensions": "1200x400",
+      "fileSizeLimit": "200KB",
+      "format": "JPG",
+      "bitRate": "-",
+      "duration": "-",
+      "fps": "-",
+      "description": "",
+      "folderPath": "Weekly Trade - OwnChannel"
     },
     {
-        id: 2,
-        name: "Audio Streaming Pro",
-        dimensions: "N/A",
-        fileSizeLimit: "500MB",
-        format: "MP3, FLAC",
-        bitRate: "320 kbps",
-        duration: "Unlimited",
-        fps: "N/A",
-        description: "Professional audio streaming service with lossless audio support. Perfect for music producers and audiophiles.",
-        folderPath: "Media/Audio Products"
+      "id": 1748505797837,
+      "name": "Carousel Akcniceny.cz",
+      "dimensions": "1080x1080",
+      "fileSizeLimit": "200KB",
+      "format": "JPG",
+      "bitRate": "-",
+      "duration": "-",
+      "fps": "-",
+      "description": "",
+      "folderPath": "Weekly Trade - OwnChannel"
     },
     {
-        id: 3,
-        name: "Mobile Video Package",
-        dimensions: "1280x720",
-        fileSizeLimit: "500MB",
-        format: "MP4, MOV",
-        bitRate: "5 Mbps",
-        duration: "30 min",
-        fps: "60",
-        description: "Optimized for mobile devices with adaptive bitrate streaming. Supports vertical video formats.",
-        folderPath: "Media/Video Products/Streaming"
+      "id": 1748507164225,
+      "name": "Profil řetězec",
+      "dimensions": "1000x340, 320x252",
+      "fileSizeLimit": "400KB",
+      "format": "JPG,PNG",
+      "bitRate": "-",
+      "duration": "-",
+      "fps": "-",
+      "description": "",
+      "folderPath": "Weekly Trade - OwnChannel"
     },
     {
-        id: 4,
-        name: "Podcast Hosting",
-        dimensions: "N/A",
-        fileSizeLimit: "1GB/episode",
-        format: "MP3, AAC",
-        bitRate: "128 kbps",
-        duration: "Unlimited",
-        fps: "N/A",
-        description: "Dedicated podcast hosting with analytics and distribution to all major platforms. Includes monetization options.",
-        folderPath: "Media/Audio Products"
-    },
-    {
-        id: 5,
-        name: "Ultra HD Video",
-        dimensions: "3840x2160",
-        fileSizeLimit: "5GB",
-        format: "MOV",
-        bitRate: "25 Mbps",
-        duration: "45 min",
-        fps: "60",
-        description: "4K resolution video service with high dynamic range and cinematic quality.",
-        folderPath: "Media/Video Products/Premium"
-    },
-    {
-        id: 6,
-        name: "Social Media Clip",
-        dimensions: "1080x1920",
-        fileSizeLimit: "300MB",
-        format: "MP4",
-        bitRate: "8 Mbps",
-        duration: "1 min",
-        fps: "30",
-        description: "Vertical format optimized for Instagram Reels, TikTok, and YouTube Shorts.",
-        folderPath: "Media/Video Products/Social"
-    },
-    {
-        id: 7,
-        name: "Documentary Footage",
-        dimensions: "4096x2160",
-        fileSizeLimit: "8GB",
-        format: "MOV",
-        bitRate: "30 Mbps",
-        duration: "120 min",
-        fps: "24",
-        description: "Cinematic footage with film grain and professional color grading.",
-        folderPath: "Media/Video Products/Premium/Documentary"
-    },
-    {
-        id: 8,
-        name: "Corporate Presentation",
-        dimensions: "1920x1080",
-        fileSizeLimit: "1GB",
-        format: "MP4",
-        bitRate: "12 Mbps",
-        duration: "45 min",
-        fps: "30",
-        description: "Professional corporate videos with motion graphics and animations.",
-        folderPath: "Media/Video Products/Business"
+      "id": 1748510713739,
+      "name": "Top Wallpapaer",
+      "dimensions": "1000x340, 320x252",
+      "fileSizeLimit": "400KB",
+      "format": "JPG",
+      "bitRate": "-",
+      "duration": "-",
+      "fps": "-",
+      "description": "",
+      "folderPath": "Weekly Trade - OwnChannel"
     }
 ];
 
@@ -4841,11 +4819,15 @@ let foldersToExpandForSearch = new Set();
 let editModeClickCount = 0;
 let editModeLastClickTime = 0;
 
+// First, add these constants at the beginning of your Notes code
+const ACTIVATION_CODE = 'catalyst2025';
+let isNotesActivated = false;
+
 // Initialize the app
 function initApp() {
     // Load products from localStorage or use sample data
     const storedProducts = localStorage.getItem('productNotes');
-    products = storedProducts ? JSON.parse(storedProducts) : [];
+    products = storedProducts ? JSON.parse(storedProducts) : sampleProducts;
     
     // Ensure products is always an array
     if (!Array.isArray(products)) {
@@ -4862,8 +4844,8 @@ function initApp() {
     statsContainer.style.display = 'none';
     statsContainer.classList.remove('visible');
     statsToggle.classList.add('collapsed');
-  
-    // Show no products state if there are no products
+    
+// Show no products state if there are no products
     if (products.length === 0) {
         document.getElementById('noProductsState').style.display = 'flex';
     } else {
@@ -4874,6 +4856,9 @@ function initApp() {
     renderProducts();
     updateStats();
     setupEventListeners();
+
+    // Initially hide admin elements
+    activateAdminMode(false);
 }
 
 // Toggle stats visibility
@@ -5174,9 +5159,16 @@ function renderProducts() {
     
     // Update search matches count
     searchMatches.textContent = matchCount;
+
+    // When creating table rows, modify the actions column visibility
+    const actionHeader = document.querySelector('#productsTable th:last-child');
+    if (actionHeader) {
+        actionHeader.style.display = isNotesActivated ? '' : 'none';
+    }
 }
 
 // Render a product row
+
 function renderProduct(product, level, isMatch) {
     const searchTerm = productSearch.value.toLowerCase();
     const productRow = document.createElement('tr');
@@ -5198,7 +5190,8 @@ function renderProduct(product, level, isMatch) {
         <td>${highlightSearchTerm(product.bitRate, searchTerm)}</td>
         <td>${highlightSearchTerm(product.duration, searchTerm)}</td>
         <td>${highlightSearchTerm(product.fps || 'N/A', searchTerm)}</td>
-        <td>
+        <td class="description-column">${highlightSearchTerm(product.description || '-', searchTerm)}</td>
+        <td class="actions-column">
             <div class="product-actions">
                 <div class="action-btn mini edit-btn" title="Edit">
                     <i class="fas fa-edit"></i>
@@ -5223,6 +5216,13 @@ function renderProduct(product, level, isMatch) {
             deleteProduct(product.id);
         });
     }
+
+    // Update visibility based on edit mode
+    const descriptionColumn = productRow.querySelector('.description-column');
+    const actionsColumn = productRow.querySelector('.actions-column');
+    
+    descriptionColumn.style.display = '';
+    actionsColumn.style.display = isNotesActivated ? '' : 'none';
 }
 
 // Update statistics
@@ -5410,7 +5410,17 @@ function toggleEditMode() {
             
             // Show empty state
             document.getElementById('noProductsState').style.display = 'flex';
-            
+            // Update column visibility
+    const descriptionColumns = document.querySelectorAll('.description-column');
+    const descriptionHeader = document.querySelector('th.description-column');
+    
+    descriptionColumns.forEach(col => {
+        col.style.display = isEditMode ? 'none' : '';
+    });
+    
+    if (descriptionHeader) {
+        descriptionHeader.style.display = isEditMode ? 'none' : '';
+    }
             // Show confirmation message
             const message = document.createElement('div');
             message.style.cssText = `
@@ -5577,7 +5587,23 @@ function setupEventListeners() {
     
     
     // Search functionality
-    productSearch.addEventListener('input', renderProducts);
+    productSearch.addEventListener('input', function(e) {
+        const searchValue = e.target.value.toLowerCase().trim();
+        
+        // Check for activation code
+        if (searchValue === ACTIVATION_CODE) {
+            activateAdminMode(true);
+            // Clear the search field
+            e.target.value = '';
+        } else if (isNotesActivated && searchValue === 'deactivate') {
+            activateAdminMode(false);
+            // Clear the search field
+            e.target.value = '';
+        } else {
+            // Normal search functionality
+            renderProducts();
+        }
+    });
     
     // Close modal
     closeModal.addEventListener('click', closeEditForm);
@@ -5588,6 +5614,56 @@ function setupEventListeners() {
             closeEditForm();
         }
     });
+}
+
+// Add this new function to handle admin mode activation
+function activateAdminMode(activate) {
+    isNotesActivated = activate;
+    
+    // Get all relevant elements
+    const importBtn = document.getElementById('importBtn');
+    const editToggle = document.getElementById('editToggle');
+    const actionColumns = document.querySelectorAll('.actions-column');
+    const actionHeader = document.querySelector('th.actions-column');
+    
+    // Set visibility based on activation status
+    const display = activate ? '' : 'none';
+    
+    // Update elements visibility
+    importBtn.style.display = display;
+    editToggle.style.display = display;
+    actionHeader.style.display = display;
+    actionColumns.forEach(col => col.style.display = display);
+
+    // If deactivating, ensure edit mode is turned off and show description
+    if (!activate && isEditMode) {
+        toggleEditMode();
+    }
+}
+
+// Add this function to show activation status message
+function showActivationMessage(activated) {
+    const message = document.createElement('div');
+    message.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary-color);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 1000;
+        animation: slideDown 0.3s ease-out;
+    `;
+    
+    
+    // Remove message after 3 seconds
+    setTimeout(() => {
+        message.style.animation = 'slideUp 0.3stApp); ease-out';
+        setTimeout(() => message.remove(), 300);
+    }, 3000);
 }
 
 // Initialize the application when the page loads
