@@ -1,3 +1,7 @@
+
+
+
+
 <!--
 '
 '                                                 ,:                                      
@@ -72,9 +76,19 @@ Update Log: Enhanced Text compare, Added new case convertor, Added new lorem ips
 Version 3.0.0 || Date: 16/02/2025
 Version log: Text Compare,  Case convertor, Lorepsum generator, Double space cheker 
 Update Log: AddedImage compressor, Added File Analyser, Added a ***, Added new theme switcher, Ignored macosx and DS folder from the results.
-Version 3.0.1 || Date: 25/02/2025
+Version 3.0.1 || Date: 24/02/2025
 Version log: Text Compare,  Case convertor, Lorepsum generator, Double space cheker , File analyser
 Update Log: Removed Image compressor, Updated Text compare UI, Removed capitalised case for Case convertor.
+Version 4.0.0 || Date: 25/02/2025
+Version log: Text Compare,  Case convertor, Lorepsum generator, Double space cheker , File analyser, Image compare
+Update Log: Added Image compare with Advanced layer settings.
+Version 4.0.1 || Date: 27/05/2025
+Version log: Text Compare,  Case convertor, Lorepsum generator, Double space cheker , File analyser, Image compare
+Update Log: File analyser with Filter and sort settings.
+Version 5.0.0 || Date: 27/05/2025
+Version log: Text Compare,  Case convertor, Lorepsum generator, Double space cheker , File analyser, Image compare, Notes
+Update Log: Notes with deatils for the technical specifications for Static and video files.
+
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -84,6 +98,7 @@ Update Log: Removed Image compressor, Updated Text compare UI, Removed capitalis
     <title>Catalyst - Multi-Tool Suite</title>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --bg-color: #ffffff;
@@ -870,7 +885,7 @@ button:hover {
 
 #fileAnalyser .compression-table th:nth-child(3),
 #fileAnalyser .compression-table td:nth-child(3) {
-    width: 10%; /* Size column */
+    width: 20%; /* Size column */
 }
 
 #fileAnalyser .compression-table th:nth-child(4),
@@ -885,7 +900,7 @@ button:hover {
 
 #fileAnalyser .compression-table th:nth-child(6),
 #fileAnalyser .compression-table td:nth-child(6) {
-    width: 15%; /* Color Mode column */
+    width: 5%; /* Color Mode column */
 }
 
 #fileAnalyser .folder {
@@ -1117,6 +1132,8 @@ button:hover {
     transform: translateY(-1px);
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
+
+
 <!--EE Styles-->
 .easter-egg-popup {
     position: fixed;
@@ -1132,6 +1149,72 @@ button:hover {
     border: 2px solid var(--primary-color);
     position: relative;
     overflow: hidden;
+}
+#fileTable .filter-row th {
+    padding: 5px;
+    background: var(--tool-bg);
+}
+
+#fileTable .column-filter {
+    width: 100%;
+    padding: 4px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+#fileTable .size-filter {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+#fileTable .filter-operator,
+#fileTable .size-unit {
+    padding: 4px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+#fileTable .size-value {
+    width: 80px;
+    padding: 4px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+#fileTable .sort-icon {
+    margin-left: 5px;
+    opacity: 0.5;
+}
+
+#fileTable th.sorted-asc .sort-icon::after {
+    content: '↑';
+}
+
+#fileTable th.sorted-desc .sort-icon::after {
+    content: '↓';
+}
+
+:root {
+    --highlight-color-rgb: 255, 0, 0; /* Changed from blue to red */
+}
+
+[data-theme="dark"] {
+    --highlight-color-rgb: 255, 0, 0; /* Changed from blue to red */
+}
+
+#fileTable tr.size-highlight {
+    transition: background-color 0.3s ease;
+}
+
+#fileTable tr.size-highlight:hover {
+    background-color: rgba(var(--highlight-color-rgb), 0.2) !important;
 }
 
 /* Add a pseudo-element for the background pattern */
@@ -1291,6 +1374,1294 @@ button:hover {
     100% { transform: translateX(-100%); }
 }
 
+#imageDiff .upload-section {
+    margin-bottom: 20px;
+    background: var(--tool-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#imageDiff .controls {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#imageDiff .main-content {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    gap: 20px;
+}
+
+#imageDiff .image-compare {
+    position: relative;
+    margin-top: 45px; /* Add margin to accommodate zoom controls */
+    margin-bottom: 20px;
+    background: var(--tool-bg);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+#imageDiff .image-viewer {
+    position: relative;
+    overflow: auto;
+    height: 600px;
+    border-radius: 8px;
+    background: var(--tool-bg);
+}
+
+#imageDiff .image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-origin: 0 0;
+    min-height: 400px;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    background: var(--tool-bg);
+}
+#imageDiff .image-container::before {
+    content: 'Canvas Background';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-color);
+    opacity: 0.5;
+    font-size: 1.2em;
+    pointer-events: none;
+}
+
+#imageDiff .image:not([src]) {
+    display: none;
+}
+
+#imageDiff .image[src] + #imageDiff .image-container::before {
+    display: none;
+}
+
+#imageDiff .image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#imageDiff .advanced-settings {
+    background: var(--tool-bg);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+}
+
+#imageDiff .advanced-settings summary {
+    padding: 12px 15px;
+    cursor: pointer;
+    background: var(--tool-bg);
+    color: var(--text-color);
+    border-radius: 8px;
+    user-select: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+/* Add arrow indicator */
+#imageDiff .advanced-settings summary::before {
+    content: '▶';
+    display: inline-block;
+    transition: transform 0.3s;
+    font-size: 12px;
+    width: 12px;
+    text-align: center;
+}
+
+/* Rotate arrow when open */
+#imageDiff .advanced-settings[open] summary::before {
+    transform: rotate(90deg);
+}
+#imageDiff .advanced-settings summary:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+#imageDiff .advanced-settings[open] summary {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#imageDiff .layer-controls {
+    padding: 15px;
+    background: var(--tool-bg);
+    margin: 0;
+}
+
+#imageDiff .layer-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+#imageDiff .layer-item:hover {
+    border-color: var(--primary-color);
+    background: rgba(var(--primary-color-rgb), 0.05);
+}
+
+#imageDiff .layer-item:last-child {
+    margin-bottom: 0;
+}
+
+#imageDiff .zoom-controls {
+    position: absolute;
+    top: -40px; /* Position above the image viewer */
+    right: 0;
+    z-index: 1000;
+    background: var(--tool-bg);
+    padding: 4px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    display: flex;
+    gap: 2px;
+    border: 1px solid var(--border-color);
+}
+
+#imageDiff .zoom-controls button {
+    width: 24px; /* Reduced from 28px */
+    height: 24px; /* Reduced from 28px */
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px; /* Reduced from 16px */
+    background: transparent;
+    color: var(--text-color);
+    min-width: unset; /* Override any minimum width */
+}
+
+#imageDiff .zoom-controls button:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+#imageDiff .zoom-controls #resetZoom {
+    width: auto;
+    padding: 0 6px; /* Reduced from 8px */
+    font-size: 11px; /* Reduced from 12px */
+}
+
+#imageDiff .file-details {
+    position: sticky;
+    top: 20px;
+}
+
+#imageDiff .file-info {
+    background: var(--tool-bg);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+}
+
+#imageDiff button {
+    padding: 8px 16px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#imageDiff button:hover {
+    filter: brightness(0.9);
+    transform: translateY(-1px);
+}
+
+#imageDiff .hidden {
+    display: none;
+}
+/*Image diff checker*/
+#imageDiff .error {
+    color: #f44336;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    background: var(--tool-bg);
+    border: 1px solid #f44336;
+}
+#imageDiff .upload-section {
+    margin-bottom: 20px;
+}
+
+#imageDiff .upload-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+#imageDiff .upload-box {
+    position: relative;
+    min-height: 200px;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    background: var(--tool-bg);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#imageDiff .upload-box:hover {
+    border-color: var(--primary-color);
+    background: rgba(var(--primary-color-rgb), 0.05);
+}
+
+#imageDiff .upload-box.dragover {
+    border-color: var(--primary-color);
+    background: rgba(var(--primary-color-rgb), 0.1);
+    transform: scale(1.02);
+}
+
+#imageDiff .file-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#imageDiff .upload-content {
+    text-align: center;
+    pointer-events: none;
+}
+
+#imageDiff .upload-icon {
+    width: 48px;
+    height: 48px;
+    fill: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+#imageDiff .upload-text h3 {
+    margin: 0 0 8px;
+    color: var(--text-color);
+    font-size: 1.2em;
+}
+
+#imageDiff .upload-text p {
+    margin: 0;
+    color: var(--text-color);
+    opacity: 0.8;
+    font-size: 0.9em;
+}
+
+#imageDiff .upload-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+    background: var(--tool-bg);
+}
+#imageDiff .upload-details {
+    background: var(--tool-bg);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+}
+
+#imageDiff .upload-details summary {
+    padding: 12px 15px;
+    cursor: pointer;
+    background: var(--tool-bg);
+    color: var(--text-color);
+    border-radius: 8px;
+    user-select: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#imageDiff .upload-details summary::before {
+    content: '▶';
+    display: inline-block;
+    transition: transform 0.3s;
+    font-size: 12px; /* Make arrow size consistent */
+    width: 12px; /* Fixed width to prevent layout shift */
+}
+
+#imageDiff .upload-details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+#imageDiff .upload-details summary:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+#imageDiff .upload-details[open] summary {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#imageDiff .upload-section {
+    padding: 15px;
+    margin: 0;
+}
+
+#imageDiff .upload-box {
+    min-height: 150px;
+    max-height: 150px;
+}
+#imageDiff #newCheck {
+    background-color: #f44336;
+    color: white;
+}
+
+#imageDiff #newCheck:hover {
+    background-color: #d32f2f;
+}
+#imageDiff .layer-header span:not(.eye-icon) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px; /* Adjust this value based on your layout */
+    display: inline-block;
+    cursor: default;
+    
+}
+#imageDiff .layer-header span:not(.eye-icon):hover::after {
+    content: attr(title); /* Uses the title attribute as tooltip content */
+    position: absolute;
+    left: 0;
+    top: -30px;
+    background: var(--tool-bg);
+    color: var(--text-color);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color);
+    z-index: 1000;
+}
+
+#imageDiff .layer-header .eye-icon {
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s ease;
+}
+
+#imageDiff .layer-header .eye-icon:hover {
+    transform: scale(1.1);
+}
+
+#imageDiff .layer-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0; /* Add this to allow text truncation */
+    flex: 1; /* Allow header to take available space */
+    cursor: default;
+}
+
+#imageDiff .blend-mode-select {
+    width: 120px; /* Set fixed width for the select element */
+    min-width: 120px; /* Ensure minimum width */
+    flex-shrink: 0; /* Prevent select from shrinking */
+}
+#imageDiff .blend-modes {
+    display: flex;
+    gap: 10px; /* Add gap between buttons */
+    flex-wrap: wrap;
+}
+
+#imageDiff .blend-modes button {
+    padding: 8px 16px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+#imageDiff .blend-modes button:hover {
+    filter: brightness(0.9);
+    transform: translateY(-1px);
+}
+
+
+
+/* PRODUCT NOTES STYLES */
+        #productNotes .app-container {
+    max-width: 2000px;
+    margin: 0 auto;
+    background-color: var(--tool-bg);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-color);
+}
+        
+        #productNotes .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #7209b7 100%);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #productNotes .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 90% 10%, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        #productNotes .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        #productNotes .logo i {
+            font-size: 32px;
+            color: #ffd700;
+        }
+        
+        #productNotes .logo h1 {
+            font-weight: 800;
+            font-size: 28px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, #d4e0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        #productNotes .controls {
+            display: flex;
+            gap: 12px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        #productNotes .btn {
+            padding: 12px 22px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            font-size: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        #productNotes .btn-primary {
+    background: transparent;
+    color: var(--text-color);
+    border: 2px solid var(--primary-color);
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+        
+[data-theme="light"] #productNotes .btn-primary {
+    background: transparent;
+    color: var(--text-color);
+}
+
+[data-theme="dark"] #productNotes .btn-primary {
+    background: transparent;
+    color: var(--text-color);
+}
+
+        #productNotes .btn-primary:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+        
+        #productNotes .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            backdrop-filter: blur(5px);
+        }
+        
+        #productNotes .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: var(--border-color);
+            transform: translateY(-2px);
+        }
+        
+        #productNotes .btn-edit {
+            transition: all 0.3s ease;
+            background: linear-gradient(to right, #ff9800, #e68a00);
+            color: var(--text-color);
+        }
+        
+        #productNotes .btn-edit:hover {
+            background: linear-gradient(to right, #e68a00, #d67d00);
+            transform: translateY(-2px);
+            opacity: 0.8;
+        }
+        
+        #productNotes .main-content {
+            padding: 25px;
+            background-color: var(--tool-bg);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #productNotes .table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--tool-bg);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+        
+        #productNotes .product-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            min-width: 1000px;
+        }
+        
+        #productNotes .product-table th {
+    background: var(--primary-color);
+    padding: 18px 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    user-select: none;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+        
+        #productNotes .product-table th:hover {
+            background: null;
+        }
+        
+        #productNotes .product-table th i {
+            margin-left: 8px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        
+       #productNotes .product-table td {
+    padding: 16px 15px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    position: relative;
+}
+        
+        #productNotes .product-table tr {
+    background-color: var(--tool-bg);
+    transition: background-color 0.2s;
+}
+#productNotes .stats-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    padding: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-color);
+    margin-top: 20px;
+}
+
+#productNotes .stats-toggle::after {
+    content: '▼';
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+#productNotes .stats-toggle.collapsed::after {
+    transform: rotate(-90deg);
+}
+
+#productNotes .stats-container {
+    display: none;  /* Hidden by default */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    background: var(--tool-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+#productNotes .stats-container.visible {
+    display: grid;
+}
+       #productNotes .product-table tr:nth-child(even) {
+    background-color: rgba(var(--primary-color-rgb), 0.05);
+}
+        
+        #productNotes .product-table tr:hover {
+    background-color: rgba(var(--primary-color-rgb), 0.1);
+}
+        
+        #productNotes .folder-row {
+            background: var(--tool-bg) !important;
+            font-weight: 700;
+        }
+    
+        
+        #productNotes.folder-toggle {
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.15);
+            text-align: center;
+            line-height: 26px;
+            margin-right: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        #productNotes .folder-row.expanded .folder-toggle {
+            transform: rotate(90deg);
+            
+        }
+        
+        #productNotes .folder-icon {
+            font-size: 18px;
+            margin-right: 12px;
+        }
+        
+        #productNotes .folder-icon-top {
+            color: #ffd700 !important;
+        }
+        
+        #productNotes .folder-icon-sub {
+            color: var(--primary-color) !important;
+        }
+        
+        #productNotes .folder-icon-deep {
+            color: #f44336 !important;
+        }
+        
+        #productNotes .product-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+        
+        #productNotes .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: rgba(var(--primary-color-rgb), 0.1);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        #productNotes .action-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
+        }
+        
+        #productNotes .action-btn.delete-btn:hover, 
+        #productNotes .action-btn.delete-folder-btn:hover {
+            background: #d32f2f !important;
+            color: white;
+        }
+        
+        #productNotes .highlight {
+            background-color: #ffd700;
+            color: #000;
+            font-weight: bold;
+            padding: 0 4px;
+            border-radius: 4px;
+            animation: highlightPulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes highlightPulse {
+            0%, 100% { background-color: #ffd700; }
+            50% { background-color: #ffec8b; }
+        }
+        
+        #productNotes .match-highlight {
+            background-color: rgba(76, 175, 80, 0.3) !important;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+        }
+        
+        #productNotes .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        #productNotes .stats-card {
+            background: var(--tool-bg);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        #productNotes .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.2);
+        }
+        
+        #productNotes .stats-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(67, 97, 238, 0.15);
+            font-size: 22px;
+            color: var(--primary-color);
+        }
+        
+        #productNotes .stats-content {
+            flex: 1;
+        }
+        
+        #productNotes .stats-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            background: linear-gradient(to right, #aab4e0, #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        #productNotes .stats-label {
+            font-size: 14px;
+            color: var(--text-color);
+            opacity: 0.7;
+            font-weight: 500;
+        }
+        
+        #productNotes .footer {
+            padding: 20px 30px;
+            background-color: #1f2433;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+            position: relative;
+        }
+        
+        #productNotes .footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+        }
+        
+        #productNotes .table-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        #productNotes .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        #productNotes .search-box input {
+    padding: 14px 20px 14px 45px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--tool-bg);
+    color: var(--text-color);
+    width: 100%;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+        
+        #productNotes .search-box input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.3);
+    outline: none;
+}
+        
+        #productNotes .search-box i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+        
+        #productNotes .path-hint {
+            font-size: 13px;
+                color: var(--text-color);
+                opacity: 0.7;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        .folder-path-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            color: #aab4e0;
+            font-size: 14px;
+        }
+        
+        /* Modal styles */
+        #productNotes .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+        
+        #productNotes .modal-content {
+            background: var(--tool-bg);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 0;
+            position: relative;
+            border: 1px solid var(--border-color);
+            scrollbar-width: none;
+        }
+        
+        #productNotes .modal-content::-webkit-scrollbar {
+            display: none;
+        }
+        
+       #productNotes .modal-header {
+            padding: 5px 30px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #7209b7 100%);
+            border-radius: 16px 16px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #productNotes .modal-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 90% 10%, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        #productNotes .modal-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        #productNotes .close-modal {
+            position: relative;
+            top: 0px;
+            right: 0px;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.8);
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 2;
+        }
+        
+        #productNotes .close-modal:hover {
+            color: white;
+            background: rgba(255,255,255,0.15);
+        }
+        
+        #productNotes .modal-body {
+            padding: 25px;
+        }
+        
+        #productNotes .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        #productNotes .form-group {
+            margin-bottom: 20px;
+        }
+        
+        #productNotes .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-color);
+    opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        #productNotes .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: var(--tool-bg);
+            color: var(--text-color);
+        }
+        
+        #productNotes .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3);
+            background: var(--tool-bg);
+        }
+        
+        #productNotes .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 15px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(67, 97, 238, 0.2);
+        }
+        
+        #productNotes .btn-cancel {
+            background: rgba(var(--primary-color-rgb), 0.1);
+            color: var(--text-color);
+            padding: 12px 20px;
+        }
+        
+        #productNotes .btn-cancel:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        #productNotes .btn-save {
+            background: linear-gradient(to right, #4caf50, #449d48);
+            color: white;
+            padding: 12px 25px;
+        }
+        
+        #productNotes .btn-save:hover {
+            background: linear-gradient(to right, #449d48, #3d8b40);
+        }
+
+/* Updated no-products state */
+        #productNotes .no-products {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+             background: var(--tool-bg);
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 2px dashed var(--border-color);
+            min-height: 300px;
+        }
+        
+        #productNotes .no-products i {
+            font-size: 20px;
+        }
+
+        #productNotes .no-products h3,
+#productNotes .no-products p {
+    color: var(--text-color);
+}
+
+        #productNotes .no-products h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+            font-size: 26px;
+            font-weight: 600;
+        }
+        
+        #productNotes .no-products p {
+            margin-bottom: 25px;
+            color: #aab4e0;
+            font-size: 18px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+        
+        /* Smaller button for no-products state */
+        #productNotes .btn-sm {
+            padding: 10px 20px;
+            font-size: 15px;
+        }
+        
+        #productNotes .glow {
+            animation: glowEffect 2s infinite alternate;
+        }
+        
+        @keyframes glowEffect {
+            from {
+                box-shadow: 0 0 5px rgba(67, 97, 238, 0.5);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(67, 97, 238, 0.8);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #productNotes .table-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            #productNotes .search-box {
+                max-width: 100%;
+            }
+            
+            #productNotes .controls {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            #productNotes .btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            #productNotes .modal-body {
+                padding: 20px;
+            }
+            
+            #productNotes .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            #productNotes .modal-body {
+                padding: 15px;
+            }
+            
+            #productNotes .form-actions {
+                padding-top: 15px;
+                margin-top: 10px;
+            }
+        }
+        
+        /* Action buttons mini style */
+        #productNotes.action-btn.mini {
+            width: 30px;
+            height: 30px;
+            font-size: 14px;
+        }
+        
+        /* Updated column widths */
+        #productNotes .product-table th:nth-child(1),
+        #productNotes .product-table td:nth-child(1) {
+            width: 20%;
+        }
+        
+        #productNotes .product-table th:nth-child(2),
+        #productNotes .product-table td:nth-child(2) {
+            width: 25%;
+        }
+        
+        #productNotes .product-table th:nth-child(3),
+        #productNotes .product-table td:nth-child(3) {
+            width: 8%;
+        }
+        
+        #productNotes .product-table th:nth-child(4),
+        #productNotes .product-table td:nth-child(4) {
+            width: 8%;
+        }
+        
+        #productNotes .product-table th:nth-child(5),
+        #productNotes .product-table td:nth-child(5) {
+            width: 7%;
+        }
+        
+        #productNotes .product-table th:nth-child(6),
+        #productNotes .product-table td:nth-child(6) {
+            width: 8%;
+        }
+        
+        #productNotes .product-table th:nth-child(7),
+        #productNotes .product-table td:nth-child(7) {
+            width: 8%;
+        }
+        
+        #productNotes .product-table th:nth-child(8),
+        #productNotes .product-table td:nth-child(8) {
+            width: 8%;
+        }
+        
+        /* Folder row colspan fix */
+        #productNotes .folder-row td {
+            padding-left: 15px !important;
+        }
+        
+        /* Folder hierarchy visualization */
+        #productNotes .folder-hierarchy {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 20px;
+            background: linear-gradient(to right, rgba(67, 97, 238, 0.15), transparent);
+            pointer-events: none;
+        }
+        
+        #productNotes .folder-row .folder-toggle {
+            position: relative;
+            z-index: 2;
+            
+        }
+        
+        #productNotes .folder-row .folder-icon {
+            position: relative;
+            z-index: 2;
+        }
+        
+        #productNotes .folder-row .folder-name {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Product hierarchy visualization */
+        #productNotes .product-row .folder-indent {
+            display: inline-block;
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(to right, rgba(67, 97, 238, 0.1), transparent);
+            position: absolute;
+            left: 0;
+            top: 0;
+            pointer-events: none;
+        }
+        
+        /* Improved folder icons */
+        #productNotes .folder-icon-top {
+            color: #ffd700 !important;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+        }
+        
+        #productNotes .folder-icon-sub {
+            color: var(--primary-color) !important;
+    text-shadow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
+        }
+        
+        #productNotes .folder-icon-deep {
+            color: #f44336 !important;
+            text-shadow: 0 0 8px rgba(244, 67, 54, 0.5);
+        }
+            @keyframes slideDown {
+    from { transform: translate(-50%, -100%); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translate(-50%, 0); opacity: 1; }
+    to { transform: translate(-50%, -100%); opacity: 0; }
+}
+
+
+
+
+
+
+
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/diff-match-patch/20121119/diff_match_patch.js"></script>
 </head>
@@ -1311,8 +2682,10 @@ button:hover {
         <button class="tablinks" onclick="openTool(event, 'caseConverter')">Case Converter</button>
         <button class="tablinks" onclick="openTool(event, 'loremGen')">Lorem Ipsum Generator</button>
         <button class="tablinks" onclick="openTool(event, 'spaceCheck')">Double Space Checker</button>
-        
         <button class="tablinks" onclick="openTool(event, 'fileAnalyser')">File Analyser</button>
+        <button class="tablinks" onclick="openTool(event, 'imageDiff')">Image Compare</button>
+        <button class="tablinks" onclick="openTool(event, 'productNotes')">Notes</button>
+
     </div>
 
     <!-- Text Compare Tool -->
@@ -1456,8 +2829,303 @@ button:hover {
             <tbody id="fileAnalyserList"></tbody>
         </table>
     </div>
-    
     </div>
+
+<!-- Image Diff Tool -->
+<div id="imageDiff" class="tabcontent">
+    <div class="tool-section">
+        <details class="upload-details">
+            <summary>Upload Images</summary>
+            <div class="upload-section">
+                <div class="upload-container">
+                    <div class="upload-box" id="upload1">
+                        <input type="file" id="file1" accept="image/*" class="file-input">
+                        <div class="upload-content">
+                            <svg class="upload-icon" viewBox="0 0 24 24">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                            <div class="upload-text">
+                                <h3>Image 1</h3>
+                                <p>Drag & drop or click to upload</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="upload-box" id="upload2">
+                        <input type="file" id="file2" accept="image/*" class="file-input">
+                        <div class="upload-content">
+                            <svg class="upload-icon" viewBox="0 0 24 24">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                            <div class="upload-text">
+                                <h3>Image 2</h3>
+                                <p>Drag & drop or click to upload</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <div class="controls">
+            <div class="blend-modes">
+                <button data-mode="normal">Normal</button>
+                <button data-mode="difference">Difference</button>
+                <button data-mode="multiply">Multiply</button>
+                <button data-mode="screen">Screen</button>
+                <button id="swapLayers">Swap Layers</button>
+                <button id="newCheck">Reset</button>
+            </div>
+            
+        </div>
+
+        <div id="error" class="hidden"></div>
+
+        <div class="main-content">
+            <div class="image-compare">
+                <div class="zoom-controls">
+                    <button id="zoomIn" title="Zoom In">+</button>
+                    <button id="zoomOut" title="Zoom Out">−</button>
+                    <button id="resetZoom" title="Reset Zoom">Reset</button>
+                </div>
+                <div class="image-viewer">
+                    <div class="image-container">
+                        <img id="imageBefore" class="image">
+                        <img id="imageAfter" class="image">
+                        <canvas id="differenceCanvas" class="hidden"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div>
+                
+                <details class="advanced-settings">
+                
+                    <summary>Advanced Layer Settings</summary>
+                    
+                    <div class="layer-controls">
+                        <div class="layer-item">
+                            <div class="layer-header">
+                                <span class="eye-icon">👁️</span>
+                                <span>Layer 2</span>
+                            </div>
+                            <input type="range" class="opacity-slider" min="0" max="100" value="100">
+                            <select class="blend-mode-select">
+                                <option value="normal">Normal</option>
+                                <option value="multiply">Multiply</option>
+                                <option value="screen">Screen</option>
+                                <option value="overlay">Overlay</option>
+                                <option value="difference">Difference</option>
+                                <option value="color-dodge">Color Dodge</option>
+                                <option value="color-burn">Color Burn</option>
+                                <option value="hard-light">Hard Light</option>
+                                <option value="soft-light">Soft Light</option>
+                                <option value="exclusion">Exclusion</option>
+                            </select>
+                        </div>
+                        <div class="layer-item">
+                            <div class="layer-header">
+                                <span class="eye-icon">👁️</span>
+                                <span>Layer 1</span>
+                            </div>
+                            <input type="range" class="opacity-slider" min="0" max="100" value="100">
+                            <select class="blend-mode-select">
+                                <option value="normal">Normal</option>
+                                <option value="multiply">Multiply</option>
+                                <option value="screen">Screen</option>
+                                <option value="overlay">Overlay</option>
+                                <option value="difference">Difference</option>
+                                <option value="color-dodge">Color Dodge</option>
+                                <option value="color-burn">Color Burn</option>
+                                <option value="hard-light">Hard Light</option>
+                                <option value="soft-light">Soft Light</option>
+                                <option value="exclusion">Exclusion</option>
+                            </select>
+                        </div>
+                    </div>
+                </details>
+                <div class="file-details">
+                    <div class="file-info" id="file1Details"></div>
+                    <div class="file-info" id="file2Details"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- NOTES TOOL -->
+    <div id="productNotes" class="tabcontent">
+    <div class="app-container">
+        <div class="main-content">
+            <div class="table-controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="productSearch" placeholder="Search products or folders...">
+                </div>
+                <div class="controls">
+                    <button class="btn btn-primary glow" id="newProductBtn">
+                        <i class="fas fa-plus"></i> Add Product
+                    </button>
+                    <button class="btn btn-outline" id="importBtn">
+                        <i class="fas fa-file-import"></i> Import
+                    </button>
+                    <button class="btn btn-outline" id="exportBtn">
+                        <i class="fas fa-file-export"></i> Export
+                    </button>
+                    <button class="btn btn-edit" id="editToggle">
+                        <i class="fas fa-edit"></i> Edit Mode
+                    </button>
+                </div>
+            </div>
+                
+                <div class="table-container">
+                    <table class="product-table" id="productsTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Dimensions</th>
+                                <th>File Size</th>
+                                <th>Format</th>
+                                <th>Bit Rate</th>
+                                <th>Duration</th>
+                                <th>FPS</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsContainer">
+                            <!-- Folder and product rows will be generated here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Enhanced empty state -->
+                <div class="no-products" id="noProductsState" style="display: none;">
+                    <i class="fas fa-box-open"></i>
+                    <h3>No Products Found</h3>
+                    <p>Try adjusting your search or add new products to get started</p>
+                    <button class="btn btn-primary glow" id="addFromEmptyBtn">
+                        <i class="fas fa-plus"></i> Add New Product
+                    </button>
+                </div>
+                <button class="stats-toggle collapsed" onclick="toggleStats(this)">Statistics Overview</button>
+                <!-- Stats container -->
+                <div class="stats-container" id="statsContainer">
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-folder"></i>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stats-value" id="folderCount">0</div>
+                            <div class="stats-label">Active Folders</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stats-value" id="totalProducts">0</div>
+                            <div class="stats-label">Total Products</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stats-value" id="storageUsed">0 KB</div>
+                            <div class="stats-label">Storage Used</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stats-value" id="searchMatches">0</div>
+                            <div class="stats-label">Search Matches</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for product editing -->
+        <div class="modal-overlay" id="modalOverlay" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="formTitle">New Product</h2>
+                    <button class="close-modal" id="closeModal">&times;</button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productName">Product Name</label>
+                            <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+                        </div>
+                        <div class="form-group">
+                            <label for="dimensions">Dimensions</label>
+                            <input type="text" class="form-control" id="dimensions" placeholder="e.g. 1920x1080">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fileSize">File Size Limit</label>
+                            <input type="text" class="form-control" id="fileSize" placeholder="e.g. 100MB">
+                        </div>
+                        <div class="form-group">
+                            <label for="format">Format</label>
+                            <input type="text" class="form-control" id="format" placeholder="e.g. MP4">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bitrate">Bit Rate</label>
+                            <input type="text" class="form-control" id="bitrate" placeholder="e.g. 5 Mbps">
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Duration</label>
+                            <input type="text" class="form-control" id="duration" placeholder="e.g. 2:30">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fps">FPS (Videos)</label>
+                            <input type="text" class="form-control" id="fps" placeholder="e.g. 30">
+                        </div>
+                        <div class="form-group">
+                            <label for="folderPath">Folder Path</label>
+                            <input type="text" class="form-control" id="folderPath" placeholder="e.g. Media/Video Products">
+                            <div class="path-hint">Use forward slashes (/) to create nested folders</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" rows="4" placeholder="Enter comments and additional information" style="height: 80px;"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn btn-cancel" id="cancelEdit">Cancel</button>
+                        <button class="btn btn-save" id="saveProduct">Save Product</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
     <script>
         // Verify libraries are loaded
         window.addEventListener('load', function() {
@@ -1576,7 +3244,7 @@ function clearAllTexts() {
             inverse_case: text => [...text].map(char => (char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase())).join(''),
             alternating_case: text => [...text].map((char, i) => (i % 2 === 0 ? char.toUpperCase() : char.toLowerCase())).join(''),
             slug: text => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
-            underscore: text => text.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, ''),
+            underscore: text => text.replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_|_$/g, ''),
             remove_spaces: text => text.replace(/\s+/g, ''),
             reverse: text => [...text].reverse().join('')
         };
@@ -2093,19 +3761,36 @@ function updateFileInfo(parentPath, fileName, info) {
 function processVideo(url, parentPath, fileName) {
     return new Promise((resolve) => {
         const video = document.createElement('video');
-        video.onloadedmetadata = () => {
+        
+        // Add metadata loading handler
+        video.addEventListener('loadedmetadata', () => {
             const duration = formatDuration(video.duration);
-            updateFileInfo(parentPath, fileName, {
-                duration: duration
-            });
+            const dimensions = `${video.videoWidth}x${video.videoHeight}`;
+            
+            // Find the row and update both duration and dimensions
+            const row = findFileRow(parentPath, fileName);
+            if (row) {
+                row.querySelector('td:nth-child(4)').textContent = dimensions;
+                row.querySelector('td:nth-child(5)').textContent = duration;
+            }
+            
             URL.revokeObjectURL(url);
             resolve();
-        };
-        video.onerror = () => {
+        });
+
+        // Add error handler
+        video.addEventListener('error', () => {
+            console.error(`Error loading video: ${fileName}`);
             URL.revokeObjectURL(url);
             resolve();
-        };
+        });
+
+        // Set video source and force metadata loading
+        video.preload = 'metadata';
         video.src = url;
+
+        // Force the video to load metadata
+        video.load();
     });
 }
 
@@ -2147,9 +3832,1742 @@ function updateZipProgress(filename, status = '', progress = 0) {
         progressBar.style.backgroundColor = 'var(--primary-color)';
     }
 }
+// File analyser Table filter
+function addFilterHeader() {
+    const thead = document.querySelector('#fileTable thead');
+    const filterRow = document.createElement('tr');
+    filterRow.className = 'filter-row';
+    
+    filterRow.innerHTML = `
+        <th>
+            <input type="text" class="column-filter" data-column="name" placeholder="Filter name...">
+        </th>
+        <th>
+            <input type="text" class="column-filter" data-column="format" placeholder="Filter format...">
+        </th>
+        <th>
+            <div class="size-filter">
+                <select class="filter-operator">
+                    <option value="=">Equal to</option>
+                    <option value=">" selected>Greater than</option>
+                    <option value="<">Less than</option>
+                    <option value=">=">Greater or equal</option>
+                    <option value="<=">Less or equal</option>
+                </select>
+                <input type="number" class="size-value" value="200" placeholder="Size">
+                <select class="size-unit">
+                    <option value="B">B</option>
+                    <option value="KB" selected>KB</option>
+                    <option value="MB">MB</option>
+                    <option value="GB">GB</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <input type="text" class="column-filter" data-column="dimensions" placeholder="Filter dimensions...">
+        </th>
+        <th>
+            <input type="text" class="column-filter" data-column="duration" placeholder="Filter duration...">
+        </th>
+        <th style="position: relative;">
+            <input type="text" class="column-filter" data-column="colorMode" placeholder="Filter color mode...">
+            <button id="resetFilters" onclick="resetFilters()" 
+                    style="position: absolute; right: -100px; top: 50%; transform: translateY(-50%); 
+                           opacity: 0.5; pointer-events: none;">
+                Reset Filters
+            </button>
+        </th>
+    `;
+    
+    thead.appendChild(filterRow);
+}
+
+// Add this new function to reset all filters
+function resetFilters() {
+    // Reset all filter inputs
+    document.querySelectorAll('.column-filter').forEach(input => {
+        input.value = '';
+    });
+    
+    // Reset size filter
+    document.querySelector('.filter-operator').value = '>';
+    document.querySelector('.size-value').value = '200';
+    document.querySelector('.size-unit').value = 'KB';
+    
+    // Reset all row styles
+    const rows = document.querySelectorAll('#fileAnalyserList tr:not(.folder)');
+    rows.forEach(row => {
+        row.style.backgroundColor = '';
+        row.style.color = 'var(--text-color)';
+    });
+    
+    // Update reset button state
+    const resetButton = document.getElementById('resetFilters');
+    if (resetButton) {
+        resetButton.style.opacity = '0.5';
+        resetButton.style.pointerEvents = 'none';
+    }
+}
+// Helper functions for duration conversion
+function convertDurationToSeconds(durationStr) {
+    const parts = durationStr.split(':').map(Number);
+    if (parts.length === 3) {
+        return parts[0] * 3600 + parts[1] * 60 + parts[2];
+    }
+    if (parts.length === 2) {
+        return parts[0] * 60 + parts[1];
+    }
+    return parts[0];
+}
+
+function convertInputToSeconds(value, unit) {
+    switch (unit) {
+        case 'h': return value * 3600;
+        case 'm': return value * 60;
+        case 's': return value;
+        default: return value;
+    }
+}
+// Add these functions for sorting and filtering
+let currentSort = { column: null, direction: 'asc' };
+
+function handleSort(th) {
+    const column = th.cellIndex;
+    const table = document.getElementById('fileTable');
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr:not(.folder)'));
+    
+    // Update sort direction
+    if (currentSort.column === column) {
+        currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+    } else {
+        currentSort.column = column;
+        currentSort.direction = 'asc';
+    }
+    
+    // Update sort icons
+    table.querySelectorAll('th').forEach(header => header.classList.remove('sorted-asc', 'sorted-desc'));
+    th.classList.add(currentSort.direction === 'asc' ? 'sorted-asc' : 'sorted-desc');
+    
+    // Sort rows
+    rows.sort((a, b) => {
+        let aVal = a.cells[column].textContent;
+        let bVal = b.cells[column].textContent;
+        
+        // Special handling for size column
+        if (column === 2) {
+            aVal = convertToBytes(aVal);
+            bVal = convertToBytes(bVal);
+        }
+        
+        if (aVal === bVal) return 0;
+        const comparison = aVal > bVal ? 1 : -1;
+        return currentSort.direction === 'asc' ? comparison : -comparison;
+    });
+    
+    // Reattach sorted rows
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+function convertToBytes(sizeStr) {
+    const units = { 'B': 1, 'KB': 1024, 'MB': 1024 * 1024, 'GB': 1024 * 1024 * 1024 };
+    const matches = sizeStr.match(/^([\d.]+)\s*([KMGT]?B)$/i);
+    if (!matches) return 0;
+    return parseFloat(matches[1]) * units[matches[2].toUpperCase()];
+}
+
+function filterTable() {
+    const tbody = document.getElementById('fileAnalyserList');
+    const rows = tbody.querySelectorAll('tr:not(.folder)');
+    const filters = {
+        name: document.querySelector('[data-column="name"]').value.toLowerCase(),
+        format: document.querySelector('[data-column="format"]').value.toLowerCase(),
+        size: {
+            operator: document.querySelector('.filter-operator').value,
+            value: document.querySelector('.size-value').value,
+            unit: document.querySelector('.size-unit').value
+        },
+        dimensions: document.querySelector('[data-column="dimensions"]').value.toLowerCase(),
+        duration: document.querySelector('[data-column="duration"]').value.toLowerCase(),
+        colorMode: document.querySelector('[data-column="colorMode"]').value.toLowerCase()
+    };
+    
+    // Check if any filter is active
+    const hasActiveFilter = filters.name || filters.format || filters.dimensions || 
+                          filters.duration || filters.colorMode || filters.size.value;
+    
+    // Update reset button state
+    const resetButton = document.getElementById('resetFilters');
+    if (resetButton) {
+        resetButton.style.opacity = hasActiveFilter ? '1' : '0.5';
+        resetButton.style.pointerEvents = hasActiveFilter ? 'auto' : 'none';
+    }
+    
+    rows.forEach(row => {
+        let matches = true;
+        
+        // Name filter
+        if (filters.name && !row.cells[0].textContent.toLowerCase().includes(filters.name)) {
+            matches = false;
+        }
+        
+        // Format filter
+        if (filters.format && !row.cells[1].textContent.toLowerCase().includes(filters.format)) {
+            matches = false;
+        }
+        
+        // Size filter
+        if (filters.size.value) {
+            const sizeText = row.cells[2].textContent;
+            const sizeInBytes = convertToBytes(sizeText);
+            const targetSize = convertToBytes(`${filters.size.value} ${filters.size.unit}`);
+            
+            switch (filters.size.operator) {
+                case '=':
+                    if (sizeInBytes !== targetSize) matches = false;
+                    break;
+                case '>':
+                    if (sizeInBytes <= targetSize) matches = false;
+                    break;
+                case '<':
+                    if (sizeInBytes >= targetSize) matches = false;
+                    break;
+                case '>=':
+                    if (sizeInBytes < targetSize) matches = false;
+                    break;
+                case '<=':
+                    if (sizeInBytes > targetSize) matches = false;
+                    break;
+            }
+        }
+        
+        // Dimensions filter
+        if (filters.dimensions && !row.cells[3].textContent.toLowerCase().includes(filters.dimensions)) {
+            matches = false;
+        }
+        
+        // Duration filter
+        if (filters.duration && !row.cells[4].textContent.toLowerCase().includes(filters.duration)) {
+            matches = false;
+        }
+        
+        // Color Mode filter
+        if (filters.colorMode && !row.cells[5].textContent.toLowerCase().includes(filters.colorMode)) {
+            matches = false;
+        }
+
+        // Apply styling based on match status
+        if (matches) {
+            row.style.backgroundColor = '';
+            row.style.color = 'var(--text-color)';
+        } else {
+            row.style.backgroundColor = 'rgba(255, 0, 0, 0.1)';
+            row.style.color = '#ff0000';
+        }
+    });
+}
+// Update the file analyser initialization to include filters
+function initializeFileAnalyser() {
+    addFilterHeader();
+    
+    // Add event listeners for all filters
+    document.querySelectorAll('.column-filter').forEach(filter => {
+        filter.addEventListener('input', filterTable);
+    });
+    
+    document.querySelector('.filter-operator').addEventListener('change', filterTable);
+    document.querySelector('.size-value').addEventListener('input', filterTable);
+    document.querySelector('.size-unit').addEventListener('change', filterTable);
+}
+
+function updateFilterOptions() {
+    const rows = document.getElementById('fileAnalyserList').querySelectorAll('tr:not(.folder)');
+    const formats = new Set();
+    const colorModes = new Set();
+    
+    rows.forEach(row => {
+        const format = row.cells[1].textContent;
+        const colorMode = row.cells[5].textContent;
+        
+        if (format && format !== '-') formats.add(format);
+        if (colorMode && colorMode !== '-') colorModes.add(colorMode);
+    });
+    
+    // Update format dropdown
+    const formatSelect = document.querySelector('[data-column="format"]');
+    formatSelect.innerHTML = '<option value="">All formats</option>' + 
+        Array.from(formats).sort().map(format => 
+            `<option value="${format}">${format}</option>`).join('');
+    
+    // Update color mode dropdown
+    const colorModeSelect = document.querySelector('[data-column="colorMode"]');
+    colorModeSelect.innerHTML = '<option value="">All modes</option>' + 
+        Array.from(colorModes).sort().map(mode => 
+            `<option value="${mode}">${mode}</option>`).join('');
+}
+
+// Call initializeFileAnalyser after the table is created
+// Add this line to your existing ZIP file processing code
+document.getElementById('fileTable').style.display = 'table';
+initializeFileAnalyser();
+
+
+//Image analyser
+document.addEventListener('DOMContentLoaded', function() {
+    ['upload1', 'upload2'].forEach(id => {
+        const uploadBox = document.getElementById(id);
+        const fileInput = uploadBox.querySelector('.file-input');
+        
+          // Click handler for the upload box
+          uploadBox.addEventListener('click', (e) => {
+            // If click didn't originate from file input, trigger it
+            if (e.target !== fileInput) {
+                fileInput.click();
+            }
+        });
+
+        uploadBox.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadBox.classList.add('dragover');
+        });
+
+        uploadBox.addEventListener('dragleave', () => {
+            uploadBox.classList.remove('dragover');
+        });
+
+        uploadBox.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadBox.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files[0].type.startsWith('image/')) {
+                fileInput.files = files;
+                fileInput.dispatchEvent(new Event('change'));
+                
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    showPreview(uploadBox, event.target.result);
+                };
+                reader.readAsDataURL(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    showPreview(uploadBox, event.target.result);
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+    });
+
+    function showPreview(uploadBox, src) {
+        let preview = uploadBox.querySelector('.upload-preview');
+        if (!preview) {
+            preview = document.createElement('img');
+            preview.className = 'upload-preview';
+            uploadBox.appendChild(preview);
+        }
+        preview.src = src;
+        uploadBox.querySelector('.upload-content').style.display = 'none';
+    }
+});
+let scale = 1;
+        let isDragging = false;
+        let currentMode = 'normal';
+        let image1, image2;
+
+        // File Upload Handling
+        document.getElementById('file1').addEventListener('change', handleFileUpload);
+        document.getElementById('file2').addEventListener('change', handleFileUpload);
+
+        // Update the handleFileUpload function
+        function handleFileUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+            // Store visibility states before updating images
+            const imageBeforeVisible = document.getElementById('imageBefore').style.visibility !== 'hidden';
+            const imageAfterVisible = document.getElementById('imageAfter').style.visibility !== 'hidden';
+            
+            // Store eye icon states
+            const eyeIcons = document.querySelectorAll('.eye-icon');
+            const eyeStates = Array.from(eyeIcons).map(icon => icon.textContent);
+
+            if (e.target.id === 'file1') {
+                image1 = img;
+                const imageBefore = document.getElementById('imageBefore');
+                imageBefore.src = event.target.result;
+                imageBefore.style.visibility = imageBeforeVisible ? 'visible' : 'hidden';
+                eyeIcons[1].textContent = imageBeforeVisible ? '👁️' : '👁️‍🗨️';
+                updateFileDetails(file, 'file1Details', img);
+            } else {
+                image2 = img;
+                const imageAfter = document.getElementById('imageAfter');
+                imageAfter.src = event.target.result;
+                imageAfter.style.visibility = imageAfterVisible ? 'visible' : 'hidden';
+                eyeIcons[0].textContent = imageAfterVisible ? '👁️' : '👁️‍🗨️';
+                updateFileDetails(file, 'file2Details', img);
+            }
+
+            // Update layer names
+            updateLayerNames();
+
+            // Ensure eye icons match visibility states
+            document.querySelectorAll('.eye-icon').forEach((icon, index) => {
+                const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
+                icon.textContent = image.style.visibility === 'hidden' ? '👁️‍🗨️' : '👁️';
+            });
+
+            validateAndInit();
+        };
+        img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+        function validateAndInit() {
+            const errorDiv = document.getElementById('error');
+            if (!image1 || !image2) return;
+
+            if (image1.width !== image2.width || image1.height !== image2.height) {
+                showError('Error: Images must have the same dimensions');
+                return;
+            }
+            
+            errorDiv.classList.add('hidden');
+            initComparison();
+            setupLayerControls();
+            updateLayerNames(); // Add this line
+        }
+
+        // Update the image loading to ensure proper sizing
+        function initComparison() {
+            const imageBefore = document.getElementById('imageBefore');
+            const imageAfter = document.getElementById('imageAfter');
+            const viewer = document.querySelector('.image-viewer');
+            
+            // Set initial image sources
+            imageBefore.src = image1.src;
+            imageAfter.src = image2.src;
+            
+            // Wait for both images to load
+            Promise.all([
+                new Promise(resolve => imageBefore.onload = resolve),
+                new Promise(resolve => imageAfter.onload = resolve)
+            ]).then(() => {
+                // Reset zoom and position
+                resetZoom();
+                viewer.scrollTo(0, 0);
+                applyBlendMode(currentMode);
+            });
+        }
+
+        // Blend Modes
+        document.querySelectorAll('.blend-modes button').forEach(button => {
+            button.addEventListener('click', () => {
+                currentMode = button.dataset.mode;
+                applyBlendMode(currentMode);
+            });
+        });
+
+        function applyBlendMode(mode) {
+            const imageAfter = document.getElementById('imageAfter');
+            imageAfter.style.mixBlendMode = mode;
+        }
+
+        // Layer Controls
+        function setupLayerControls() {
+    const eyeIcons = document.querySelectorAll('.eye-icon');
+    const opacitySliders = document.querySelectorAll('.opacity-slider');
+    const blendModeSelects = document.querySelectorAll('.blend-mode-select');
+
+    eyeIcons.forEach((icon, index) => {
+        const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
+        
+        // Initialize icon state based on current image visibility
+        if (image) {
+            icon.textContent = image.style.visibility === 'hidden' ? '👁️‍🗨️' : '👁️';
+        }
+
+        icon.addEventListener('click', () => {
+            const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
+            if (!image) return;
+
+            const newVisibility = icon.textContent === '👁️' ? 'hidden' : 'visible';
+            image.style.visibility = newVisibility;
+            icon.textContent = newVisibility === 'hidden' ? '👁️‍🗨️' : '👁️';
+        });
+    });
+
+    opacitySliders.forEach((slider, index) => {
+        slider.addEventListener('input', () => {
+            const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
+            image.style.opacity = slider.value / 100;
+        });
+    });
+
+    blendModeSelects.forEach((select, index) => {
+        select.addEventListener('change', () => {
+            const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
+            image.style.mixBlendMode = select.value;
+        });
+    });
+}
+
+        // Zoom Controls
+        document.getElementById('zoomIn').addEventListener('click', () => {
+            const viewer = document.querySelector('.image-viewer');
+            const rect = viewer.getBoundingClientRect();
+            adjustZoom(0.1, rect.left + rect.width / 2, rect.top + rect.height / 2);
+        });
+        document.getElementById('zoomOut').addEventListener('click', () => {
+            const viewer = document.querySelector('.image-viewer');
+            const rect = viewer.getBoundingClientRect();
+            adjustZoom(-0.1, rect.left + rect.width / 2, rect.top + rect.height / 2);
+        });
+        document.getElementById('resetZoom').addEventListener('click', resetZoom);
+
+        // Replace the zoom control functions
+        // Update the adjustZoom function
+        function adjustZoom(amount, mouseX = null, mouseY = null) {
+    const container = document.querySelector('.image-container');
+    const viewer = document.querySelector('.image-viewer');
+    const viewerRect = viewer.getBoundingClientRect();
+    const imageBefore = document.getElementById('imageBefore');
+    const imageAfter = document.getElementById('imageAfter');
+    
+    // Calculate new scale
+    const newScale = Math.min(5, Math.max(0.1, scale + amount));
+    
+    // Get mouse position relative to viewer
+    const relativeX = mouseX !== null ? mouseX - viewerRect.left : viewerRect.width / 2;
+    const relativeY = mouseY !== null ? mouseY - viewerRect.top : viewerRect.height / 2;
+    
+    // Calculate point on content at mouse position
+    const contentX = (viewer.scrollLeft + relativeX) / scale;
+    const contentY = (viewer.scrollTop + relativeY) / scale;
+    
+    // Update scale
+    scale = newScale;
+    
+    // Apply scale to images instead of container
+    [imageBefore, imageAfter].forEach(img => {
+        if (img) {
+            img.style.transform = `scale(${scale})`;
+            img.style.transformOrigin = '0 0';
+        }
+    });
+    
+    // Keep container size fixed
+    container.style.width = '100%';
+    container.style.height = '100%';
+    
+    // Calculate new scroll position to keep mouse point fixed
+    viewer.scrollLeft = contentX * scale - relativeX;
+    viewer.scrollTop = contentY * scale - relativeY;
+    
+    // Update overflow
+    viewer.style.overflow = scale > 1 ? 'auto' : 'hidden';
+}
+
+// Update the resetZoom function
+function resetZoom() {
+    const container = document.querySelector('.image-container');
+    const viewer = document.querySelector('.image-viewer');
+    const imageBefore = document.getElementById('imageBefore');
+    const imageAfter = document.getElementById('imageAfter');
+    
+    scale = 1;
+    
+    // Reset image transforms
+    [imageBefore, imageAfter].forEach(img => {
+        if (img) {
+            img.style.transform = 'scale(1)';
+            img.style.transformOrigin = '0 0';
+        }
+    });
+    
+    // Reset container size
+    container.style.width = '100%';
+    container.style.height = '100%';
+    
+    // Reset scroll position
+    viewer.scrollTo(0, 0);
+    viewer.style.overflow = 'hidden';
+}
+
+        // Layer Swapping
+        document.getElementById('swapLayers').addEventListener('click', () => {
+    // Store current visibility states
+    const imageBeforeVisible = document.getElementById('imageBefore').style.visibility !== 'hidden';
+    const imageAfterVisible = document.getElementById('imageAfter').style.visibility !== 'hidden';
+    
+    // Swap only the images
+    [image1, image2] = [image2, image1];
+    document.getElementById('imageBefore').src = image1.src;
+    document.getElementById('imageAfter').src = image2.src;
+    
+    // Restore visibility states
+    document.getElementById('imageBefore').style.visibility = imageBeforeVisible ? 'visible' : 'hidden';
+    document.getElementById('imageAfter').style.visibility = imageAfterVisible ? 'visible' : 'hidden';
+    
+    // Reset all effects to normal
+    const blendModeSelects = document.querySelectorAll('.blend-mode-select');
+    const opacitySliders = document.querySelectorAll('.opacity-slider');
+    
+    // Reset blend modes to normal
+    blendModeSelects.forEach(select => {
+        select.value = 'normal';
+    });
+    
+    // Reset opacity to 100%
+    opacitySliders.forEach(slider => {
+        slider.value = 100;
+    });
+    
+    // Reset blend mode buttons
+    document.querySelectorAll('.blend-modes button').forEach(button => {
+        button.classList.remove('active');
+        if (button.dataset.mode === 'normal') {
+            button.classList.add('active');
+        }
+    });
+    
+    // Reset current mode
+    currentMode = 'normal';
+    
+    // Apply normal blend mode to both images
+    const imageBefore = document.getElementById('imageBefore');
+    const imageAfter = document.getElementById('imageAfter');
+    imageBefore.style.mixBlendMode = 'normal';
+    imageAfter.style.mixBlendMode = 'normal';
+    imageBefore.style.opacity = 1;
+    imageAfter.style.opacity = 1;
+});
+
+        // Add this new function to update layer names
+        // Update the updateLayerNames function
+        function updateLayerNames() {
+            const layerNames = document.querySelectorAll('.layer-header span:not(.eye-icon)');
+            // Get file names from the file inputs
+            const file1Name = document.getElementById('file1').files[0]?.name || 'Layer 1';
+            const file2Name = document.getElementById('file2').files[0]?.name || 'Layer 2';
+            
+            // Invert the order - image2 for top layer, image1 for bottom layer
+            layerNames[0].textContent = file2Name;
+            layerNames[1].textContent = file1Name;
+        }
+
+        // File Details
+        // Update the updateFileDetails function
+        function updateFileDetails(file, elementId, dimensions) {
+    const details = document.getElementById(elementId);
+    if (!file) {
+        details.innerHTML = '<p>No file selected</p>';
+        return;
+    }
+
+    // Format file size
+    let fileSize = 'N/A';
+    if (file.size) {
+        fileSize = file.size < 1024 * 1024 
+            ? `${(file.size / 1024).toFixed(2)} KB` 
+            : `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+    }
+
+    // Format date
+    let lastModified = 'N/A';
+    if (file.lastModified) {
+        try {
+            lastModified = new Date(file.lastModified).toLocaleString();
+        } catch (e) {
+            console.error('Error formatting date:', e);
+        }
+    }
+
+    details.innerHTML = `
+        <p><strong>File Name:</strong> ${file.name || 'N/A'}</p>
+        <p><strong>Size:</strong> ${fileSize}</p>
+        <p><strong>Dimensions:</strong> ${dimensions.naturalWidth || 0}x${dimensions.naturalHeight || 0}</p>
+        <p><strong>Type:</strong> ${file.type || 'N/A'}</p>
+        <p><strong>Last Modified:</strong> ${lastModified}</p>
+    `;
+}
+
+function updateLayerNames() {
+    const layerNames = document.querySelectorAll('.layer-header span:not(.eye-icon)');
+    // Get file names from the file inputs
+    const file1Name = document.getElementById('file1').files[0]?.name || 'Layer 1';
+    const file2Name = document.getElementById('file2').files[0]?.name || 'Layer 2';
+    
+    // Update both the text content and title attribute for tooltips
+    layerNames.forEach((span, index) => {
+        const name = index === 0 ? file2Name : file1Name;
+        span.textContent = name;
+        span.setAttribute('title', name);
+    });
+}
+
+        // New Check
+        document.getElementById('newCheck').addEventListener('click', () => {
+    // Reset file inputs and clear upload previews
+    ['upload1', 'upload2'].forEach(id => {
+        const uploadBox = document.getElementById(id);
+        const fileInput = uploadBox.querySelector('.file-input');
+        fileInput.value = '';
+        
+        // Remove preview images if they exist
+        const preview = uploadBox.querySelector('.upload-preview');
+        if (preview) preview.remove();
+        
+        // Show upload content again
+        uploadBox.querySelector('.upload-content').style.display = 'block';
+    });
+
+    // Clear images from viewer
+    const imageBefore = document.getElementById('imageBefore');
+    const imageAfter = document.getElementById('imageAfter');
+    const differenceCanvas = document.getElementById('differenceCanvas');
+    
+    // Clear and reset canvas
+    if (differenceCanvas) {
+        const ctx = differenceCanvas.getContext('2d');
+        ctx.clearRect(0, 0, differenceCanvas.width, differenceCanvas.height);
+        differenceCanvas.width = 0;
+        differenceCanvas.height = 0;
+        differenceCanvas.classList.add('hidden');
+    }
+
+    // Reset the image container to initial state
+    const imageContainer = document.querySelector('.image-container');
+    imageContainer.style.border = '2px dashed var(--border-color)';
+    imageContainer.style.background = 'var(--tool-bg)';
+    imageContainer.style.transform = 'scale(1)';
+    imageContainer.style.width = '100%';
+    imageContainer.style.height = '100%';
+    imageContainer.style.cssText = `
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-origin: 0 0;
+        min-height: 400px;
+        border: 2px dashed var(--border-color);
+        border-radius: 8px;
+        background: var(--tool-bg);
+        transform: scale(1);
+    `;
+
+    // Reset image container content
+    imageContainer.innerHTML = `
+        <img id="imageBefore" class="image">
+        <img id="imageAfter" class="image">
+        <canvas id="differenceCanvas" class="hidden"></canvas>
+    `;
+    // Reset layer names to default
+    const layerNames = document.querySelectorAll('.layer-header span:not(.eye-icon)');
+    layerNames[0].textContent = 'Layer 2';
+    layerNames[1].textContent = 'Layer 1';
+    // Reset file details
+    document.getElementById('file1Details').innerHTML = '<p>No file selected</p>';
+    document.getElementById('file2Details').innerHTML = '<p>No file selected</p>';
+    
+    
+    // Reset blend modes
+    document.querySelectorAll('.blend-mode-select').forEach(select => {
+        select.value = 'normal';
+    });
+    
+    // Reset opacity sliders
+    document.querySelectorAll('.opacity-slider').forEach(slider => {
+        slider.value = 100;
+    });
+    
+    // Reset eye icons and image visibility
+    document.querySelectorAll('.eye-icon').forEach((icon, index) => {
+        icon.textContent = '👁️';
+        const image = document.getElementById(index === 0 ? 'imageAfter' : 'imageBefore');
+        if (image) {
+            image.style.visibility = 'visible';
+        }
+    });
+    
+    // Reset blend mode buttons
+    document.querySelectorAll('.blend-modes button').forEach(button => {
+        button.classList.remove('active');
+        if (button.dataset.mode === 'normal') {
+            button.classList.add('active');
+        }
+    });
+    
+    // Reset image properties
+    [imageBefore, imageAfter].forEach(img => {
+        if (img) {
+            img.style.mixBlendMode = 'normal';
+            img.style.opacity = 1;
+            img.style.display = 'block';
+            img.style.visibility = 'visible'; // Add this line
+        }
+    });
+    
+    // Reset zoom and scale
+    scale = 1;
+    resetZoom();
+    
+    // Clear any errors
+    const errorDiv = document.getElementById('error');
+    errorDiv.textContent = '';
+    errorDiv.classList.add('hidden');
+    
+    // Reset variables
+    image1 = null;
+    image2 = null;
+    currentMode = 'normal';
+    isDragging = false;
+    
+    // Reset current mode
+    currentMode = 'normal';
+
+    // Re-initialize layer controls
+    setupLayerControls();
+});
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+        
+        // Update the panning function
+        function setupPanning() {
+            const viewer = document.querySelector('.image-viewer');
+            let isPanning = false;
+            let startX, startY;
+
+            viewer.addEventListener('mousedown', (e) => {
+                if (scale <= 1) return;
+                isPanning = true;
+                viewer.style.cursor = 'grabbing';
+                startX = e.pageX - viewer.offsetLeft;
+                startY = e.pageY - viewer.offsetTop;
+            });
+
+            viewer.addEventListener('mouseleave', () => {
+                isPanning = false;
+                viewer.style.cursor = 'default';
+            });
+
+            viewer.addEventListener('mouseup', () => {
+                isPanning = false;
+                viewer.style.cursor = 'default';
+            });
+
+            viewer.addEventListener('mousemove', (e) => {
+                if (!isPanning) return;
+                e.preventDefault();
+                const x = e.pageX - viewer.offsetLeft;
+                const y = e.pageY - viewer.offsetTop;
+                viewer.scrollBy(startX - x, startY - y);
+                startX = x;
+                startY = y;
+            });
+
+            // Add mouse wheel zoom support
+            viewer.addEventListener('wheel', handleWheelZoom, { passive: false });
+        }
+
+        // Add smooth zoom for mouse wheel
+        function handleWheelZoom(e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+                const delta = e.deltaY > 0 ? -0.1 : 0.1;
+                adjustZoom(delta, e.clientX, e.clientY);
+            }
+        }
+
+        // Call setupPanning after DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const viewer = document.querySelector('.image-viewer');
+            viewer.addEventListener('wheel', handleWheelZoom, { passive: false });
+            setupPanning();
+        });
 
 
 
+
+
+
+
+
+
+
+// Notes
+const sampleProducts = [
+    {
+        id: 1,
+        name: "Premium Video Service",
+        dimensions: "1920x1080",
+        fileSizeLimit: "2GB",
+        format: "MP4",
+        bitRate: "10 Mbps",
+        duration: "60 min",
+        fps: "30",
+        description: "High quality streaming service for professional content creators. Supports 4K resolution and HDR color.",
+        folderPath: "Media/Video Products"
+    },
+    {
+        id: 2,
+        name: "Audio Streaming Pro",
+        dimensions: "N/A",
+        fileSizeLimit: "500MB",
+        format: "MP3, FLAC",
+        bitRate: "320 kbps",
+        duration: "Unlimited",
+        fps: "N/A",
+        description: "Professional audio streaming service with lossless audio support. Perfect for music producers and audiophiles.",
+        folderPath: "Media/Audio Products"
+    },
+    {
+        id: 3,
+        name: "Mobile Video Package",
+        dimensions: "1280x720",
+        fileSizeLimit: "500MB",
+        format: "MP4, MOV",
+        bitRate: "5 Mbps",
+        duration: "30 min",
+        fps: "60",
+        description: "Optimized for mobile devices with adaptive bitrate streaming. Supports vertical video formats.",
+        folderPath: "Media/Video Products/Streaming"
+    },
+    {
+        id: 4,
+        name: "Podcast Hosting",
+        dimensions: "N/A",
+        fileSizeLimit: "1GB/episode",
+        format: "MP3, AAC",
+        bitRate: "128 kbps",
+        duration: "Unlimited",
+        fps: "N/A",
+        description: "Dedicated podcast hosting with analytics and distribution to all major platforms. Includes monetization options.",
+        folderPath: "Media/Audio Products"
+    },
+    {
+        id: 5,
+        name: "Ultra HD Video",
+        dimensions: "3840x2160",
+        fileSizeLimit: "5GB",
+        format: "MOV",
+        bitRate: "25 Mbps",
+        duration: "45 min",
+        fps: "60",
+        description: "4K resolution video service with high dynamic range and cinematic quality.",
+        folderPath: "Media/Video Products/Premium"
+    },
+    {
+        id: 6,
+        name: "Social Media Clip",
+        dimensions: "1080x1920",
+        fileSizeLimit: "300MB",
+        format: "MP4",
+        bitRate: "8 Mbps",
+        duration: "1 min",
+        fps: "30",
+        description: "Vertical format optimized for Instagram Reels, TikTok, and YouTube Shorts.",
+        folderPath: "Media/Video Products/Social"
+    },
+    {
+        id: 7,
+        name: "Documentary Footage",
+        dimensions: "4096x2160",
+        fileSizeLimit: "8GB",
+        format: "MOV",
+        bitRate: "30 Mbps",
+        duration: "120 min",
+        fps: "24",
+        description: "Cinematic footage with film grain and professional color grading.",
+        folderPath: "Media/Video Products/Premium/Documentary"
+    },
+    {
+        id: 8,
+        name: "Corporate Presentation",
+        dimensions: "1920x1080",
+        fileSizeLimit: "1GB",
+        format: "MP4",
+        bitRate: "12 Mbps",
+        duration: "45 min",
+        fps: "30",
+        description: "Professional corporate videos with motion graphics and animations.",
+        folderPath: "Media/Video Products/Business"
+    }
+];
+
+// DOM Elements
+const productsContainer = document.getElementById('productsContainer');
+const editToggle = document.getElementById('editToggle');
+const editToggle2 = document.getElementById('editToggle2');
+const modalOverlay = document.getElementById('modalOverlay');
+const formTitle = document.getElementById('formTitle');
+const cancelEdit = document.getElementById('cancelEdit');
+const saveProduct = document.getElementById('saveProduct');
+const newProductBtn = document.getElementById('newProductBtn');
+const newProductBtn2 = document.getElementById('newProductBtn2');
+const importBtn = document.getElementById('importBtn');
+const importBtn2 = document.getElementById('importBtn2');
+const exportBtn = document.getElementById('exportBtn');
+const exportBtn2 = document.getElementById('exportBtn2');
+const productSearch = document.getElementById('productSearch');
+const closeModal = document.getElementById('closeModal');
+const noProductsState = document.getElementById('noProductsState');
+const folderCount = document.getElementById('folderCount');
+const totalProducts = document.getElementById('totalProducts');
+const storageUsed = document.getElementById('storageUsed');
+const searchMatches = document.getElementById('searchMatches');
+const addFromEmptyBtn = document.getElementById('addFromEmptyBtn');
+
+// State
+let products = [];
+let folders = [];
+let isEditMode = false;
+let currentEditId = null;
+let expandedFolders = new Set();
+let matchCount = 0;
+let foldersToExpandForSearch = new Set();
+let editModeClickCount = 0;
+let editModeLastClickTime = 0;
+
+// Initialize the app
+function initApp() {
+    // Load products from localStorage or use sample data
+    const storedProducts = localStorage.getItem('productNotes');
+    products = storedProducts ? JSON.parse(storedProducts) : sampleProducts;
+    
+    // Ensure products is always an array
+    if (!Array.isArray(products)) {
+        products = sampleProducts;
+    }
+    document.getElementById('newProductBtn').style.display = 'none';
+    // Build folder structure
+    buildFolderStructure();
+    
+    // Initialize stats container as collapsed
+    const statsContainer = document.getElementById('statsContainer');
+    const statsToggle = document.querySelector('.stats-toggle');
+    
+    statsContainer.style.display = 'none';
+    statsContainer.classList.remove('visible');
+    statsToggle.classList.add('collapsed');
+    
+    // Render products and update stats
+    renderProducts();
+    updateStats();
+    setupEventListeners();
+}
+
+// Toggle stats visibility
+function toggleStats(button) {
+    const statsContainer = document.getElementById('statsContainer');
+    const isCollapsed = button.classList.contains('collapsed');
+    
+    // Toggle button class
+    button.classList.toggle('collapsed');
+    
+    // Update arrow rotation and container visibility
+    if (isCollapsed) {
+        statsContainer.style.display = 'grid';
+        setTimeout(() => statsContainer.classList.add('visible'), 0);
+    } else {
+        statsContainer.classList.remove('visible');
+        setTimeout(() => statsContainer.style.display = 'none', 300); // Match transition duration
+    }
+}
+
+// Build folder structure from product folder paths
+function buildFolderStructure() {
+    folders = [];
+    const folderSet = new Set();
+    
+    products.forEach(product => {
+        // Skip products with blank or empty folder paths
+        if (!product.folderPath || product.folderPath.trim() === '') return;
+        
+        const pathParts = product.folderPath.split('/');
+        let currentPath = '';
+        
+        pathParts.forEach((part, index) => {
+            currentPath = currentPath ? `${currentPath}/${part}` : part;
+            
+            if (!folderSet.has(currentPath)) {
+                folderSet.add(currentPath);
+                folders.push({
+                    id: `folder-${currentPath}`,
+                    name: part,
+                    path: currentPath,
+                    level: index,
+                    parent: index > 0 ? pathParts.slice(0, index).join('/') : null
+                });
+            }
+        });
+    });
+}
+
+// Highlight search term in text
+function highlightSearchTerm(text, searchTerm) {
+    if (!searchTerm || !text) return text;
+    
+    const regex = new RegExp(`(${searchTerm})`, 'gi');
+    return text.replace(regex, '<span class="highlight">$1</span>');
+}
+
+// Determine if a product matches the search term
+function isProductMatch(product, searchTerm) {
+    return (
+        (product.name && product.name.toLowerCase().includes(searchTerm)) ||
+        (product.dimensions && product.dimensions.toLowerCase().includes(searchTerm)) ||
+        (product.format && product.format.toLowerCase().includes(searchTerm)) ||
+        (product.description && product.description.toLowerCase().includes(searchTerm)) ||
+        (product.folderPath && product.folderPath.toLowerCase().includes(searchTerm))
+    );
+}
+
+// Determine if a folder matches the search term
+function isFolderMatch(folder, searchTerm) {
+    return (
+        (folder.name && folder.name.toLowerCase().includes(searchTerm)) ||
+        (folder.path && folder.path.toLowerCase().includes(searchTerm))
+    );
+}
+
+// Calculate folders to expand for search results
+function calculateFoldersToExpand(searchTerm) {
+    const foldersToExpand = new Set();
+    
+    if (!searchTerm) return foldersToExpand;
+    
+    // Check products and their folders
+    products.forEach(product => {
+        if (isProductMatch(product, searchTerm)) {
+            // Add all parent folders of this product
+            let currentPath = product.folderPath || '';
+            while (currentPath) {
+                foldersToExpand.add(currentPath);
+                const parts = currentPath.split('/');
+                parts.pop();
+                currentPath = parts.join('/');
+            }
+        }
+    });
+    
+    // Check folders themselves
+    folders.forEach(folder => {
+        if (isFolderMatch(folder, searchTerm)) {
+            // Add this folder and all its parents
+            let currentPath = folder.path;
+            while (currentPath) {
+                foldersToExpand.add(currentPath);
+                const parts = currentPath.split('/');
+                parts.pop();
+                currentPath = parts.join('/');
+            }
+        }
+    });
+    
+    return foldersToExpand;
+}
+
+// Render products to the UI in table format with folder hierarchy
+function renderProducts() {
+    productsContainer.innerHTML = '';
+    
+    const searchTerm = productSearch.value.toLowerCase();
+    matchCount = 0;
+    
+    // Calculate folders to expand for search
+    foldersToExpandForSearch = calculateFoldersToExpand(searchTerm);
+    
+    // Group products by folder
+    const productsByFolder = {};
+    
+    // Add all folders
+    folders.forEach(folder => {
+        productsByFolder[folder.path] = {
+            folder: folder,
+            products: []
+        };
+    });
+    
+    // Assign products to folders
+    products.forEach(product => {
+        const folderPath = product.folderPath || '';
+        
+        // Handle blank folder paths (show at root level)
+        if (!folderPath || folderPath.trim() === '') {
+            if (!productsByFolder['']) {
+                productsByFolder[''] = {
+                    folder: null,
+                    products: []
+                };
+            }
+            productsByFolder[''].products.push(product);
+        } else {
+            if (productsByFolder[folderPath]) {
+                productsByFolder[folderPath].products.push(product);
+            } else {
+                // Create the folder if it doesn't exist
+                const pathParts = folderPath.split('/');
+                let currentPath = '';
+                
+                pathParts.forEach((part, index) => {
+                    currentPath = currentPath ? `${currentPath}/${part}` : part;
+                    
+                    if (!productsByFolder[currentPath]) {
+                        productsByFolder[currentPath] = {
+                            folder: {
+                                id: `folder-${currentPath}`,
+                                name: part,
+                                path: currentPath,
+                                level: index,
+                                parent: index > 0 ? pathParts.slice(0, index).join('/') : null
+                            },
+                            products: []
+                        };
+                    }
+                });
+                
+                if (productsByFolder[folderPath]) {
+                    productsByFolder[folderPath].products.push(product);
+                }
+            }
+        }
+    });
+    
+    // Render folder hierarchy
+    let totalRendered = 0;
+    const renderedFolders = new Set();
+    
+    // Function to render a folder and its contents
+    const renderFolderRecursive = (folderPath, level) => {
+        const folderData = productsByFolder[folderPath];
+        if (!folderData || renderedFolders.has(folderPath)) return 0;
+        
+        renderedFolders.add(folderPath);
+        const isExpanded = expandedFolders.has(folderPath) || foldersToExpandForSearch.has(folderPath);
+        let renderedCount = 0;
+        
+        // Check if folder matches search
+        const folderMatches = searchTerm && isFolderMatch(folderData.folder, searchTerm);
+        
+        if (folderMatches) matchCount++;
+        
+        // Render folder row
+        const folder = folderData.folder;
+        
+        // Determine icon color based on folder level
+        let iconClass = "folder-icon-top"; // Top-level folders
+        if (level === 1) {
+            iconClass = "folder-icon-sub"; // First-level subfolders
+        } else if (level >= 2) {
+            iconClass = "folder-icon-deep"; // Deeper levels
+        }
+        
+        const folderRow = document.createElement('tr');
+        folderRow.className = `folder-row ${isExpanded ? 'expanded' : ''} ${folderMatches ? 'match-highlight' : ''}`;
+        folderRow.dataset.folderId = folder.id;
+        
+        // Highlight search term in folder name
+        const displayName = highlightSearchTerm(folder.name, searchTerm);
+        
+        folderRow.innerHTML = `
+            <td colspan="8" style="position: relative;">
+                <div class="folder-hierarchy" style="width: ${level * 20}px"></div>
+                <span class="folder-toggle">${isExpanded ? '▼' : '▶'}</span>
+                <i class="fas fa-folder folder-icon ${iconClass}"></i>
+                <span class="folder-name">${displayName}</span>
+            </td>
+        `;
+        productsContainer.appendChild(folderRow);
+        
+        // Add event listener for folder toggle
+        folderRow.querySelector('.folder-toggle').addEventListener('click', () => {
+            toggleFolder(folder.path);
+        });
+        
+        // Add event listener for folder deletion in edit mode
+        if (isEditMode) {
+            const deleteBtn = document.createElement('div');
+            deleteBtn.className = 'action-btn mini delete-folder-btn';
+            deleteBtn.title = 'Delete Folder';
+            deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+            deleteBtn.style.position = 'absolute';
+            deleteBtn.style.right = '15px';
+            deleteBtn.style.top = '50%';
+            deleteBtn.style.transform = 'translateY(-50%)';
+            deleteBtn.addEventListener('click', () => {
+                deleteFolder(folder.path);
+            });
+            folderRow.querySelector('td').appendChild(deleteBtn);
+        }
+        
+        // Render products in this folder
+        if (isExpanded) {
+            folderData.products.forEach(product => {
+                // Check if product matches search
+                const productMatches = searchTerm && isProductMatch(product, searchTerm);
+                
+                if (productMatches) matchCount++;
+                
+                renderProduct(product, level + 1, productMatches);
+                renderedCount++;
+                totalRendered++;
+            });
+            
+            // Render subfolders
+            Object.keys(productsByFolder).forEach(otherPath => {
+                const otherFolder = productsByFolder[otherPath].folder;
+                if (otherFolder && otherFolder.parent === folder.path) {
+                    renderedCount += renderFolderRecursive(otherPath, level + 1);
+                }
+            });
+        }
+        
+        return renderedCount;
+    };
+    
+    // Top-level folders
+    Object.keys(productsByFolder).forEach(folderPath => {
+        const folderData = productsByFolder[folderPath];
+        if (folderData.folder && !folderData.folder.parent) {
+            renderFolderRecursive(folderPath, 0);
+        }
+    });
+    
+    // Products not in any folder (blank folder paths)
+    if (productsByFolder[''] && productsByFolder[''].products.length > 0) {
+        productsByFolder[''].products.forEach(product => {
+            const productMatches = searchTerm && isProductMatch(product, searchTerm);
+            
+            if (productMatches) matchCount++;
+            
+            renderProduct(product, 0, productMatches);
+            totalRendered++;
+        });
+    }
+    
+    // Show no results state only when no folders or products are visible
+    if (totalRendered === 0 && folders.length === 0 && !searchTerm) {
+        noProductsState.style.display = 'flex';
+    } else {
+        noProductsState.style.display = 'none';
+    }
+    
+    // Update search matches count
+    searchMatches.textContent = matchCount;
+}
+
+// Render a product row
+function renderProduct(product, level, isMatch) {
+    const searchTerm = productSearch.value.toLowerCase();
+    const productRow = document.createElement('tr');
+    productRow.className = `product-row ${isMatch ? 'match-highlight' : ''}`;
+    productRow.dataset.id = product.id;
+    
+    // Highlight search term in product name
+    const displayName = highlightSearchTerm(product.name, searchTerm);
+    
+    productRow.innerHTML = `
+        <td style="position: relative; padding-left: ${20 + (level * 20)}px">
+            <div class="folder-indent" style="width: ${level * 20}px"></div>
+            <i class="fas fa-file-alt" style="color: #4361ee; margin-right: 8px;"></i>
+            ${displayName}
+        </td>
+        <td>${highlightSearchTerm(product.dimensions || 'N/A', searchTerm)}</td>
+        <td>${highlightSearchTerm(product.fileSizeLimit, searchTerm)}</td>
+        <td>${highlightSearchTerm(product.format, searchTerm)}</td>
+        <td>${highlightSearchTerm(product.bitRate, searchTerm)}</td>
+        <td>${highlightSearchTerm(product.duration, searchTerm)}</td>
+        <td>${highlightSearchTerm(product.fps || 'N/A', searchTerm)}</td>
+        <td>
+            <div class="product-actions">
+                <div class="action-btn mini edit-btn" title="Edit">
+                    <i class="fas fa-edit"></i>
+                </div>
+                ${isEditMode ? `
+                    <div class="action-btn mini delete-btn" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </div>
+                ` : ''}
+            </div>
+        </td>
+    `;
+    productsContainer.appendChild(productRow);
+    
+    // Add event listeners to action buttons
+    productRow.querySelector('.edit-btn').addEventListener('click', () => {
+        openEditForm(product.id);
+    });
+    
+    if (isEditMode) {
+        productRow.querySelector('.delete-btn').addEventListener('click', () => {
+            deleteProduct(product.id);
+        });
+    }
+}
+
+// Update statistics
+function updateStats() {
+    folderCount.textContent = folders.length;
+    totalProducts.textContent = products.length;
+    
+    // Calculate storage used
+    const dataStr = JSON.stringify(products);
+    const sizeInKB = (dataStr.length / 1024).toFixed(2);
+    storageUsed.textContent = `${sizeInKB} KB`;
+}
+
+// Toggle folder expansion
+function toggleFolder(folderPath) {
+    if (expandedFolders.has(folderPath)) {
+        expandedFolders.delete(folderPath);
+    } else {
+        expandedFolders.add(folderPath);
+    }
+    renderProducts();
+    updateStats();
+}
+
+// Open the edit form with product data
+function openEditForm(productId) {
+    const product = products.find(p => p.id === productId);
+    currentEditId = productId;
+    
+    if (product) {
+        formTitle.textContent = "Edit Product";
+        // Fill form with product data
+        document.getElementById('productName').value = product.name;
+        document.getElementById('dimensions').value = product.dimensions || '';
+        document.getElementById('fileSize').value = product.fileSizeLimit;
+        document.getElementById('format').value = product.format;
+        document.getElementById('bitrate').value = product.bitRate;
+        document.getElementById('duration').value = product.duration;
+        document.getElementById('fps').value = product.fps || '';
+        document.getElementById('description').value = product.description || '';
+        document.getElementById('folderPath').value = product.folderPath || '';
+    } else {
+        formTitle.textContent = "New Product";
+        // Reset form
+        document.getElementById('productName').value = "";
+        document.getElementById('dimensions').value = "";
+        document.getElementById('fileSize').value = "";
+        document.getElementById('format').value = "";
+        document.getElementById('bitrate').value = "";
+        document.getElementById('duration').value = "";
+        document.getElementById('fps').value = "";
+        document.getElementById('description').value = "";
+        document.getElementById('folderPath').value = "";
+    }
+    
+    // Show the modal
+    modalOverlay.style.display = 'flex';
+}
+
+// Close the edit form
+function closeEditForm() {
+    modalOverlay.style.display = 'none';
+    currentEditId = null;
+}
+
+// Save product changes
+function saveProductChanges() {
+    if (currentEditId) {
+        // Update existing product
+        const productIndex = products.findIndex(p => p.id === currentEditId);
+        if (productIndex === -1) return;
+        
+        const folderPath = document.getElementById('folderPath').value;
+        
+        products[productIndex] = {
+            ...products[productIndex],
+            name: document.getElementById('productName').value,
+            dimensions: document.getElementById('dimensions').value,
+            fileSizeLimit: document.getElementById('fileSize').value,
+            format: document.getElementById('format').value,
+            bitRate: document.getElementById('bitrate').value,
+            duration: document.getElementById('duration').value,
+            fps: document.getElementById('fps').value,
+            description: document.getElementById('description').value,
+            folderPath: folderPath
+        };
+    } else {
+        // Create new product
+        const folderPath = document.getElementById('folderPath').value;
+        
+        const newProduct = {
+            id: Date.now(), // Simple unique ID
+            name: document.getElementById('productName').value,
+            dimensions: document.getElementById('dimensions').value,
+            fileSizeLimit: document.getElementById('fileSize').value,
+            format: document.getElementById('format').value,
+            bitRate: document.getElementById('bitrate').value,
+            duration: document.getElementById('duration').value,
+            fps: document.getElementById('fps').value,
+            description: document.getElementById('description').value,
+            folderPath: folderPath
+        };
+        
+        products.push(newProduct);
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('productNotes', JSON.stringify(products));
+    
+    // Rebuild folder structure
+    buildFolderStructure();
+    
+    // Refresh UI
+    renderProducts();
+    updateStats();
+    closeEditForm();
+}
+
+// Delete a product
+function deleteProduct(productId) {
+    if (confirm("Are you sure you want to delete this product?")) {
+        products = products.filter(p => p.id !== productId);
+        localStorage.setItem('productNotes', JSON.stringify(products));
+        
+        // Rebuild folder structure
+        buildFolderStructure();
+        
+        renderProducts();
+        updateStats();
+    }
+}
+
+// Delete a folder and its contents
+function deleteFolder(folderPath) {
+    if (confirm("Are you sure you want to delete this folder and all its contents?")) {
+        // Delete all products in this folder and its subfolders
+        products = products.filter(product => 
+            !product.folderPath || !product.folderPath.startsWith(folderPath)
+        );
+        
+        // Save changes
+        localStorage.setItem('productNotes', JSON.stringify(products));
+        
+        // Rebuild folder structure
+        buildFolderStructure();
+        
+        // Remove folder from expanded set
+        expandedFolders.delete(folderPath);
+        
+        renderProducts();
+        updateStats();
+    }
+}
+
+// Toggle edit mode
+function toggleEditMode() {
+    const currentTime = new Date().getTime();
+    
+    // Reset counter if more than 2 seconds between clicks
+    if (currentTime - editModeLastClickTime > 1000) {
+        editModeClickCount = 0;
+    }
+    
+    editModeClickCount++;
+    editModeLastClickTime = currentTime;
+
+    // Check for 5 rapid clicks
+    if (editModeClickCount === 5) {
+        if (confirm("🗑️ You found a secret! Do you want to delete all products and start fresh?")) {
+            // Clear all products
+            products = [];
+            localStorage.setItem('productNotes', JSON.stringify(products));
+            
+            // Clear folder structure
+            folders = [];
+            expandedFolders.clear();
+            
+            // Reset stats
+            matchCount = 0;
+            currentEditId = null;
+            
+            // Update UI
+            renderProducts();
+            updateStats();
+            
+            // Show empty state
+            document.getElementById('noProductsState').style.display = 'flex';
+            
+            // Show confirmation message
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--primary-color);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                z-index: 1000;
+                animation: slideDown 0.3s ease-out;
+            `;
+            message.textContent = "All products have been cleared! 🧹";
+            document.body.appendChild(message);
+            
+            // Remove message after 3 seconds
+            setTimeout(() => {
+                message.style.animation = 'slideUp 0.3s ease-out';
+                setTimeout(() => message.remove(), 300);
+            }, 3000);
+        }
+        editModeClickCount = 0;
+        return;
+    }
+
+    // Regular edit mode toggle functionality
+    isEditMode = !isEditMode;
+    const editBtn = document.getElementById('editToggle');
+    
+    if (isEditMode) {
+        editBtn.innerHTML = `<i class="fas fa-times" style="color: #ff0000;"></i> Exit Edit`;
+        editBtn.style.color = '#ff0000';
+        editBtn.style.borderColor = '#ff0000';
+        editBtn.style.background = 'transparent';
+        editBtn.style.border = '2px solid #ff0000';
+    } else {
+        editBtn.innerHTML = `<i class="fas fa-edit"></i> Edit Mode`;
+        editBtn.style.color = '';
+        editBtn.style.borderColor = '';
+        editBtn.style.background = '';
+        editBtn.style.border = '';
+    }
+    // Show/hide Add Product button based on edit mode
+    newProductBtn.style.display = isEditMode ? 'inline-flex' : 'none';
+
+    renderProducts();
+}
+
+// Export data
+function exportData() {
+    const data = {
+        products: products
+    };
+    
+    const dataStr = JSON.stringify(data, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+    
+    const exportFileDefaultName = 'product-notes.json';
+    
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    document.body.appendChild(linkElement);
+    linkElement.click();
+    document.body.removeChild(linkElement);
+}
+
+// Import data
+function importData() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    
+    input.onchange = e => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = event => {
+            try {
+                const data = JSON.parse(event.target.result);
+                
+                if (data.products && Array.isArray(data.products)) {
+                    products = data.products;
+                    localStorage.setItem('productNotes', JSON.stringify(products));
+                    
+                    // Rebuild folder structure
+                    buildFolderStructure();
+                    
+                    renderProducts();
+                    updateStats();
+                    alert('Data imported successfully!');
+                } else {
+                    throw new Error('Invalid data format');
+                }
+            } catch (error) {
+                alert('Error importing data: Invalid file format');
+                console.error('Import error:', error);
+            }
+        };
+        
+        reader.readAsText(file);
+    };
+    
+    input.click();
+}
+
+// Setup event listeners
+function setupEventListeners() {
+    // Edit toggle
+    editToggle.addEventListener('click', toggleEditMode);
+    
+    
+    // Form buttons
+    cancelEdit.addEventListener('click', closeEditForm);
+    saveProduct.addEventListener('click', saveProductChanges);
+    
+    // New product button
+    newProductBtn.addEventListener('click', () => openEditForm(null));
+    addFromEmptyBtn.addEventListener('click', () => openEditForm(null));
+    
+    // Import/export buttons
+    importBtn.addEventListener('click', importData);
+    
+    exportBtn.addEventListener('click', exportData);
+    
+    
+    // Search functionality
+    productSearch.addEventListener('input', renderProducts);
+    
+    // Close modal
+    closeModal.addEventListener('click', closeEditForm);
+    
+    // Close modal when clicking outside
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            closeEditForm();
+        }
+    });
+}
+
+// Initialize the application when the page loads
+window.addEventListener('DOMContentLoaded', initApp);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
 // EE
 let logoClickCount = 0;
 let lastClickTime = 0;
@@ -2422,12 +5840,14 @@ function updateThemeColor(color) {
             --primary-color: ${color};
             --primary-hover: ${adjustColor(color, -20)};
             --border-color: ${color};
+            --primary-color-rgb: 5, 109, 206;
         }
         
         [data-theme="dark"] {
             --primary-color: ${color};
             --primary-hover: ${adjustColor(color, -20)};
             --border-color: ${color};
+            --primary-color-rgb: 5, 109, 206;
         }
     `;
     
