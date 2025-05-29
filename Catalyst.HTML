@@ -5189,7 +5189,7 @@ function renderProduct(product, level, isMatch) {
     productRow.innerHTML = `
         <td style="position: relative; padding-left: ${20 + (level * 20)}px">
             <div class="folder-indent" style="width: ${level * 20}px"></div>
-            <i class="fas fa-file-alt" style="color: #4361ee; margin-right: 8px;"></i>
+            <i class="fas fa-file-alt" margin-right: 8px;"></i>
             ${displayName}
         </td>
         <td>${highlightSearchTerm(product.dimensions || 'N/A', searchTerm)}</td>
