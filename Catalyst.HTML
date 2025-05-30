@@ -5448,7 +5448,57 @@ function showActivationMessage(activated) {
 window.addEventListener('DOMContentLoaded', initApp);
 
 
-
+// Add keyboard shortcut listener for site reset
+document.addEventListener('keydown', function(e) {
+    // Check for Cmd+Shift+R (Mac) or Ctrl+Shift+R (Windows)
+    if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'r') {
+        e.preventDefault(); // Prevent default refresh behavior
+        
+        // Show confirmation dialog
+        if (confirm('Reset all site settings?\nThis will clear all saved data and refresh the page.')) {
+            // Clear all localStorage data
+            localStorage.clear();
+            
+            // Reset theme to default
+            document.body.setAttribute('data-theme', 'dark');
+            
+            // Reset custom colors
+            const root = document.documentElement;
+            root.style.removeProperty('--primary-color');
+            root.style.removeProperty('--border-color');
+            root.style.removeProperty('--primary-color-rgb');
+            
+            // Remove any dynamic styles
+            const dynamicStyle = document.getElementById('dynamic-theme');
+            if (dynamicStyle) {
+                dynamicStyle.remove();
+            }
+            
+            // Show reset message
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--primary-color);
+                color: white;
+                padding: 20px;
+                border-radius: 8px;
+                text-align: center;
+                z-index: 9999;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            `;
+            message.textContent = 'Settings reset successful! Reloading...';
+            document.body.appendChild(message);
+            
+            // Reload page after brief delay
+            setTimeout(() => {
+                location.reload(true); // Force reload from server
+            }, 1500);
+        }
+    }
+});
 
 
 
