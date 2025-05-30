@@ -204,5 +204,17 @@
       "description": "",
       "folderPath": "Display Banners"
     }
+    {
+      "id": 1748593625285,
+      "name": "Wallpapers",
+      "dimensions": "480x300",
+      "fileSizeLimit": "100 KB",
+      "format": "JPG, GIF, PNG",
+      "bitRate": "-",
+      "duration": "-",
+      "fps": "-",
+      "description": "",
+      "folderPath": "Display"
+    }
   ]
 }
